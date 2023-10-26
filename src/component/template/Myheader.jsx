@@ -1,38 +1,25 @@
-import AppBar from '@mui/material/AppBar';
-import Box from '@mui/material/Box';
-import Toolbar from '@mui/material/Toolbar';
-import Typography from '@mui/material/Typography';
-import Button from '@mui/material/Button';
-import IconButton from '@mui/material/IconButton';
-import { Link } from 'react-router-dom';
+import { AppBar, Toolbar, Typography, Box, Button, Link } from "@mui/material";
+
 
 const Myheader = () => {
 
 
     return (
 
+        <AppBar position="static" color="common">
+            <Toolbar >
+                <Typography
+                    variant="h4"
+                    sx={{ flexGrow: 1, fontWeight: 'bold' }}
+                    color="primary"
+                >
+                    <Link href='/home' color='primary' underline="none"> .Task</Link>
+                </Typography>
+                <Button color="text" size="large">Login</Button>
+                <Button color="primary" size="large">signup</Button>
+            </Toolbar>
+        </AppBar>
 
-        <Box sx={{ flexGrow: 1 }}>
-            <AppBar position="static">
-                <Toolbar>
-                    <IconButton
-                        size="large"
-                        edge="start"
-                        color="inherit"
-                        aria-label="menu"
-                        sx={{ mr: 2 }}
-                    >
-                        <Link to={"/main"}>.Task</Link>
-                    </IconButton>
-                    <Typography variant="h6"
-                        component="div" sx={{ flexGrow: 1 }}>
-                        News
-                    </Typography>
-                    <Button color="inherit">Login</Button>
-                    <Button color="inherit">Signup</Button>
-                </Toolbar>
-            </AppBar>
-        </Box>
 
 
 
