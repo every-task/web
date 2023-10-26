@@ -1,4 +1,5 @@
-import { AppBar, Toolbar, Typography, Box, Button, Link } from "@mui/material";
+import { AppBar, Toolbar, Typography, Box, Button } from "@mui/material";
+import { Link } from "react-router-dom";
 
 
 const Myheader = () => {
@@ -9,14 +10,15 @@ const Myheader = () => {
         <AppBar position="static" color="common">
             <Toolbar >
                 <Typography
-                    variant="h4"
+                    variant="h5"
                     sx={{ flexGrow: 1, fontWeight: 'bold' }}
                     color="primary"
                 >
-                    <Link href='/home' color='primary' underline="none"> .Task</Link>
+                    <Link to='/' color='primary'> .Task</Link>
                 </Typography>
-                <Button color="text" size="large">Login</Button>
-                <Button color="primary" size="large">signup</Button>
+
+                <Link to="/login"><Button color="text" size="large">Login</Button></Link>
+                <Link to='/signup'><Button color="primary" size="large">signup</Button></Link>
             </Toolbar>
         </AppBar>
 
