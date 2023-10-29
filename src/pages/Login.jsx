@@ -36,14 +36,25 @@ const Login = () => {
 
     // TODO remove, this demo shouldn't need to reset the theme.
 
-    const handleSubmit = (event) => {
-        event.preventDefault();
-        const data = new FormData(event.currentTarget);
-        console.log({
-            email: data.get('email'),
-            password: data.get('password'),
-        });
-    }
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        const result = new FormData(e.currentTarget);
+
+        const member = {
+            email: result.get('email'),
+            password: result.get('password'),
+        }
+
+        try {
+
+            const { data } = await apiNoToken('api/v1/login', 'POST', member)
+            localStorage.setItem('token', data.token)
+
+        } catch (err) {
+            console.log(err)
+        }
+
+    };
 
 
 

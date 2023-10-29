@@ -37,14 +37,22 @@ const Signup = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
+        const result = new FormData(e.currentTarget);
+
         const member = {
-            email: data.get('email'),
-            password: data.get('password'),
-            name: data.get('name'),
-            nickname: data.get('nickname')
+            email: result.get('email'),
+            password: result.get('password'),
+            name: result.get('name'),
+            nickname: result.get('nickname')
         }
 
-        const { data } = await apiNoToken('api/v1/signup', 'POST', member)
+        try {
+            const { data } = await apiNoToken('api/v1/signup', 'POST', member)
+
+        } catch (err) {
+            console.log(err)
+            // 에러 처리 필요, 이메일 중복처리를 아예 별개로 할지 고민중.
+        }
 
 
     };
