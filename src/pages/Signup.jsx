@@ -10,9 +10,11 @@ import {
 } from "@mui/material"
 
 
-import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { ThemeProvider } from '@mui/material/styles';
 import { Link } from "react-router-dom";
 import { MyCustomTheme } from "../component/template/Palette";
+import { useState } from "react";
+import { apiNoToken } from "../network/api";
 
 
 
@@ -31,18 +33,20 @@ const Signup = () => {
         );
     }
 
-    // TODO remove, this demo shouldn't need to reset the theme.
 
-    const defaultTheme = createTheme();
+    const handleSubmit = async (e) => {
+        e.preventDefault();
 
-
-    const handleSubmit = (event) => {
-        event.preventDefault();
-        const data = new FormData(event.currentTarget);
-        console.log({
+        const member = {
             email: data.get('email'),
             password: data.get('password'),
-        });
+            name: data.get('name'),
+            nickname: data.get('nickname')
+        }
+
+        const { data } = await apiNoToken('api/v1/signup', 'POST', member)
+
+
     };
 
 
@@ -109,7 +113,7 @@ const Signup = () => {
                                 label="Password"
                                 type="password"
                                 id="password"
-                                autoComplete="new-password"
+                                autoComplete="password"
                             />
                         </Grid>
 
