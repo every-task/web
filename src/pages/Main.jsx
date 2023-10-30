@@ -1,6 +1,4 @@
-import Slider from "react-slick"
-import MainSlider from "./MainSlider";
-
+import MainSlider from "../component/main/MainSlider";
 
 
 const Main = () => {
