@@ -1,21 +1,10 @@
-import {
-
-    CssBaseline,
-    Typography,
-    TextField,
-    Button,
-    Grid,
-    Box,
-    Container,
-} from "@mui/material"
+import {Box, Button, Container, CssBaseline, Grid, TextField, Typography,} from "@mui/material"
 
 
-import { ThemeProvider } from '@mui/material/styles';
-import { Link } from "react-router-dom";
-import { MyCustomTheme } from "../component/template/Palette";
-import { useState } from "react";
-import { apiNoToken } from "../network/api";
-
+import {ThemeProvider} from '@mui/material/styles';
+import {Link} from "react-router-dom";
+import {MyCustomTheme} from "../component/template/Palette";
+import {apiNoToken} from "../network/api";
 
 
 const Signup = () => {
