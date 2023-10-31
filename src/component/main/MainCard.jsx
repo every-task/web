@@ -16,11 +16,11 @@ const MainCard = () => {
     return (
         <Container sx={{ py: 8 }} >
             {/* End hero unit */}
-            <Grid container spacing={6}>
+            <Grid container spacing={4}>
                 {data.map((el, index)=>(
-                    <Grid md={4}>
+                    <Grid item key={index} md={4}  >
                         <Card
-                            sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}
+                            sx={{ height: '100%', display: 'flex', flexDirection: 'column'}}
                         >
                             <CardHeader
                                 avatar={
@@ -48,6 +48,7 @@ const MainCard = () => {
                     ))}
             </Grid>
         </Container>
+
     );
 };
 
