@@ -33,19 +33,6 @@ const MainSlider = () => {
         <div>
             <Slider {...settings}>
                 <MainFeaturedPost post={mainFeaturedPost} />
-                <div>
-                    <img src='https://cdn.newspenguin.com/news/photo/202006/1920_5382_140.jpg'></img>
-                </div>
-                <div>
-                    <img src='https://cdn.newspenguin.com/news/photo/202006/1920_5382_140.jpg'></img>
-                </div>
-                <div>
-                    <img src='https://cdn.newspenguin.com/news/photo/202006/1920_5382_140.jpg'></img>
-                </div>
-                <div>
-                    <img src='https://cdn.newspenguin.com/news/photo/202006/1920_5382_140.jpg'></img>
-                </div>
-
                 <MainFeaturedPost post={mainFeaturedPost} />
             </Slider>
         </div>
