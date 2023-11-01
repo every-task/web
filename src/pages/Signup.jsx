@@ -1,10 +1,10 @@
-import {Box, Button, Container, CssBaseline, Grid, TextField, Typography,} from "@mui/material"
+import { Box, Button, Container, CssBaseline, Grid, TextField, Typography, } from "@mui/material"
 
 
-import {ThemeProvider} from '@mui/material/styles';
-import {Link} from "react-router-dom";
-import {MyCustomTheme} from "../component/template/Palette";
-import {apiNoToken} from "../network/api";
+import { ThemeProvider } from '@mui/material/styles';
+import { Link } from "react-router-dom";
+import { MyCustomTheme } from "../component/template/Palette";
+import { apiNoToken } from "../network/api";
 
 
 const Signup = () => {
@@ -36,7 +36,7 @@ const Signup = () => {
         }
 
         try {
-            const { data } = await apiNoToken('api/v1/signup', 'POST', member)
+            const { data } = await apiNoToken('api/v1/member/signup', 'POST', member)
 
         } catch (err) {
             console.log(err)
