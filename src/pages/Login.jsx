@@ -48,7 +48,7 @@ const Login = () => {
 
         try {
 
-            const { data } = await apiNoToken('api/v1/login', 'POST', member)
+            const { data } = await apiNoToken('api/v1/member/login', 'POST', member)
             localStorage.setItem('token', data.token)
 
         } catch (err) {
