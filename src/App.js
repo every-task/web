@@ -5,8 +5,10 @@ import { Provider } from 'react-redux';
 import { initializeApp } from 'firebase/app';
 
 import firebaseConfig from '../src/firebase/firebaseConfig'
+import axios from 'axios';
 
 function App() {
+  axios.defaults.withCredentials = true;
 
   initializeApp(firebaseConfig);
 
