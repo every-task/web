@@ -13,13 +13,14 @@ import {
 
 
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { MyCustomTheme } from "../component/template/Palette";
 import { apiNoToken } from "../network/api";
 
 
 
-const Login = () => {
+export const Login = () => {
+    const nav = useNavigate()
 
 
     const Copyright = (props) => {
@@ -37,25 +38,7 @@ const Login = () => {
 
     // TODO remove, this demo shouldn't need to reset the theme.
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        const result = new FormData(e.currentTarget);
 
-        const member = {
-            email: result.get('email'),
-            password: result.get('password'),
-        }
-
-        try {
-
-            const { data } = await apiNoToken('api/v1/member/login', 'POST', member)
-            localStorage.setItem('token', data.token)
-
-        } catch (err) {
-            console.log(err)
-        }
-
-    };
 
 
 
@@ -79,7 +62,7 @@ const Login = () => {
                     <Typography>
                         Welcome Back
                     </Typography>
-                    <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1, alignItems: 'center' }}>
+                    <Box component="form" onSubmit={(e) => handleSubmit(e, nav)} noValidate sx={{ mt: 1, alignItems: 'center' }}>
                         <TextField
                             margin="normal"
                             required
@@ -135,4 +118,24 @@ const Login = () => {
 
 }
 
-export default Login
+export const handleSubmit = async (e, nav) => {
+
+    e.preventDefault();
+    const result = new FormData(e.currentTarget);
+
+    const member = {
+        email: result.get('email'),
+        password: result.get('password'),
+    }
+
+    try {
+
+        const { data } = await apiNoToken('api/v1/member/login', 'POST', member)
+        localStorage.setItem('token', data.token)
+        nav("/")
+
+    } catch (err) {
+        console.log(err)
+    }
+
+};
