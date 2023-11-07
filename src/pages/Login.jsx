@@ -84,7 +84,7 @@ export const Login = () => {
                             autoComplete="current-password"
                         />
                         <FormControlLabel
-                            control={<Checkbox value="remember" color="primary" />}
+                            control={<Checkbox color="primary" name="remember" />}
                             label="Remember me"
                         />
                         <Button
@@ -126,7 +126,12 @@ export const handleSubmit = async (e, nav) => {
     const member = {
         email: result.get('email'),
         password: result.get('password'),
+        remember: result.get('remember') === 'on' ? true : false
     }
+
+
+
+    console.log(member)
 
     try {
 
