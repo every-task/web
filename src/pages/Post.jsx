@@ -1,144 +1,171 @@
-import Editor from "../component/post/Editor"
-import { getAuth, signInWithCustomToken } from "firebase/auth";
+import "@toast-ui/editor/dist/toastui-editor.css";
 import { api } from "../network/api";
-import { useEffect } from "react";
-import SendIcon from '@mui/icons-material/Send';
-
-import {
-    CssBaseline,
-    Typography,
-    TextField,
-    Button,
-    FormControlLabel,
-    Checkbox,
-    Grid,
-    Box,
-    Container,
-} from "@mui/material"
-
-
-import { ThemeProvider } from '@mui/material/styles';
-import { MyCustomTheme } from "../component/template/Palette";
-import { useState } from "react";
-
-
+import { useEffect, useRef, useState } from "react";
+import AddIcon from "@mui/icons-material/Add";
+import { Box, Button, Grid, TextField } from "@mui/material";
+import { Editor } from "@toast-ui/react-editor";
+import PeriodSelect from "../component/post/PeriodSelect";
+import CloseIcon from "@mui/icons-material/Close";
+import EditIcon from "@mui/icons-material/Edit";
 
 const Post = () => {
+  const editorRef = useRef();
 
-    const [key, setKey] = useState()
+  const [key, setKey] = useState("");
+  const [tasks, setTasks] = useState([{ period: "", content: "" }]);
+  const getUploadKey = async () => {
+    const keys = await api("api/v1/firebase", "GET");
+    setKey(keys);
 
+    // 이 밑은 파일 버튼을 눌렀을때 하면 됨.
+    // const auth = getAuth();
 
-    const getUploadKey = async () => {
+    // signInWithCustomToken(auth, keys)
+    //     .then((userCredential) => {
+    //         // Signed in
+    //         const user = userCredential.user;
+    //         // 추가적으로 할게 없음. 어짜피 기존에 로그인 되어있던 유저의 uuid를 활용하여 키를 발급받아온 것임.
 
-        const keys = await api('api/v1/firebase', 'GET')
+    //     })
+    //     .catch((error) => {
+    //         const errorCode = error.code;
+    //         const errorMessage = error.message;
+    //         // ...
+    //     });
+  };
 
-        setKey(keys)
+  useEffect(() => {
+    // getUploadKey();
+  }, []);
 
-        // 이 밑은 파일 버튼을 눌렀을때 하면 됨.
-        // const auth = getAuth();
+  const addTask = () => {
+    setTasks((prev) => [...prev, {}]);
+  };
 
-        // signInWithCustomToken(auth, keys)
-        //     .then((userCredential) => {
-        //         // Signed in
-        //         const user = userCredential.user;
-        //         // 추가적으로 할게 없음. 어짜피 기존에 로그인 되어있던 유저의 uuid를 활용하여 키를 발급받아온 것임.
+  const taskEdit = (e, index) => {
+    setTasks((prev) => {
+      const updatedTasks = [...prev];
+      updatedTasks[index][e.target.name] = e.target.value;
+      return updatedTasks;
+    });
+  };
 
-        //     })
-        //     .catch((error) => {
-        //         const errorCode = error.code;
-        //         const errorMessage = error.message;
-        //         // ...
-        //     });
+  const onSubmitHandler = async (e) => {
+    e.preventDefault();
+    const form = new FormData(e.currentTarget);
 
+    const editorInstance = editorRef.current.getInstance();
+    const content = editorInstance.getMarkdown();
 
-    }
-
-    useEffect(() => {
-
-        getUploadKey()
-
-    }, [])
-
-
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        const result = new FormData(e.currentTarget);
-
-        const post = {
-            title: result.get('title'),
-            content: result.get('content'),
-        }
-
-        try {
-
-            const { data } = await api('api/v1/story', 'post', post)
-
-        } catch (err) {
-            console.log(err)
-        }
-
+    const formData = {
+      title: form.get("title"),
+      content: content,
+      tasks: tasks,
     };
 
+    console.log(formData);
 
-    return <>
+    try {
+      const { data } = await api("api/v1/story", "post", formData);
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
-        < ThemeProvider theme={MyCustomTheme} >
-            <Container component="main" Width="500">
-                <CssBaseline />
-                <Box
-                    sx={{
-                        marginTop: 8,
-
-                        alignItems: "flex-start"
-                    }}
-                >
-
-                    <Typography component="h1" variant="h5" sx={{ fontWeight: 'bold' }} >
-                        당신의 성공담을 공유해주세요!
-                    </Typography>
-                    <Box component="form" onSubmit={handleSubmit} noValidate sx={{
-                        mt: 1, alignItems: 'center', display: 'flex',
-                        flexDirection: 'column',
-                        alignItems: "flex-start"
-                    }}>
-                        <TextField
-                            variant="standard"
-                            margin="normal"
-                            id="title"
-                            label="title"
-                            name="title"
-                            autoComplete="title"
-                            autoFocus
-                            sx={{ width: 500 }}
-                        />
-
-                        <TextField
-                            id="content"
-
-                            label="content"
-                            name="content"
-                            multiline
-                            maxRows={20}
-                            minRows={10}
-                            sx={{ width: 500 }}
-                        />
-
-                        <Box sx={{ mt: 1 }}>
-                            <Grid container spacing={2} sx={{ justifyContent: "flex-end" }}>
-                                <Grid item >
-                                    <Button type="submit" variant="outlined" endIcon={<SendIcon />}>작성하기</Button>
-                                </Grid>
-                                <Grid item>
-                                    <Button variant="outlined" endIcon={<SendIcon />}>취소하기</Button>
-                                </Grid>
-                            </Grid>
-                        </Box>
-                    </Box>
-                </Box>
-            </Container>
-        </ThemeProvider >
+  return (
+    <>
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+        component="form"
+        onSubmit={onSubmitHandler}
+      >
+        <Grid container sx={{ maxWidth: "1200px" }} spacing={2}>
+          <Grid item md={12}>
+            <TextField
+              margin="normal"
+              id="title"
+              label="title"
+              name="title"
+              autoFocus
+              fullWidth
+            />
+          </Grid>
+          <Grid item md={12}>
+            <Editor
+              previewStyle="vertical"
+              height="600px"
+              initialEditType="wysiwyg"
+              usageStatistics={false}
+              hideModeSwitch={true}
+              toolbarItems={[
+                ["heading", "bold", "italic", "strike"],
+                ["hr", "quote"],
+                ["ul", "ol", "task"],
+                ["image"],
+              ]}
+              ref={editorRef}
+            ></Editor>
+          </Grid>
+          <Grid item md={12}>
+            <Button
+              color="primary"
+              onClick={addTask}
+              endIcon={<AddIcon />}
+              size="large"
+              sx={{ textTransform: "none", fontSize: 24 }}
+            >
+              Task
+            </Button>
+          </Grid>
+          <Grid item md={12}>
+            <Grid container spacing={1}>
+              {tasks.map((task, index) => (
+                <>
+                  <Grid item md={2}>
+                    <PeriodSelect onChange={(e) => taskEdit(e, index)} />
+                  </Grid>
+                  <Grid item md={10}>
+                    <TextField
+                      id="content"
+                      name="content"
+                      label="태스크"
+                      variant="outlined"
+                      onBlur={(e) => taskEdit(e, index)}
+                      fullWidth
+                    />
+                  </Grid>
+                </>
+              ))}
+            </Grid>
+          </Grid>
+          <Grid
+            item
+            md={12}
+            sx={{
+              display: "flex",
+              justifyContent: "flex-end",
+            }}
+          >
+            <Button
+              type="submit"
+              variant="outlined"
+              size="large"
+              endIcon={<EditIcon />}
+            >
+              작성
+            </Button>
+            <Button variant="outlined" size="large" endIcon={<CloseIcon />}>
+              취소
+            </Button>
+          </Grid>
+        </Grid>
+      </Box>
     </>
+  );
+};
 
-}
-
-export default Post
+export default Post;
