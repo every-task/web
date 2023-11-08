@@ -5,6 +5,7 @@ import Main from "../pages/Main"
 import Signup from '../pages/Signup'
 import { Login } from "../pages/Login"
 import Post from "../pages/Post"
+import MyInfo from "../pages/MyInfo"
 
 const MyRoutes = () => {
 
@@ -16,6 +17,7 @@ const MyRoutes = () => {
             <Route element={<Template />}>
                 <Route path="/" element={<Main />} />
                 <Route path="/post" element={<Post />} />
+                <Route path="/info" element={<MyInfo />} />
             </Route>
 
         </Routes>
