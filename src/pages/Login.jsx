@@ -13,54 +13,73 @@ import {
 
 
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { MyCustomTheme } from "../component/template/Palette";
 import { apiNoToken } from "../network/api";
+import { onLoginSuccess } from "../component/template/Myheader";
+import { setLogin, setMe } from "../feature/meSlice";
+import { useDispatch, useSelector } from "react-redux";
+import axios from "axios";
 
 
 
-const Login = () => {
+export const Login = () => {
+    const nav = useNavigate()
+    const dispatch = useDispatch()
 
+    const isLogin = useSelector((state) => state.me.isLogin)
 
-    const Copyright = (props) => {
-        return (
-            <Typography variant="body2" color="text.secondary" align="center" {...props}>
-                {'Copyright © '}
-                <Link color="inherit" to="https://playdata.io/">
-                    PLAYDATA
-                </Link>{' '}
-                {new Date().getFullYear()}
-                {'.'}
-            </Typography>
-        );
+    const getData = async () => {
+
+        const { data } = await apiNoToken('api/v1/auth/member/me/info', 'GET')
+
+        dispatch(setMe(data))
+
     }
 
-    // TODO remove, this demo shouldn't need to reset the theme.
-
-    const handleSubmit = async (e) => {
+    const handleSubmit = async (e,) => {
         e.preventDefault();
         const result = new FormData(e.currentTarget);
-
         const member = {
             email: result.get('email'),
             password: result.get('password'),
         }
 
         try {
+            const { data } = await apiNoToken('api/v1/auth/member/login', 'POST', member)
 
-            const { data } = await apiNoToken('api/v1/member/login', 'POST', member)
-            localStorage.setItem('token', data.token)
+
+            if (!isLogin) {
+                dispatch(setLogin(true))
+
+                onLoginSuccess(data)
+
+            }
+            else {
+                const accessToken = data.token
+                axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`
+            }
+            nav("/")
 
         } catch (err) {
             console.log(err)
         }
-
     };
 
 
-
-
     return <>
+
+        <Typography
+            position='absolute'
+            variant="h5"
+
+            sx={{ flexGrow: 1, fontWeight: 'bold', ml: 3, mt: -6 }}
+            color="primary"
+        >
+            <Link to='/' color='primary'> .Task</Link>
+        </Typography>
+
+
 
         < ThemeProvider theme={MyCustomTheme} >
             <Container component="main" maxWidth="xs">
@@ -79,7 +98,7 @@ const Login = () => {
                     <Typography>
                         Welcome Back
                     </Typography>
-                    <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1, alignItems: 'center' }}>
+                    <Box component="form" onSubmit={(e) => handleSubmit(e, nav)} noValidate sx={{ mt: 1, alignItems: 'center' }}>
                         <TextField
                             margin="normal"
                             required
@@ -99,10 +118,6 @@ const Login = () => {
                             type="password"
                             id="password"
                             autoComplete="current-password"
-                        />
-                        <FormControlLabel
-                            control={<Checkbox value="remember" color="primary" />}
-                            label="Remember me"
                         />
                         <Button
                             type="submit"
@@ -128,11 +143,8 @@ const Login = () => {
                         </Grid>
                     </Box>
                 </Box>
-                <Copyright sx={{ mt: 8, mb: 4 }} />
             </Container>
         </ThemeProvider >
     </>
 
 }
-
-export default Login
