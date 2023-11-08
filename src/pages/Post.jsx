@@ -63,8 +63,6 @@ const Post = () => {
       tasks: tasks,
     };
 
-    console.log(formData);
-
     try {
       const { data } = await api("api/v1/story", "post", formData);
     } catch (err) {
@@ -83,7 +81,7 @@ const Post = () => {
         component="form"
         onSubmit={onSubmitHandler}
       >
-        <Grid container sx={{ maxWidth: "1200px" }} spacing={2}>
+        <Grid container sx={{ maxWidth: "800px" }} spacing={2}>
           <Grid item md={12}>
             <TextField
               margin="normal"
