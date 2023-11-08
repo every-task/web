@@ -35,8 +35,8 @@ const InfoMenu = () => {
 
     return <>
         <Button
-            id="write-button"
-            aria-controls={open ? 'write-menu' : undefined}
+            id="info-button"
+            aria-controls={open ? 'info-menu' : undefined}
             aria-haspopup="true"
             aria-expanded={open ? 'true' : undefined}
             onClick={handleClick}
@@ -44,12 +44,12 @@ const InfoMenu = () => {
             <Avatar alt="Remy Sharp" src="https://png.pngtree.com/png-vector/20190926/ourlarge/pngtree-man-icon-isolated-on-abstract-background-png-image_1742606.jpg" />
         </Button>
         <Menu
-            id="write-menu"
+            id="info-menu"
             anchorEl={anchorEl}
             open={open}
             onClose={() => setAnchorEl(null)}
             MenuListProps={{
-                'aria-labelledby': 'write-button',
+                'aria-labelledby': 'info-button',
             }}
         >
             <MenuItem onClick={toInfoHandler}> 설정 </MenuItem>
