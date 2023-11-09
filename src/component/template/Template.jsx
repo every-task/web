@@ -1,5 +1,5 @@
 import { Outlet } from "react-router"
-import Myheader from "./Myheader"
+import { Myheader } from "./Myheader"
 import MyFooter from "./MyFooter";
 
 
@@ -10,7 +10,7 @@ const Template = () => {
     return <>
         <Myheader />
         <Outlet />
-        <MyFooter/>
+        <MyFooter />
     </>
 }
 export default Template
