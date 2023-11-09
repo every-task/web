@@ -1,138 +1,188 @@
-import { Avatar, Box, Button, Container, CssBaseline, FormControl, Grid, Input, InputLabel, OutlinedInput, TextField, Typography, } from "@mui/material"
-
+import {
+  Avatar,
+  Box,
+  Button,
+  Container,
+  CssBaseline,
+  FormControl,
+  Grid,
+  Input,
+  InputLabel,
+  OutlinedInput,
+  Typography,
+} from "@mui/material";
 import { Link, useNavigate } from "react-router-dom";
 import { apiNoToken } from "../network/api";
-import { useSelector } from "react-redux";
 import { useEffect } from "react";
 import { useState } from "react";
-
-
-
+import getUploadKey from "../component/common/FirebaseAuthentication";
+import handleImageUpload from "../component/common/firebaseUpload";
 
 const MyInfo = () => {
+  const imageMimeType = /image\/(png|jpg|jpeg)/i;
 
-    const [key, setKey] = useState("");
+  const [user, setUser] = useState();
 
-    const getUploadKey = async () => {
-        const keys = await apiNoToken("api/v1/auth/firebase", "GET");
-        setKey(keys);
+  const [image, setImage] = useState();
+
+  const [imagePreview, setImagePreview] = useState();
+
+  const getUserData = async () => {
+    const { data } = await apiNoToken("api/v1/auth/member/me/info", "GET");
+    setUser(data);
+  };
+
+  const nav = useNavigate();
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    const data = new FormData(event.currentTarget);
+
+    const nickname = data.get("nickname");
+    if (!nickname) {
+      alert("빈칸을 채워주세요.");
+    }
+
+    let profileImageUrl;
+
+    if (image) {
+      profileImageUrl = await handleImageUpload(user, image);
+    } else {
+      profileImageUrl = user.profileImageUrl;
+    }
+    console.log("얼마나 걸리나");
+
+    const member = {
+      nickname,
+      profileImageUrl,
     };
 
-    useEffect(() => {
-        getUploadKey();
-    }, []);
+    try {
+      apiNoToken("api/v1/auth/member/me/info", "PUT", member);
 
+      alert("변경되었습니다!");
+      window.location.assign("/");
+    } catch (err) {}
+  };
 
-    // 이 밑은 파일 버튼을 눌렀을때 하면 됨.
-    // const auth = getAuth();
+  const uploadImgHandler = (e) => {
+    const selectedImage = e.target.files[0];
 
-    // signInWithCustomToken(auth, keys)
-    //     .then((userCredential) => {
-    //         // Signed in
-    //         const user = userCredential.user;
-    //         // 추가적으로 할게 없음. 어짜피 기존에 로그인 되어있던 유저의 uuid를 활용하여 키를 발급받아온 것임.
+    if (selectedImage && !selectedImage.type.match(imageMimeType)) {
+      alert("올바른 이미지를 올려주세요.");
+      return;
+    }
 
-    //     })
-    //     .catch((error) => {
-    //         const errorCode = error.code;
-    //         const errorMessage = error.message;
-    //         // ...
-    //     });
+    if (selectedImage) {
+      setImage(selectedImage);
+    }
+  };
 
-    const nav = useNavigate()
-    const user = useSelector((state) => state.me)
+  useEffect(() => {
+    getUserData();
+    getUploadKey();
+  }, []);
 
-    const handleSubmit = (event) => {
-        event.preventDefault();
-        const data = new FormData(event.currentTarget);
-
-        console.log({
-            email: data.get('email'),
-            nickname: data.get('nickname'),
-        });
+  useEffect(() => {
+    let fileReader,
+      isCancel = false;
+    if (image) {
+      fileReader = new FileReader();
+      fileReader.onload = (e) => {
+        const { result } = e.target;
+        if (result && !isCancel) {
+          setImagePreview(result);
+        }
+      };
+      fileReader.readAsDataURL(image);
+    }
+    return () => {
+      isCancel = true;
+      if (fileReader && fileReader.readyState === 1) {
+        fileReader.abort();
+      }
     };
+  }, [image]);
 
-
-
-
-    return <>
-        <Container component="main" maxWidth="xs">
+  return (
+    <>
+      <Container component="main" maxWidth="xs">
+        {user && (
+          <>
             <CssBaseline />
             <Box
-                sx={{
-                    marginTop: 8,
-                    display: 'flex',
-                    flexDirection: 'column',
-                    alignItems: 'center',
-                }}
+              sx={{
+                marginTop: 8,
+                mb: 8,
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+              }}
             >
-                <label htmlFor="img">
-                    <Avatar sx={{ m: 1, bgcolor: 'secondary.main', width: 150, height: 150 }} src={user.profileImageUrl}>
-                    </Avatar>
-                </label>
-                <Input type="file" id="img" sx={{ display: "none" }} />
+              <Typography component="h1" variant="h5">
+                내 정보 수정
+              </Typography>
+              <label htmlFor="img">
+                <Avatar
+                  sx={{
+                    m: 3,
+                    bgcolor: "secondary.main",
+                    width: 150,
+                    height: 150,
+                  }}
+                  src={imagePreview || user.profileImageUrl}
+                ></Avatar>
+              </label>
+              <Input
+                type="file"
+                id="img"
+                sx={{ display: "none" }}
+                onChange={uploadImgHandler}
+              />
 
-
-                <Typography component="h1" variant="h5">
-                    내 정보 수정
-                </Typography>
-                <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
-                    <Grid container spacing={2}>
-
-                        <Grid item xs={12}>
-                            <FormControl>
-                                <InputLabel htmlFor="email">Email Address</InputLabel>
-                                <OutlinedInput
-                                    required
-                                    fullWidth
-                                    id="email"
-                                    label="Email Address"
-                                    name="email"
-                                    defaultValue={user.email}
-                                    sx={{ minWidth: 400 }}
-                                />
-                            </FormControl>
-                        </Grid>
-                        <Grid item xs={12}>
-                            <FormControl>
-                                <InputLabel htmlFor="nickname">nickname</InputLabel>
-                                <OutlinedInput
-                                    required
-                                    fullWidth
-                                    name="nickname"
-                                    label='nickname'
-                                    defaultValue={user.nickname}
-                                    id="nickname"
-                                    sx={{ minWidth: 400 }}
-                                />
-                            </FormControl>
-                        </Grid>
-
-                    </Grid>
-                    <Button
-                        type="submit"
+              <Box
+                component="form"
+                noValidate
+                onSubmit={handleSubmit}
+                sx={{ mt: 3 }}
+              >
+                <Grid container spacing={4}>
+                  <Grid item xs={12}>
+                    <FormControl>
+                      <InputLabel htmlFor="nickname">nickname</InputLabel>
+                      <OutlinedInput
+                        required
                         fullWidth
-                        variant="contained"
-                        sx={{ mt: 3, mb: 2 }}
-                    >
-                        변경
-                    </Button>
-                    <Grid container justifyContent="flex-end">
-                        <Grid item>
-                            <Link href="#" variant="body2">
-                                Already have an account? Sign in
-                            </Link>
-                        </Grid>
-                    </Grid>
+                        name="nickname"
+                        label="nickname"
+                        defaultValue={user.nickname}
+                        id="nickname"
+                        sx={{ minWidth: 400 }}
+                      />
+                    </FormControl>
+                  </Grid>
+                </Grid>
+                <Box
+                  sx={{ display: "flex", mt: 3, justifyContent: "flex-end" }}
+                >
+                  <Button
+                    type="submit"
+                    variant="contained"
+                    sx={{ mb: 2, mr: 3 }}
+                  >
+                    변경하기
+                  </Button>
+                  <Button variant="contained" sx={{ mb: 2 }}>
+                    <Link to="/">취소</Link>
+                  </Button>
                 </Box>
+              </Box>
             </Box>
-
-        </Container>
-
-
+          </>
+        )}
+      </Container>
     </>
+  );
+};
 
-
-}
-
-export default MyInfo
+export default MyInfo;
