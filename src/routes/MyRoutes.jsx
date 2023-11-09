@@ -5,6 +5,8 @@ import Signup from "../pages/Signup";
 import Login from "../pages/Login";
 import Post from "../pages/Post";
 import Story from "../pages/Story";
+import Question from "../pages/Question";
+import QuestionDetail from "../component/questions/QuestionDetail";
 
 const MyRoutes = () => {
   return (
@@ -17,6 +19,8 @@ const MyRoutes = () => {
           <Route path="/post" element={<Post />} />
           <Route path="/info" element={<MyInfo />} />
           <Route path="/story/:id" element={<Story />} />
+          <Route path="/question" element={<Question />}></Route>
+          <Route path="/question/:id" element={<QuestionDetail />}></Route>  
         </Route>
       </Routes>
     </BrowserRouter>
