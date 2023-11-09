@@ -5,6 +5,8 @@ import Main from "../pages/Main"
 import Signup from '../pages/Signup'
 import { Login } from "../pages/Login"
 import Post from "../pages/Post"
+import Question from "../pages/Question";
+import QuestionDetail from "../component/questions/QuestionDetail";
 
 const MyRoutes = () => {
 
@@ -16,6 +18,8 @@ const MyRoutes = () => {
             <Route element={<Template />}>
                 <Route path="/" element={<Main />} />
                 <Route path="/post" element={<Post />} />
+                <Route path="/question" element={<Question />}></Route>
+                <Route path="/question/:id" element={<QuestionDetail />}></Route>
             </Route>
 
         </Routes>
