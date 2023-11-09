@@ -70,7 +70,7 @@ const StoryPost = () => {
     };
 
     try {
-      const { data } = await api("api/v1/story", "post", formData);
+      const { data } = await api("/api/v1/story", "post", formData);
     } catch (err) {
       console.log(err);
     }

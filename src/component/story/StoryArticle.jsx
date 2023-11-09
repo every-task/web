@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Chip, Grid, Typography } from "@mui/material";
 import { Viewer } from "@toast-ui/react-editor";
 import DateChip from "../common/DateChip";
 import MemberChip from "../common/MemberChip";
+import { api } from "../../network/api";
 
 const StoryArticle = ({ id }) => {
   const [article, setArticle] = useState({
@@ -15,7 +16,19 @@ const StoryArticle = ({ id }) => {
       imageUrl: "M",
     },
   });
-  // TODO : useEffect 작성
+
+  const getArticle = async () => {
+    try {
+      const { data } = await api(`/api/v1/story/${id}`, "GET", {});
+      setArticle(data);
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+  useEffect(() => {
+    getArticle();
+  }, []);
   return (
     <>
       <Grid item md={12}>
