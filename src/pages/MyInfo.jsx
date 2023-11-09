@@ -15,8 +15,9 @@ import { Link, useNavigate } from "react-router-dom";
 import { apiNoToken } from "../network/api";
 import { useEffect } from "react";
 import { useState } from "react";
-import getUploadKey from "../component/common/FirebaseAuthentication";
-import handleImageUpload from "../component/common/firebaseUpload";
+
+import { getUploadKey, handleImageUpload, resizeFile } from "../firebase/FileUpload";
+
 
 const MyInfo = () => {
   const imageMimeType = /image\/(png|jpg|jpeg)/i;
@@ -32,6 +33,8 @@ const MyInfo = () => {
     setUser(data);
   };
 
+
+
   const nav = useNavigate();
 
   const handleSubmit = async (event) => {
@@ -46,7 +49,12 @@ const MyInfo = () => {
     let profileImageUrl;
 
     if (image) {
-      profileImageUrl = await handleImageUpload(user, image);
+
+      const resizeImg = await resizeFile(image);
+
+      console.log(resizeImg)
+
+      profileImageUrl = await handleImageUpload(user, resizeImg);
     } else {
       profileImageUrl = user.profileImageUrl;
     }
@@ -62,7 +70,7 @@ const MyInfo = () => {
 
       alert("변경되었습니다!");
       window.location.assign("/");
-    } catch (err) {}
+    } catch (err) { }
   };
 
   const uploadImgHandler = (e) => {
@@ -80,7 +88,7 @@ const MyInfo = () => {
 
   useEffect(() => {
     getUserData();
-    getUploadKey();
+    setTimeout(getUploadKey, 300);
   }, []);
 
   useEffect(() => {
