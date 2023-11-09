@@ -7,6 +7,7 @@ import Post from "../pages/Post";
 import Story from "../pages/Story";
 import Question from "../pages/Question";
 import QuestionDetail from "../component/questions/QuestionDetail";
+import MyInfo from "../pages/MyInfo";
 
 const MyRoutes = () => {
   return (
@@ -20,7 +21,7 @@ const MyRoutes = () => {
           <Route path="/info" element={<MyInfo />} />
           <Route path="/story/:id" element={<Story />} />
           <Route path="/question" element={<Question />}></Route>
-          <Route path="/question/:id" element={<QuestionDetail />}></Route>  
+          <Route path="/question/:id" element={<QuestionDetail />}></Route>
         </Route>
       </Routes>
     </BrowserRouter>
