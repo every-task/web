@@ -2,12 +2,13 @@ import { Box, Button, Container, CssBaseline, Grid, TextField, Typography, } fro
 
 
 import { ThemeProvider } from '@mui/material/styles';
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { MyCustomTheme } from "../component/template/Palette";
 import { apiNoToken } from "../network/api";
 
 
 const Signup = () => {
+    const nav = useNavigate()
 
     const Copyright = (props) => {
         return (
@@ -36,7 +37,8 @@ const Signup = () => {
         }
 
         try {
-            const { data } = await apiNoToken('api/v1/member/signup', 'POST', member)
+            const { data } = await apiNoToken('api/v1/auth/member/signup', 'POST', member)
+            nav('/login')
 
         } catch (err) {
             console.log(err)

@@ -1,7 +1,6 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Template from "../component/template/Template";
 import Main from "../pages/Main";
-
 import Signup from "../pages/Signup";
 import Login from "../pages/Login";
 import Post from "../pages/Post";
@@ -16,6 +15,7 @@ const MyRoutes = () => {
         <Route element={<Template />}>
           <Route path="/" element={<Main />} />
           <Route path="/post" element={<Post />} />
+          <Route path="/info" element={<MyInfo />} />
           <Route path="/story/:id" element={<Story />} />
         </Route>
       </Routes>
