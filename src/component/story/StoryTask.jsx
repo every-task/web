@@ -11,7 +11,6 @@ const StoryTask = ({ id }) => {
   }, []);
   const getStoryTasks = async () => {
     const { data } = await api(`/api/v1/task/stories/${id}/tasks`, "GET", {});
-    console.log(data);
     setTasks(data);
   };
   return (
