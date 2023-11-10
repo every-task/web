@@ -22,6 +22,9 @@ const QuestionCard =() => {
     const goToQuestionDetail =(el) =>{
         nav(`/question/${el.id}`)
     }
+    const goToQuestionPost =() =>{
+        nav(`/question/post`)
+    }
     const onClickHandler = (category)=>{
         setUrlq([...urlq, category]);
     }
@@ -34,16 +37,15 @@ const QuestionCard =() => {
     const getData =async ()=>{
         let link = ""
         if(keyword!=null)
-        for (let i =0; i<urlq.length;i++)
-        {
-            link+=`&category=${urlq[i]}`
-        }
+            for (let i =0; i<urlq.length;i++)
+            {
+                link+=`&category=${urlq[i]}`
+            }
         const getData = await apiNoToken(`http://localhost:8082/api/v1/question/article`
             +`?page=${page}&size=${size}`
             +link, "GET")
         setData(getData.data.content);
         setTotalPage(getData.data.totalPages);
-        console.log(getData.data);
     }
     const onSubmitHandler = (e)=>{
         e.preventDefault();
@@ -73,9 +75,13 @@ const QuestionCard =() => {
                 <input className="w-btn-outline2 w-btn-gray-outline select-buttons-each" type={"text"} name={"keyword"} onChange={onChangeHandler}/>
                 <input className="w-btn-outline2 w-btn-gray-outline select-buttons-each" type={"submit"} name={"검색"}/>
             </form>
+            <div>
+                <button onClick={() => {goToQuestionPost()}} className="w-btn-outline w-btn-gray-outline select-buttons-each" type="button">
+                    글 작성하기
+                </button>
+            </div>
         </div>
         <Container sx={{ py: 8 }} >
-            {/* End hero unit */}
             <Grid container spacing={4}>
                 {data.map((el, index)=>(
                     <Grid item key={index} onClick={() => {goToQuestionDetail(el)}} md={4}  >
