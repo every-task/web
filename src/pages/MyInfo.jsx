@@ -16,8 +16,11 @@ import { apiNoToken } from "../network/api";
 import { useEffect } from "react";
 import { useState } from "react";
 
-import { getUploadKey, handleImageUpload, resizeFile } from "../firebase/FileUpload";
-
+import {
+  getUploadKey,
+  handleImageUpload,
+  resizeFile,
+} from "../firebase/FileUpload";
 
 const MyInfo = () => {
   const imageMimeType = /image\/(png|jpg|jpeg)/i;
@@ -33,8 +36,6 @@ const MyInfo = () => {
     setUser(data);
   };
 
-
-
   const nav = useNavigate();
 
   const handleSubmit = async (event) => {
@@ -49,16 +50,12 @@ const MyInfo = () => {
     let profileImageUrl;
 
     if (image) {
-
       const resizeImg = await resizeFile(image);
-
-      console.log(resizeImg)
 
       profileImageUrl = await handleImageUpload(user, resizeImg);
     } else {
       profileImageUrl = user.profileImageUrl;
     }
-    console.log("얼마나 걸리나");
 
     const member = {
       nickname,
@@ -66,11 +63,11 @@ const MyInfo = () => {
     };
 
     try {
-      apiNoToken("api/v1/auth/member/me/info", "PUT", member);
+      apiNoToken("/api/v1/auth/member/me/info", "PUT", member);
 
       alert("변경되었습니다!");
       window.location.assign("/");
-    } catch (err) { }
+    } catch (err) {}
   };
 
   const uploadImgHandler = (e) => {

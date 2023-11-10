@@ -13,12 +13,12 @@ const PostMenu = () => {
   };
   const toSuccessHandler = () => {
     setAnchorEl(null);
-    nav("/post");
+    nav("/story/post");
   };
 
   const toQuestionHandler = () => {
     setAnchorEl(null);
-    nav("/question");
+    nav("/question/post");
   };
 
   return (
