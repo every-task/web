@@ -3,25 +3,26 @@ import { Chip, Grid, Typography } from "@mui/material";
 import { Viewer } from "@toast-ui/react-editor";
 import DateChip from "../common/DateChip";
 import MemberChip from "../common/MemberChip";
+import "@toast-ui/editor/dist/toastui-editor-viewer.css";
 import { api } from "../../network/api";
 
-const StoryArticle = ({ article }) => {
+const StoryArticle = ({ story }) => {
   return (
     <>
       <Grid item md={12}>
-        <Chip label={article?.category} color="primary" variant="outlined" />
+        <Chip label={story?.category} color="primary" variant="outlined" />
       </Grid>
       <Grid item md={12}>
         <Typography variant="h5" sx={{ flexGrow: 1, fontWeight: "bold" }}>
-          {article?.title}
+          {story?.title}
         </Typography>
       </Grid>
       <Grid item md={12}>
-        <MemberChip member={article?.member} />
-        <DateChip date={article?.createdAt} />
+        <MemberChip member={story?.member} />
+        <DateChip date={story?.createdAt} />
       </Grid>
       <Grid item md={12}>
-        <Viewer initialValue={article?.content} />
+        {story?.content && <Viewer initialValue={story?.content} />}
       </Grid>
     </>
   );
