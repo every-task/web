@@ -7,6 +7,9 @@ import StoryPost from "../pages/StoryPost";
 import Story from "../pages/Story";
 import Question from "../pages/Question";
 import QuestionDetail from "../component/questions/QuestionDetail";
+import MyInfo from "../pages/MyInfo";
+import QuestionPost from "../pages/QuestionPost";
+import QuestionDetails from "../component/questions/QuestionDetails";
 
 import MyInfo from "../pages/MyInfo";
 
@@ -22,7 +25,8 @@ const MyRoutes = () => {
           <Route path="/info" element={<MyInfo />} />
           <Route path="/story/:id" element={<Story />} />
           <Route path="/question" element={<Question />}></Route>
-          <Route path="/question/:id" element={<QuestionDetail />}></Route>
+          <Route path="/question/:id" element={<QuestionDetails />}></Route>
+           <Route path="/question/post" element={<QuestionPost />}></Route>
         </Route>
       </Routes>
     </BrowserRouter>

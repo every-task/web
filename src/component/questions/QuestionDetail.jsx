@@ -23,7 +23,7 @@ const QuestionDetail =() =>{
     });
     const id = useParams();
     const detailId = Object.values(id);
-    const token = localStorage.setItem('token',"eyJhbGciOiJIUzI1NiJ9.eyJuaWNrbmFtZSI6IuyCrOyekCIsImlkIjoiZTgyMjA5YWEtY2QzMS00YTM2LWI4MWYtMzA1ODlhZDFmOTE0IiwicHJvZmlsZUltYWdlVXJsIjoiaHR0cHM6Ly9jZG4ucGl4YWJheS5jb20vcGhvdG8vMjAyMy8wOS8yMS8xOC8xNy9hdXRvbW9iaWxlLTgyNjczNjlfMTI4MC5qcGciLCJlbWFpbCI6IjI5IiwiZXhwIjoxNjk5NDk4NTAxfQ.3oTkDQzbjjo4dSyVlKba_AxYF0qyPzfjo0NsrVPk_to")
+    const token = localStorage.setItem('token',"eyJhbGciOiJIUzI1NiJ9.eyJuaWNrbmFtZSI6IuyCrOyekCIsImlkIjoiNTUyMjdjZmMtNmJmNi00ZTdlLTljM2QtYWViMjg3NGE0NTQ2IiwicHJvZmlsZUltYWdlVXJsIjoiaHR0cHM6Ly9jZG4ucGl4YWJheS5jb20vcGhvdG8vMjAyMy8wOS8yMS8xOC8xNy9hdXRvbW9iaWxlLTgyNjczNjlfMTI4MC5qcGciLCJlbWFpbCI6IjMyIiwiZXhwIjoxNjk5NTgzNDA5fQ.jd6OcfMAESHH2im2Bsc24T_9jlwz3O_ljvWWImtAIUo")
 
     const getQuestionDetail = async () => {
 
