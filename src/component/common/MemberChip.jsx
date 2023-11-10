@@ -4,8 +4,8 @@ import { Avatar, Chip } from "@mui/material";
 const MemberChip = ({ member }) => {
   return (
     <Chip
-      avatar={<Avatar>{member.profileImageUrl}</Avatar>}
-      label={member.nickname}
+      avatar={<Avatar src={member?.profileImageUrl} />}
+      label={member?.nickname}
       variant="outlined"
     />
   );
