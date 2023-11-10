@@ -5,7 +5,7 @@ COPY ./public ./app/public
 COPY package.json ./app/package.json
 COPY package-lock.json ./app/package-lock.json
 WORKDIR /app
-RUN npm i
+RUN npm i --force
 RUN ["npm","run","build"]
 # ENTRYPOINT [ "npm","start" ]
 
