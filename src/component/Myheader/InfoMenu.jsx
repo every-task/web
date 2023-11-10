@@ -4,11 +4,13 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { apiNoToken } from "../../network/api";
 import { setLogout } from "../../feature/meSlice";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 const InfoMenu = () => {
   const nav = useNavigate();
   const dispatch = useDispatch();
+
+  const user = useSelector((state) => state.me);
 
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
@@ -41,10 +43,7 @@ const InfoMenu = () => {
         aria-expanded={open ? "true" : undefined}
         onClick={handleClick}
       >
-        <Avatar
-          alt="Remy Sharp"
-          src="https://png.pngtree.com/png-vector/20190926/ourlarge/pngtree-man-icon-isolated-on-abstract-background-png-image_1742606.jpg"
-        />
+        <Avatar alt="Remy Sharp" src={user.profileImageUrl} />
       </Button>
       <Menu
         id="info-menu"

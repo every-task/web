@@ -1,13 +1,18 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Grid, Typography } from "@mui/material";
 import TaskInformation from "../common/TaskInformation";
+import { api } from "../../network/api";
 
 const StoryTask = ({ id }) => {
-  const [tasks, setTasks] = useState([
-    { period: "항상", content: "그냥 물을 많이 마시세요" },
-    { period: "주간", content: "인바디를 재보세요" },
-  ]);
-  // TODO : useEffect 작성
+  const [tasks, setTasks] = useState([]);
+
+  useEffect(() => {
+    getStoryTasks();
+  }, []);
+  const getStoryTasks = async () => {
+    const { data } = await api(`/api/v1/task/stories/${id}/tasks`, "GET", {});
+    setTasks(data);
+  };
   return (
     <>
       <Grid item md={12}>
