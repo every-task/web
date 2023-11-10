@@ -23,7 +23,7 @@ export const Myheader = () => {
   const isLogin = useSelector((state) => state.me.isLogin);
 
   const welcome = async () => {
-    const { data } = await apiNoToken("api/v1/auth/token/welcome", "POST");
+    const { data } = await apiNoToken("/api/v1/auth/token/welcome", "POST");
 
     if (data.token) {
       dispatch(setLogin(true));
@@ -33,7 +33,7 @@ export const Myheader = () => {
   };
 
   const getData = async () => {
-    const { data } = await apiNoToken("api/v1/auth/member/me/info", "GET");
+    const { data } = await apiNoToken("/api/v1/auth/member/me/info", "GET");
 
     dispatch(setMe(data));
   };
@@ -45,7 +45,6 @@ export const Myheader = () => {
       getData();
     }
   }, []);
-  console.log("헤더 랜더링");
 
   return (
     <AppBar position="static" color="common">
@@ -95,7 +94,7 @@ export const onLoginSuccess = (data) => {
 };
 
 export const onSilentRefresh = async () => {
-  const { data } = await apiNoToken("api/v1/auth/token/refresh", "POST");
+  const { data } = await apiNoToken("/api/v1/auth/token/refresh", "POST");
   if (data.token) {
     onLoginSuccess(data);
   }
