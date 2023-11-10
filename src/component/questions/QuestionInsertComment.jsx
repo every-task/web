@@ -13,7 +13,7 @@ const QuestionInsertComment =({id}) =>{
     const [insertComment, setInsertComment] =useState({
         content:""
     });
-    const token = localStorage.setItem('token',"eyJhbGciOiJIUzI1NiJ9.eyJuaWNrbmFtZSI6IuyCrOyekCIsImlkIjoiNTUyMjdjZmMtNmJmNi00ZTdlLTljM2QtYWViMjg3NGE0NTQ2IiwicHJvZmlsZUltYWdlVXJsIjoiaHR0cHM6Ly9jZG4ucGl4YWJheS5jb20vcGhvdG8vMjAyMy8wOS8yMS8xOC8xNy9hdXRvbW9iaWxlLTgyNjczNjlfMTI4MC5qcGciLCJlbWFpbCI6IjMyIiwiZXhwIjoxNjk5NTgzNDA5fQ.jd6OcfMAESHH2im2Bsc24T_9jlwz3O_ljvWWImtAIUo")
+    const token = localStorage.setItem('token',"eyJhbGciOiJIUzI1NiJ9.eyJuaWNrbmFtZSI6IuyCrOyekCIsImlkIjoiY2I0ZDE3MTgtZTQ5Zi00ZmM4LWI0NmUtOGVjNzNmYTQwZjhjIiwicHJvZmlsZUltYWdlVXJsIjoiaHR0cHM6Ly9jZG4ucGl4YWJheS5jb20vcGhvdG8vMjAyMy8wOS8yMS8xOC8xNy9hdXRvbW9iaWxlLTgyNjczNjlfMTI4MC5qcGciLCJlbWFpbCI6IjM0IiwiZXhwIjoxNzAwODA0MzIyfQ.StzTIWgRfV58v_hdP80k29RhbA_dOcye2SrKXu6OYvc")
     const insertCommentStatusHandler =() => {
         setInsertCommentStatus(!insertCommentStatus);
     }
@@ -82,7 +82,7 @@ const QuestionInsertComment =({id}) =>{
                             >
                                 작성
                             </Button>
-                            <Button variant="outlined" size="large" endIcon={<CloseIcon />}>
+                            <Button onClick={insertCommentStatusHandler} variant="outlined" size="large" endIcon={<CloseIcon />}>
                                 취소
                             </Button>
                         </Box>
