@@ -19,10 +19,10 @@ const PeriodSelect = ({ onChange }) => {
         label="주기"
         onChange={handleChange}
       >
-        <MenuItem value="always">상시</MenuItem>
-        <MenuItem value="monthly">월간</MenuItem>
-        <MenuItem value="weekly">주간</MenuItem>
-        <MenuItem value="daily">일간</MenuItem>
+        <MenuItem value="ALWAYS">상시</MenuItem>
+        <MenuItem value="MONTHLY">월간</MenuItem>
+        <MenuItem value="WEEKLY">주간</MenuItem>
+        <MenuItem value="DAILY">일간</MenuItem>
       </Select>
     </FormControl>
   );
