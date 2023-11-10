@@ -4,26 +4,7 @@ import MemberChip from "../common/MemberChip";
 import DateChip from "../common/DateChip";
 import CommentInformation from "../common/CommentInformation";
 
-const StoryComment = ({ id }) => {
-  const [comments, setComments] = useState([
-    {
-      content: "와 님 좀 치네요",
-      createdAt: "2023-11-08",
-      member: {
-        nickname: "고양이는야옹",
-        imageUrl: "M",
-      },
-    },
-    {
-      content: "이런말을 누가 못함 ?",
-      createdAt: "2023-11-08",
-      member: {
-        nickname: "비둘기는구구구구",
-        imageUrl: "M",
-      },
-    },
-  ]);
-  // TODO : useEffect 작성
+const StoryComment = ({ comments }) => {
   return (
     <>
       <Grid item md={12}>
@@ -31,7 +12,7 @@ const StoryComment = ({ id }) => {
       </Grid>
       <Grid item md={12}>
         <Grid container spacing={1}>
-          {comments.map((comment, index) => (
+          {comments?.map((comment, index) => (
             <>
               <Grid item md={12}>
                 <Box sx={{ display: "flex", justifyContent: "space-between" }}>

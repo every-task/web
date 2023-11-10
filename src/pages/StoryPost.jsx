@@ -7,12 +7,17 @@ import { Editor } from "@toast-ui/react-editor";
 import PeriodSelect from "../component/post/PeriodSelect";
 import CloseIcon from "@mui/icons-material/Close";
 import EditIcon from "@mui/icons-material/Edit";
+import CategorySelect from "../component/common/CategorySelect";
 
-const Post = () => {
+const StoryPost = () => {
   const editorRef = useRef();
 
   const [key, setKey] = useState("");
   const [tasks, setTasks] = useState([{ period: "", content: "" }]);
+  const [category, setCategory] = useState("");
+  const categoryChange = (category) => {
+    setCategory(category);
+  };
   const getUploadKey = async () => {
     const keys = await api("api/v1/firebase", "GET");
     setKey(keys);
@@ -60,11 +65,12 @@ const Post = () => {
     const formData = {
       title: form.get("title"),
       content: content,
+      category: category,
       tasks: tasks,
     };
 
     try {
-      const { data } = await api("api/v1/story", "post", formData);
+      const { data } = await api("/api/v1/story", "post", formData);
     } catch (err) {
       console.log(err);
     }
@@ -82,7 +88,10 @@ const Post = () => {
         onSubmit={onSubmitHandler}
       >
         <Grid container sx={{ maxWidth: "800px" }} spacing={2}>
-          <Grid item md={12}>
+          <Grid item md={3}>
+            <CategorySelect onChangeHandler={categoryChange} />
+          </Grid>
+          <Grid item md={9}>
             <TextField
               margin="normal"
               id="title"
@@ -166,4 +175,4 @@ const Post = () => {
   );
 };
 
-export default Post;
+export default StoryPost;

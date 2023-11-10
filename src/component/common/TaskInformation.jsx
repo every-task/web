@@ -1,5 +1,6 @@
 import React from "react";
 import { InputAdornment, TextField } from "@mui/material";
+import PeriodChip from "./PeriodChip";
 
 const TaskInformation = ({ task }) => {
   return (
@@ -11,7 +12,9 @@ const TaskInformation = ({ task }) => {
       fullWidth
       InputProps={{
         startAdornment: (
-          <InputAdornment position="start">{task.period}</InputAdornment>
+          <InputAdornment position="start">
+            <PeriodChip period={task.period} />
+          </InputAdornment>
         ),
         readOnly: true,
       }}
