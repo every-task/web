@@ -27,7 +27,7 @@ const Login = () => {
   const isLogin = useSelector((state) => state.me.isLogin);
 
   const getData = async () => {
-    const { data } = await apiNoToken("api/v1/auth/member/me/info", "GET");
+    const { data } = await apiNoToken("/api/v1/auth/member/me/info", "GET");
 
     dispatch(setMe(data));
   };
@@ -42,7 +42,7 @@ const Login = () => {
 
     try {
       const { data } = await apiNoToken(
-        "api/v1/auth/member/login",
+        "/api/v1/auth/member/login",
         "POST",
         member
       );

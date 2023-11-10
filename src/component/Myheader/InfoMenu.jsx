@@ -28,7 +28,7 @@ const InfoMenu = () => {
 
   const toLogoutHandler = async () => {
     axios.defaults.headers.common["Authorization"] = "";
-    const { data } = await apiNoToken("api/v1/auth/token/logout", "POST");
+    const { data } = await apiNoToken("/api/v1/auth/token/logout", "POST");
     dispatch(setLogout());
 
     window.location.assign("/login");

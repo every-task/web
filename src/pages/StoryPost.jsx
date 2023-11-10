@@ -1,5 +1,5 @@
 import "@toast-ui/editor/dist/toastui-editor.css";
-import { api } from "../network/api";
+import { api, apiNoToken } from "../network/api";
 import { useEffect, useRef, useState } from "react";
 import AddIcon from "@mui/icons-material/Add";
 import { Box, Button, Grid, TextField } from "@mui/material";
@@ -19,7 +19,7 @@ const StoryPost = () => {
     setCategory(category);
   };
   const getUploadKey = async () => {
-    const keys = await api("api/v1/firebase", "GET");
+    const keys = await api("/api/v1/auth/firebase", "GET");
     setKey(keys);
 
     // 이 밑은 파일 버튼을 눌렀을때 하면 됨.
@@ -70,7 +70,7 @@ const StoryPost = () => {
     };
 
     try {
-      const { data } = await api("/api/v1/story", "post", formData);
+      const { data } = await apiNoToken("/api/v1/story", "post", formData);
     } catch (err) {
       console.log(err);
     }

@@ -22,16 +22,32 @@ const CategorySelect = ({ onChangeHandler }) => {
 // TODO : 나중에 실제 사용하는 카테고리로 바꿔야 힘
 const categorys = [
   {
-    value: "USD",
-    label: "숨쉬기",
+    value: "HEALTH",
+    label: "건강",
   },
   {
-    value: "EUR",
-    label: "밥먹기",
+    value: "TRAVEL",
+    label: "여행",
   },
   {
-    value: "BTC",
-    label: "잠자기",
+    value: "ART",
+    label: "예술",
+  },
+  {
+    value: "RELATIONSHIP",
+    label: "인간관계",
+  },
+  {
+    value: "EMPLOYMENT",
+    label: "취업",
+  },
+  {
+    value: "STRESS",
+    label: "정신건강",
+  },
+  {
+    value: "LANGUAGE",
+    label: "언어",
   },
 ];
 
