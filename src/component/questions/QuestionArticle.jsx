@@ -5,7 +5,7 @@ import MemberChip from "../common/MemberChip";
 import DateChip from "../common/DateChip";
 import {Viewer} from "@toast-ui/react-editor";
 
-const QuestionArticle =({article}) => {
+const QuestionArticle =({article,member}) => {
     return (
         <>
             <Grid item md={12}>
@@ -17,7 +17,7 @@ const QuestionArticle =({article}) => {
                 </Typography>
             </Grid>
             <Grid item md={12}>
-                {/*<MemberChip member={article.member} />*/}
+                <MemberChip member={member} />
                 <DateChip date={article.createdAt} />
             </Grid>
             <Grid item md={12}>

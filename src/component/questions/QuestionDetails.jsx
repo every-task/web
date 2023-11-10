@@ -9,6 +9,7 @@ import QuestionArticle from "./QuestionArticle";
 import {useNavigate} from "react-router";
 import {apiNoToken} from "../../network/api";
 import QuestionInsertComment from "./QuestionInsertComment";
+import QuestionTasks from "./QuestionTasks";
 
 const QuestionDetails =() => {
     const { id } = useParams();
@@ -47,10 +48,11 @@ const QuestionDetails =() => {
             mt={8}
         >
             <Grid container sx={{ maxWidth: "800px" }} spacing={2}>
-                <QuestionArticle article={article} />
+                <QuestionArticle article={article} member={memberData} />
                 {commentsStatus === true &&
                     <QuestionComments comments={comments} />
                 }
+                <QuestionTasks id={id}/>
                 <QuestionInsertComment id={id} />
             </Grid>
         </Box>
