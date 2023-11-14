@@ -49,9 +49,6 @@ const MainCard = () => {
                 <Typography gutterBottom variant="h5" component="h2">
                   {el.title}
                 </Typography>
-                {/* <Typography overflow="hidden" textOverflow="ellipsis">
-                  {el?.content && <Viewer initialValue={el?.content} />}
-                </Typography> */}
               </CardContent>
             </Card>
           </Grid>
