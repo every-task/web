@@ -9,7 +9,7 @@ import Question from "../pages/Question";
 import QuestionDetail from "../component/questions/QuestionDetail";
 import MyInfo from "../pages/MyInfo";
 import QuestionPost from "../pages/QuestionPost";
-import QuestionDetails from "../component/questions/QuestionDetails";
+import QuestionDetails from "../pages/QuestionDetails";
 
 const MyRoutes = () => {
   return (
