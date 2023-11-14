@@ -1,15 +1,12 @@
 import { useParams } from "react-router-dom";
 import { Avatar, Box, Grid } from "@mui/material";
-import StoryArticle from "../story/StoryArticle";
-import StoryTask from "../story/StoryTask";
-import StoryComment from "../story/StoryComment";
 import React, { useEffect, useRef, useState } from "react";
-import QuestionComments from "./QuestionComments";
-import QuestionArticle from "./QuestionArticle";
+import QuestionComments from "../component/questions/QuestionComments";
+import QuestionArticle from "../component/questions/QuestionArticle";
 import { useNavigate } from "react-router";
-import { apiNoToken } from "../../network/api";
-import QuestionInsertComment from "./QuestionInsertComment";
-import QuestionTasks from "./QuestionTasks";
+import { apiNoToken } from "../network/api";
+import QuestionInsertComment from "../component/questions/QuestionInsertComment";
+import QuestionTasks from "../component/questions/QuestionTasks";
 
 const QuestionDetails = () => {
   const { id } = useParams();
