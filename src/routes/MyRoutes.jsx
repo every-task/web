@@ -6,7 +6,6 @@ import Login from "../pages/Login";
 import StoryPost from "../pages/StoryPost";
 import Story from "../pages/Story";
 import Question from "../pages/Question";
-import QuestionDetail from "../component/questions/QuestionDetail";
 import MyInfo from "../pages/MyInfo";
 import QuestionPost from "../pages/QuestionPost";
 import QuestionDetails from "../pages/QuestionDetails";
