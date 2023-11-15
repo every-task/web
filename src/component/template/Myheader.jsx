@@ -12,7 +12,7 @@ import { Link } from "react-router-dom";
 import { apiNoToken } from "../../network/api";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { setLogin, setMe } from "../../feature/meSlice";
 import InfoMenu from "../Myheader/InfoMenu";
 import PostMenu from "../Myheader/PostMenu";
@@ -26,7 +26,7 @@ export const Myheader = () => {
     const { data } = await apiNoToken("/api/v1/auth/token/welcome", "POST");
 
     if (data.token) {
-      dispatch(setLogin(true));
+      dispatch(setLogin(data));
       onLoginSuccess(data);
       getData();
     }
@@ -38,12 +38,8 @@ export const Myheader = () => {
     dispatch(setMe(data));
   };
 
-  useState(() => {
-    if (!isLogin) {
-      welcome();
-    } else {
-      getData();
-    }
+  useEffect(() => {
+    welcome();
   }, []);
 
   return (
