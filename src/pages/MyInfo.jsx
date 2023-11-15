@@ -21,9 +21,12 @@ import {
   handleImageUpload,
   resizeFile,
 } from "../firebase/FileUpload";
+import { useSelector } from "react-redux";
 
 const MyInfo = () => {
   const imageMimeType = /image\/(png|jpg|jpeg)/i;
+
+  const isLogin = useSelector((state) => state.me.isLogin);
 
   const [user, setUser] = useState();
 
@@ -35,9 +38,6 @@ const MyInfo = () => {
     const { data } = await apiNoToken("api/v1/auth/member/me/info", "GET");
     setUser(data);
   };
-
-  const nav = useNavigate();
-
   const handleSubmit = async (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -84,9 +84,11 @@ const MyInfo = () => {
   };
 
   useEffect(() => {
-    getUserData();
-    setTimeout(getUploadKey, 300);
-  }, []);
+    if (isLogin) {
+      getUserData();
+      getUploadKey();
+    }
+  }, [isLogin]);
 
   useEffect(() => {
     let fileReader,
@@ -145,12 +147,7 @@ const MyInfo = () => {
                 onChange={uploadImgHandler}
               />
 
-              <Box
-                component="form"
-                noValidate
-                onSubmit={handleSubmit}
-                sx={{ mt: 3 }}
-              >
+              <Box component="form" onSubmit={handleSubmit} sx={{ mt: 3 }}>
                 <Grid container spacing={4}>
                   <Grid item xs={12}>
                     <FormControl>
