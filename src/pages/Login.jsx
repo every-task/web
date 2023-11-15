@@ -26,12 +26,6 @@ const Login = () => {
 
   const isLogin = useSelector((state) => state.me.isLogin);
 
-  const getData = async () => {
-    const { data } = await apiNoToken("/api/v1/auth/member/me/info", "GET");
-
-    dispatch(setMe(data));
-  };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     const result = new FormData(e.currentTarget);
@@ -48,7 +42,7 @@ const Login = () => {
       );
 
       if (!isLogin) {
-        dispatch(setLogin(true));
+        dispatch(setLogin(data));
 
         onLoginSuccess(data);
       } else {
