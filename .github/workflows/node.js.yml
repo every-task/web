@@ -16,6 +16,7 @@ jobs:
     #     node-version: [18.18.2]
 
     steps:
+    - uses: actions/checkout@v3
     - name: Docker Login
       uses: docker/login-action@v3.0.0
       with:
