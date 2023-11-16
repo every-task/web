@@ -1,10 +1,14 @@
-import {Box, Grid, Typography} from "@mui/material";
+import {Box, Button, Grid, Typography} from "@mui/material";
 import MemberChip from "../common/MemberChip";
 import DateChip from "../common/DateChip";
 import CommentInformation from "../common/CommentInformation";
 import React from "react";
+import {useSelector} from "react-redux";
+import CloseIcon from "@mui/icons-material/Close";
 
 const QuestionComments =({comments}) =>{
+    const memberId = useSelector(state=>state.me.id);
+    console.log(comments);
     return (
         <>
             <Grid item md={12}>
@@ -19,6 +23,14 @@ const QuestionComments =({comments}) =>{
                                     <MemberChip member={comment.member} />
                                     <DateChip date={comment.createdAt} />
                                 </Box>
+                                {comment.member.id===memberId &&
+                                    <Button variant="outlined" size="large" endIcon={<CloseIcon />}>
+                                        글 수정
+                                    </Button>}
+                                {comment.member.id===memberId &&
+                                    <Button variant="outlined" size="large" endIcon={<CloseIcon />}>
+                                        글 삭제
+                                    </Button>}
                             </Grid>
                             <Grid item md={12}>
                                 <CommentInformation comment={comment}></CommentInformation>
