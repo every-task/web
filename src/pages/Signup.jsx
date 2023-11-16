@@ -47,6 +47,25 @@ const Signup = () => {
       profileImageUrl: "default",
     };
 
+    const pattern = /^[A-Za-z0-9_\.\-]+@[A-Za-z0-9\-]+\.[A-za-z0-9\-]+/;
+
+    if (pattern.test(member.email) === false) {
+      alert("올바른 이메일 형식이 아닙니다.");
+      return;
+    }
+    if (member.name.length > 10) {
+      alert("이름은 10글자 이내로 작성 바랍니다.");
+      return;
+    }
+    if (member.nickname.length > 10) {
+      alert("별명은 10글자 이내로 작성 바랍니다.");
+      return;
+    }
+    if (member.password.length < 8) {
+      alert("비밀번호는은 8글자 이상 작성 바랍니다.");
+      return;
+    }
+
     if (
       member.email.includes(" ") ||
       member.password.includes(" ") ||
