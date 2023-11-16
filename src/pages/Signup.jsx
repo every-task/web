@@ -47,6 +47,16 @@ const Signup = () => {
       profileImageUrl: "default",
     };
 
+    if (
+      member.email.includes(" ") ||
+      member.password.includes(" ") ||
+      member.name.includes(" ") ||
+      member.nickname.includes(" ")
+    ) {
+      alert(" 빈 공백은 포함될 수 없습니다.");
+      return;
+    }
+
     try {
       const { data } = await apiNoToken(
         "api/v1/auth/member/signup",
@@ -55,7 +65,8 @@ const Signup = () => {
       );
       nav("/login");
     } catch (err) {
-      console.log(err);
+      alert("이메일이 중복되었습니다.");
+
       // 에러 처리 필요, 이메일 중복처리를 아예 별개로 할지 고민중.
     }
   };
@@ -77,7 +88,6 @@ const Signup = () => {
           <Typography>Sign Up to Get Started</Typography>
           <Box
             component="form"
-            noValidate
             onSubmit={handleSubmit}
             sx={{ mt: 3, alignItems: "center" }}
           >
@@ -85,7 +95,6 @@ const Signup = () => {
               <Grid item xs={12}>
                 <TextField
                   required
-                  noValidate
                   fullWidth
                   id="email"
                   label="Email Address"
@@ -98,7 +107,6 @@ const Signup = () => {
                   autoComplete="Name"
                   name="name"
                   required
-                  noValidate
                   fullWidth
                   id="name"
                   label="name"
@@ -108,7 +116,6 @@ const Signup = () => {
               <Grid item xs={12}>
                 <TextField
                   required
-                  noValidate
                   fullWidth
                   id="nickname"
                   label="nickname"
@@ -121,7 +128,6 @@ const Signup = () => {
                 <TextField
                   required
                   fullWidth
-                  noValidate
                   name="password"
                   label="Password"
                   type="password"

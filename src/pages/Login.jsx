@@ -53,7 +53,7 @@ const Login = () => {
       }
       nav("/");
     } catch (err) {
-      console.log(err);
+      alert(err);
     }
   };
 
@@ -88,7 +88,6 @@ const Login = () => {
             <Box
               component="form"
               onSubmit={(e) => handleSubmit(e, nav)}
-              noValidate
               sx={{ mt: 1, alignItems: "center" }}
             >
               <TextField
