@@ -47,7 +47,7 @@ export const Myheader = () => {
       <Toolbar>
         <Typography
           variant="h5"
-          sx={{ flexGrow: 1, fontWeight: "bold" }}
+          sx={{ flexGrow: 1, fontWeight: "bold", minWidth: 500 }}
           color="primary"
         >
           <Link to="/" color="primary">
@@ -57,7 +57,7 @@ export const Myheader = () => {
           <Button color="text" size="medium" sx={{ ml: 10 }}>
             <Link to="/question">STORY</Link>
           </Button>
-          <Button color="text" size="medium" sx={{ ml: 10 }}>
+          <Button color="text" size="medium" sx={{ ml: 2 }}>
             <Link to="/question">QUESTION</Link>
           </Button>
         </Typography>
