@@ -6,7 +6,7 @@ import StoryTask from "../component/story/StoryTask";
 import StoryComment from "../component/story/StoryComment";
 import { api, apiNoToken } from "../network/api";
 
-const Story = () => {
+const StoryDetails = () => {
   const { id } = useParams();
 
   const [story, setStory] = useState({});
@@ -42,4 +42,4 @@ const Story = () => {
   );
 };
 
-export default Story;
+export default StoryDetails;
