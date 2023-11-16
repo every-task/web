@@ -9,6 +9,7 @@ const CategorySelect = ({ onChangeHandler }) => {
       label="category"
       margin="normal"
       fullWidth
+      required
       onChange={(e) => onChangeHandler(e.target.value)}
     >
       {categorys.map((option) => (

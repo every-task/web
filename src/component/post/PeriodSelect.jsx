@@ -19,6 +19,7 @@ const PeriodSelect = ({ onChange }) => {
       sx={{ mt: 0 }}
       id="outlined-select-currency"
       select
+      required
       label="주기"
       margin="normal"
       fullWidth
