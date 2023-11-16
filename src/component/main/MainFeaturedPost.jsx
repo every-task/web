@@ -45,6 +45,7 @@ const MainFeaturedPost = (props) => {
               position: "relative",
               p: { xs: 3, md: 6 },
               pr: { md: 0 },
+              pt: 10,
             }}
           >
             <Typography
@@ -52,15 +53,13 @@ const MainFeaturedPost = (props) => {
               variant="h3"
               color="inherit"
               gutterBottom
+              mt={4}
             >
               {post.title}
             </Typography>
-            <Typography variant="h5" color="inherit" paragraph>
+            <Typography variant="h5" color="inherit" paragraph mt={4}>
               {post.description}
             </Typography>
-            {/*<Link variant="subtitle1" href="#">*/}
-            {/*    {post.linkText}*/}
-            {/*</Link>*/}
           </Box>
         </Grid>
       </Grid>

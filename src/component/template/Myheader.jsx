@@ -54,7 +54,11 @@ export const Myheader = () => {
             {" "}
             .Task
           </Link>
+          <Button color="text" size="medium" sx={{ ml: 10 }}>
+            <Link to="/question">질문하기</Link>
+          </Button>
         </Typography>
+
         {isLogin ? (
           <>
             <PostMenu />
@@ -62,16 +66,13 @@ export const Myheader = () => {
           </>
         ) : (
           <>
-            <Link to="/login">
-              <Button color="text" size="large">
-                Login
-              </Button>
-            </Link>
-            <Link to="/signup">
-              <Button color="primary" size="large">
-                signup
-              </Button>
-            </Link>
+            <Button color="text" size="large">
+              <Link to="/login">Login</Link>
+            </Button>
+
+            <Button color="primary" size="large">
+              <Link to="/signup">signup</Link>
+            </Button>
           </>
         )}
       </Toolbar>

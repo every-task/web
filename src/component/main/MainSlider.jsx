@@ -18,11 +18,12 @@ const MainSlider = () => {
     pauseOnFocus: true,
   };
 
-  const mainFeaturedPost = {
-    title: "Title of a longer featured blog post",
+  const mainFeaturedPost_1 = {
+    title: "당신의 성공담을 공유해주세요",
     description:
-      "Multiple lines of text that form the lede, informing new readers quickly and efficiently about what's most interesting in this post's contents." +
-      "Multiple lines of text that form the lede, informing new readers quickly and efficiently about what's most interesting in this post's contents.",
+      "불가능한 꿈을 끝내 이룬 이야기." +
+      "끊임없는 노력과 열정으로 어려움을 극복하며 성공에 도달한 용기와 인내는 감동적입니다." +
+      "힘든 시간에도 흔들리지 않은 의지는 영감을 주며, 성취의 소중함을 상기시킵니다.",
     image:
       "https://cdn.pixabay.com/photo/2016/02/11/14/59/background-1193727_1280.png",
     imageText: "image",
@@ -31,8 +32,8 @@ const MainSlider = () => {
 
   return (
     <Slider {...settings}>
-      <MainFeaturedPost post={mainFeaturedPost} />
-      <MainFeaturedPost post={mainFeaturedPost} />
+      <MainFeaturedPost post={mainFeaturedPost_1} />
+      <MainFeaturedPost post={mainFeaturedPost_1} />
     </Slider>
   );
 };
