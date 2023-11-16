@@ -39,7 +39,7 @@ const categorys = [
     label: "상시",
   },
   {
-    value: "MONTHY",
+    value: "MONTHLY",
     label: "월간",
   },
   {
