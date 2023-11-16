@@ -13,36 +13,11 @@ import { useNavigate } from "react-router-dom";
 const StoryPost = () => {
   const editorRef = useRef();
 
-  const [key, setKey] = useState("");
   const [tasks, setTasks] = useState([{ period: "", content: "" }]);
   const [category, setCategory] = useState("");
   const categoryChange = (category) => {
     setCategory(category);
   };
-  const getUploadKey = async () => {
-    const keys = await api("/api/v1/auth/firebase", "GET");
-    setKey(keys);
-
-    // 이 밑은 파일 버튼을 눌렀을때 하면 됨.
-    // const auth = getAuth();
-
-    // signInWithCustomToken(auth, keys)
-    //     .then((userCredential) => {
-    //         // Signed in
-    //         const user = userCredential.user;
-    //         // 추가적으로 할게 없음. 어짜피 기존에 로그인 되어있던 유저의 uuid를 활용하여 키를 발급받아온 것임.
-
-    //     })
-    //     .catch((error) => {
-    //         const errorCode = error.code;
-    //         const errorMessage = error.message;
-    //         // ...
-    //     });
-  };
-
-  useEffect(() => {
-    // getUploadKey();
-  }, []);
 
   const addTask = () => {
     setTasks((prev) => [...prev, {}]);
@@ -101,6 +76,7 @@ const StoryPost = () => {
               label="title"
               name="title"
               autoFocus
+              required
               fullWidth
             />
           </Grid>
@@ -141,6 +117,7 @@ const StoryPost = () => {
                   <Grid item md={10}>
                     <TextField
                       id="content"
+                      required
                       name="content"
                       label="태스크"
                       variant="outlined"
