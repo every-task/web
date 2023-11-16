@@ -4,7 +4,7 @@ import EditIcon from "@mui/icons-material/Edit";
 import {Editor} from "@toast-ui/react-editor";
 import CloseIcon from "@mui/icons-material/Close";
 import * as React from "react";
-import {api} from "../../network/api";
+import {apiNoToken} from "../../network/api";
 import {useRef, useState} from "react";
 
 const QuestionInsertComment =({id}) =>{
@@ -13,7 +13,6 @@ const QuestionInsertComment =({id}) =>{
     const [insertComment, setInsertComment] =useState({
         content:""
     });
-    const token = localStorage.setItem('token',"eyJhbGciOiJIUzI1NiJ9.eyJuaWNrbmFtZSI6IuyCrOyekCIsImlkIjoiY2I0ZDE3MTgtZTQ5Zi00ZmM4LWI0NmUtOGVjNzNmYTQwZjhjIiwicHJvZmlsZUltYWdlVXJsIjoiaHR0cHM6Ly9jZG4ucGl4YWJheS5jb20vcGhvdG8vMjAyMy8wOS8yMS8xOC8xNy9hdXRvbW9iaWxlLTgyNjczNjlfMTI4MC5qcGciLCJlbWFpbCI6IjM0IiwiZXhwIjoxNzAwODA0MzIyfQ.StzTIWgRfV58v_hdP80k29RhbA_dOcye2SrKXu6OYvc")
     const insertCommentStatusHandler =() => {
         setInsertCommentStatus(!insertCommentStatus);
     }
@@ -26,7 +25,7 @@ const QuestionInsertComment =({id}) =>{
             content: content
         };
         console.log(postData);
-        await api(`http://localhost:8082/api/v1/question/comment/${id}`, "POST",postData);
+        await apiNoToken(`/api/v1/question/comment/${id}`, "POST",postData);
     }
     return (
         <>
