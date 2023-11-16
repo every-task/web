@@ -55,7 +55,10 @@ export const Myheader = () => {
             .Task
           </Link>
           <Button color="text" size="medium" sx={{ ml: 10 }}>
-            <Link to="/question">질문하기</Link>
+            <Link to="/question">STORY</Link>
+          </Button>
+          <Button color="text" size="medium" sx={{ ml: 10 }}>
+            <Link to="/question">QUESTION</Link>
           </Button>
         </Typography>
 
