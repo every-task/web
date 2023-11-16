@@ -41,6 +41,7 @@ const MainCard = () => {
                     <Avatar
                       sx={{ bgcolor: red[500] }}
                       aria-label="user"
+                      src={el.member?.profileImageUrl}
                     ></Avatar>
                   }
                   title={el.member?.nickname}
@@ -48,7 +49,7 @@ const MainCard = () => {
                 <CardMedia
                   component="img"
                   height="194"
-                  image={el.member?.profileImageUrl}
+                  image="https://cdn.pixabay.com/photo/2023/09/21/18/17/automobile-8267369_1280.jpg"
                   alt="Paella dish"
                 />
                 <CardContent sx={{ flexGrow: 1 }}>
