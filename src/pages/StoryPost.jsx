@@ -8,6 +8,7 @@ import PeriodSelect from "../component/post/PeriodSelect";
 import CloseIcon from "@mui/icons-material/Close";
 import EditIcon from "@mui/icons-material/Edit";
 import CategorySelect from "../component/common/CategorySelect";
+import { useNavigate } from "react-router-dom";
 
 const StoryPost = () => {
   const editorRef = useRef();
@@ -54,6 +55,7 @@ const StoryPost = () => {
       return updatedTasks;
     });
   };
+  const nav = useNavigate();
 
   const onSubmitHandler = async (e) => {
     e.preventDefault();
@@ -71,6 +73,7 @@ const StoryPost = () => {
 
     try {
       const { data } = await apiNoToken("/api/v1/story", "post", formData);
+      nav("/");
     } catch (err) {
       console.log(err);
     }
@@ -129,7 +132,7 @@ const StoryPost = () => {
             </Button>
           </Grid>
           <Grid item md={12}>
-            <Grid container spacing={1}>
+            <Grid container spacing={2}>
               {tasks.map((task, index) => (
                 <>
                   <Grid item md={2}>
