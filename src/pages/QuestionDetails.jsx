@@ -45,7 +45,7 @@ const QuestionDetails = () => {
         <Grid container sx={{ maxWidth: "800px" }} spacing={2}>
           <QuestionArticle article={article} member={memberData} />
           {commentsStatus === true && <QuestionComments comments={comments} />}
-          {/*<QuestionTasks id={id} />*/}
+          <QuestionTasks id={id} />
           <QuestionInsertComment id={id} />
         </Grid>
       )}

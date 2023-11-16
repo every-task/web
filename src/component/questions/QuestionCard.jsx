@@ -121,9 +121,9 @@ const QuestionCard = () => {
   return (
       <form onSubmit={onSubmitHandler}>
         <div className="input-div">
-          <div className="input-div-divide">
-            <SearchCondition onChangeHandler={changeSearchCondition}/>
-          </div>
+          {/*<div className="input-div-divide">*/}
+          {/*  <SearchCondition onChangeHandler={changeSearchCondition}/>*/}
+          {/*</div>*/}
           <div className="input-div-divide">
             <input
                 className="input-keyword"
