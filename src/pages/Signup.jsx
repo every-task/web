@@ -47,6 +47,35 @@ const Signup = () => {
       profileImageUrl: "default",
     };
 
+    const pattern = /^[A-Za-z0-9_\.\-]+@[A-Za-z0-9\-]+\.[A-za-z0-9\-]+/;
+
+    if (pattern.test(member.email) === false) {
+      alert("올바른 이메일 형식이 아닙니다.");
+      return;
+    }
+    if (member.name.length > 10) {
+      alert("이름은 10글자 이내로 작성 바랍니다.");
+      return;
+    }
+    if (member.nickname.length > 10) {
+      alert("별명은 10글자 이내로 작성 바랍니다.");
+      return;
+    }
+    if (member.password.length < 8) {
+      alert("비밀번호는은 8글자 이상 작성 바랍니다.");
+      return;
+    }
+
+    if (
+      member.email.includes(" ") ||
+      member.password.includes(" ") ||
+      member.name.includes(" ") ||
+      member.nickname.includes(" ")
+    ) {
+      alert(" 빈 공백은 포함될 수 없습니다.");
+      return;
+    }
+
     try {
       const { data } = await apiNoToken(
         "api/v1/auth/member/signup",
@@ -55,7 +84,8 @@ const Signup = () => {
       );
       nav("/login");
     } catch (err) {
-      console.log(err);
+      alert("이메일이 중복되었습니다.");
+
       // 에러 처리 필요, 이메일 중복처리를 아예 별개로 할지 고민중.
     }
   };
@@ -77,7 +107,6 @@ const Signup = () => {
           <Typography>Sign Up to Get Started</Typography>
           <Box
             component="form"
-            noValidate
             onSubmit={handleSubmit}
             sx={{ mt: 3, alignItems: "center" }}
           >
@@ -85,7 +114,6 @@ const Signup = () => {
               <Grid item xs={12}>
                 <TextField
                   required
-                  noValidate
                   fullWidth
                   id="email"
                   label="Email Address"
@@ -98,7 +126,6 @@ const Signup = () => {
                   autoComplete="Name"
                   name="name"
                   required
-                  noValidate
                   fullWidth
                   id="name"
                   label="name"
@@ -108,7 +135,6 @@ const Signup = () => {
               <Grid item xs={12}>
                 <TextField
                   required
-                  noValidate
                   fullWidth
                   id="nickname"
                   label="nickname"
@@ -121,7 +147,6 @@ const Signup = () => {
                 <TextField
                   required
                   fullWidth
-                  noValidate
                   name="password"
                   label="Password"
                   type="password"

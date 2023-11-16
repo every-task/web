@@ -45,6 +45,12 @@ const MyInfo = () => {
     const nickname = data.get("nickname");
     if (!nickname) {
       alert("빈칸을 채워주세요.");
+      return;
+    }
+
+    if (nickname.length > 10) {
+      alert("별명은 10글자 이내로 작성 바랍니다.");
+      return;
     }
 
     let profileImageUrl;
