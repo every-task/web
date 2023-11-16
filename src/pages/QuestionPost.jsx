@@ -35,10 +35,9 @@ const QuestionPost = () => {
       console.log(err);
     }
   };
-  const categorySelect = (e) => {
-    const getCategory = e.target.value;
-    setCategory(getCategory);
-  };
+  const categoryChange=(category)=>{
+      setCategory(category);
+  }
   return (
       <>
         <Box
@@ -52,7 +51,7 @@ const QuestionPost = () => {
         >
           <Grid container sx={{ maxWidth: "800px" }} spacing={2}>
             <Grid item md={3}>
-              <CategorySelect onChange={(e) => categorySelect(e)} />
+              <CategorySelect onChangeHandler={categoryChange}/>
             </Grid>
             <Grid item md={9}>
               <TextField
