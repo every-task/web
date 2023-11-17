@@ -18,16 +18,19 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import { api, apiNoToken } from "../../network/api";
 import SearchCondition from "../common/SearchCondition";
+
 import { categorys } from "../common/Category";
+import ShowQuestionsCard from "./ShowQuestionsCard";
+
 
 const QuestionCard = () => {
-  const nav = useNavigate();
   const [data, setData] = useState([]);
   const [urlq, setUrlq] = useState([]);
   const [nowPage, setNowPage] = useState(0);
   const [size, setSize] = useState(9);
   const [totalPage, setTotalPage] = useState([]);
   const [keyword, setKeyword] = useState([]);
+
   const [searchCondition, setSearchCondition] = useState("latest");
 
   const goToQuestionDetail = (el) => {
@@ -36,8 +39,15 @@ const QuestionCard = () => {
   const goToQuestionPost = () => {
     nav(`/question/post`);
   };
+
+  const [searchCondition, setSearchCondition] = useState();
+
   const onClickHandler = (category) => {
+    if(!urlq.includes(category))
     setUrlq([...urlq, category]);
+    else {
+      setUrlq(urlq.filter(u=>u!==category));
+    }
   };
   useEffect(() => {
     getData();
@@ -55,11 +65,10 @@ const QuestionCard = () => {
         link += `&category=${urlq[i]}`;
       }
     const getData = await apiNoToken(
-      `/api/v1/question/article` +
-        `?page=${nowPage}&size=${size}&orderby=${searchCondition}` +
-        link,
+      `/api/v1/question/article` + `?page=${nowPage}&size=${size}&orderBy=${searchCondition}` + link,
       "GET"
     );
+    console.log(searchCondition);
     setData(getData.data.content);
     setTotalPage(getData.data.totalPages);
   };
@@ -68,7 +77,6 @@ const QuestionCard = () => {
     getDataByQuestion();
   };
   const changePage = (page) => {
-    console.log(page);
     const getPageData = page;
     setNowPage(getPageData);
   };
@@ -89,22 +97,27 @@ const QuestionCard = () => {
     setKeyword(getKeywordData);
   };
   return (
-    <form onSubmit={onSubmitHandler}>
-      <div className="input-div">
-        {/*<div className="input-div-divide">*/}
-        {/*  <SearchCondition onChangeHandler={changeSearchCondition}/>*/}
-        {/*</div>*/}
-        <div className="input-div-divide">
-          <input
-            className="input-keyword"
-            type={"text"}
-            name={"keyword"}
-            placeholder={"입력"}
-            onChange={onChangeHandler}
-          />
-        </div>
-        <div className="input-div-divide">
-          <input className="input-submit" type={"submit"} name={"검색"} />
+      <form onSubmit={onSubmitHandler}>
+        <div className="input-div">
+          <div className="input-div-divide">
+            <SearchCondition onChangeHandler={changeSearchCondition}/>
+          </div>
+          <div className="input-div-divide">
+            <input
+                className="input-keyword"
+                type={"text"}
+                name={"keyword"}
+                placeholder={"입력"}
+                onChange={onChangeHandler}
+            />
+          </div>
+          <div className="input-div-divide">
+            <input
+                className="input-submit"
+                type={"submit"}
+                name={"검색"}
+            />
+          </div>
         </div>
       </div>
       <div className="button-div">
@@ -165,21 +178,20 @@ const QuestionCard = () => {
               </Card>
             </Grid>
           ))}
-        </Grid>
-      </Container>
-      <Box
-        sx={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-        }}
-      >
-        <Pagination
-          count={totalPage}
-          onChange={(event, page) => changePage(page)}
-        />
-      </Box>
-    </form>
+
+        </div>
+        <ShowQuestionsCard data={data} />
+
+        <Box
+            sx={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+        >
+          <Pagination count={totalPage} onChange={(event, page) => changePage(page)} />
+        </Box>
+      </form>
   );
 };
 export default QuestionCard;
