@@ -1,11 +1,16 @@
 import {
-  Avatar, Box, Button,
+  Avatar,
+  Box,
+  Button,
   Card,
   CardContent,
   CardHeader,
   CardMedia,
   Container,
-  Grid, IconButton, Pagination, TextField,
+  Grid,
+  IconButton,
+  Pagination,
+  TextField,
   Typography,
 } from "@mui/material";
 import { red } from "@mui/material/colors";
@@ -13,7 +18,10 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import { api, apiNoToken } from "../../network/api";
 import SearchCondition from "../common/SearchCondition";
+
+import { categorys } from "../common/Category";
 import ShowQuestionsCard from "./ShowQuestionsCard";
+
 
 const QuestionCard = () => {
   const [data, setData] = useState([]);
@@ -22,46 +30,18 @@ const QuestionCard = () => {
   const [size, setSize] = useState(9);
   const [totalPage, setTotalPage] = useState([]);
   const [keyword, setKeyword] = useState([]);
+
+  const [searchCondition, setSearchCondition] = useState("latest");
+
+  const goToQuestionDetail = (el) => {
+    nav(`/question/${el.id}`);
+  };
+  const goToQuestionPost = () => {
+    nav(`/question/post`);
+  };
+
   const [searchCondition, setSearchCondition] = useState();
-  const imgList = [
-    "https://cdn-icons-png.flaticon.com/128/1683/1683155.png",
-    "https://cdn-icons-png.flaticon.com/128/6350/6350271.png",
-    "https://cdn-icons-png.flaticon.com/128/4647/4647153.png",
-    "https://cdn-icons-png.flaticon.com/128/2640/2640788.png",
-    "https://cdn-icons-png.flaticon.com/128/3302/3302647.png",
-    "https://cdn-icons-png.flaticon.com/128/2017/2017334.png",
-    "https://cdn-icons-png.flaticon.com/128/3898/3898082.png"
-  ];
-  const categoryList = [
-    {
-      value: "HEALTH",
-      label: "건강",
-    },
-    {
-      value: "TRAVEL",
-      label: "여행",
-    },
-    {
-      value: "ART",
-      label: "예술",
-    },
-    {
-      value: "RELATIONSHIP",
-      label: "인간관계",
-    },
-    {
-      value: "EMPLOYMENT",
-      label: "취업",
-    },
-    {
-      value: "STRESS",
-      label: "정신건강",
-    },
-    {
-      value: "LANGUAGE",
-      label: "언어",
-    },
-  ];
+
   const onClickHandler = (category) => {
     if(!urlq.includes(category))
     setUrlq([...urlq, category]);
@@ -75,9 +55,9 @@ const QuestionCard = () => {
   useEffect(() => {
     getData();
   }, [nowPage]);
-  useEffect(()=>{
+  useEffect(() => {
     getData();
-  },[searchCondition]);
+  }, [searchCondition]);
   const getData = async () => {
     let link = "";
     if (keyword != null)
@@ -101,9 +81,9 @@ const QuestionCard = () => {
     setNowPage(getPageData);
   };
 
-  const changeSearchCondition =(condition) => {
+  const changeSearchCondition = (condition) => {
     setSearchCondition(condition);
-  }
+  };
   const getDataByQuestion = async () => {
     const getData = await apiNoToken(
       `/api/v1/question/article` +
@@ -139,19 +119,66 @@ const QuestionCard = () => {
             />
           </div>
         </div>
-        <div className="button-div">
-          {categoryList.map((category, idx) => (
-              <button className="button-detail"
-                      onClick={() => onClickHandler(category.value)}
-                      type="button"
+      </div>
+      <div className="button-div">
+        {categorys.map((category, idx) => (
+          <button
+            className="button-detail"
+            onClick={() => onClickHandler(category.value)}
+            type="button"
+          >
+            <img src={category.src} width="100" height="auto" />
+            <Typography gutterBottom variant="h5" component="h2">
+              {category.label}
+            </Typography>
+          </button>
+        ))}
+      </div>
+      <Container sx={{ py: 8 }}>
+        <Grid container spacing={4}>
+          {data.map((el, index) => (
+            <Grid
+              item
+              key={index}
+              onClick={() => {
+                goToQuestionDetail(el);
+              }}
+              md={4}
+            >
+              <Card
+                sx={{
+                  height: "100%",
+                  display: "flex",
+                  flexDirection: "column",
+                }}
               >
-                <img src={imgList[idx]}
-                     width="100" height="auto"/>
-                <Typography gutterBottom variant="h5" component="h2">
-                  {category.label}
-                </Typography>
-              </button>
+                <CardHeader
+                  avatar={
+                    <Avatar
+                      sx={{ bgcolor: red[500] }}
+                      aria-label="user"
+                    ></Avatar>
+                  }
+                  title={el.member.nickname}
+                />
+                <CardMedia
+                  component="img"
+                  height="194"
+                  image="https://cdn.pixabay.com/photo/2023/09/21/18/17/automobile-8267369_1280.jpg"
+                  alt="Paella dish"
+                />
+                <CardContent sx={{ flexGrow: 1 }}>
+                  <Typography gutterBottom variant="h5" component="h2">
+                    {el.title}
+                  </Typography>
+                  <Typography overflow="hidden" textOverflow="ellipsis">
+                    {el.content}
+                  </Typography>
+                </CardContent>
+              </Card>
+            </Grid>
           ))}
+
         </div>
         <ShowQuestionsCard data={data} />
 
