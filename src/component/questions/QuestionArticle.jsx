@@ -1,11 +1,11 @@
 import React, {useEffect, useState} from "react";
 import {api} from "../../network/api";
-import {Chip, Grid, Typography} from "@mui/material";
+import {Box, Chip, Grid, Typography} from "@mui/material";
 import MemberChip from "../common/MemberChip";
 import DateChip from "../common/DateChip";
-import {Viewer} from "@toast-ui/react-editor";
 
-const QuestionArticle =({article,member}) => {
+
+const QuestionArticle =({article}) => {
     return (
         <>
             <Grid item md={12}>
@@ -17,16 +17,15 @@ const QuestionArticle =({article,member}) => {
                 </Typography>
             </Grid>
             <Grid item md={12}>
-                <MemberChip member={member} />
-                <DateChip date={article.createdAt} />
+                <Box sx={{ display: "flex", justifyContent: "space-between" }}>
+                    <MemberChip member={article?.member} />
+                    <DateChip date={article?.createdAt} />
+                </Box>
             </Grid>
             <Grid item md={12}>
                 <Typography variant="h5" sx={{ flexGrow: 1, fontWeight: "bold" }}>
                     {article.content}
                 </Typography>
-                {/*<Viewer*/}
-                {/*    {article.content}*/}
-                {/*/>*/}
             </Grid>
         </>
     );
