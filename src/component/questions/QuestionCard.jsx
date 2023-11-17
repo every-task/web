@@ -22,7 +22,6 @@ import SearchCondition from "../common/SearchCondition";
 import { categorys } from "../common/Category";
 import ShowQuestionsCard from "./ShowQuestionsCard";
 
-
 const QuestionCard = () => {
   const [data, setData] = useState([]);
   const [urlq, setUrlq] = useState([]);
@@ -30,6 +29,8 @@ const QuestionCard = () => {
   const [size, setSize] = useState(9);
   const [totalPage, setTotalPage] = useState([]);
   const [keyword, setKeyword] = useState([]);
+
+  const nav = useNavigate();
 
   const [searchCondition, setSearchCondition] = useState("latest");
 
@@ -40,13 +41,10 @@ const QuestionCard = () => {
     nav(`/question/post`);
   };
 
-  const [searchCondition, setSearchCondition] = useState();
-
   const onClickHandler = (category) => {
-    if(!urlq.includes(category))
-    setUrlq([...urlq, category]);
+    if (!urlq.includes(category)) setUrlq([...urlq, category]);
     else {
-      setUrlq(urlq.filter(u=>u!==category));
+      setUrlq(urlq.filter((u) => u !== category));
     }
   };
   useEffect(() => {
@@ -65,7 +63,9 @@ const QuestionCard = () => {
         link += `&category=${urlq[i]}`;
       }
     const getData = await apiNoToken(
-      `/api/v1/question/article` + `?page=${nowPage}&size=${size}&orderBy=${searchCondition}` + link,
+      `/api/v1/question/article` +
+        `?page=${nowPage}&size=${size}&orderBy=${searchCondition}` +
+        link,
       "GET"
     );
     console.log(searchCondition);
@@ -97,27 +97,22 @@ const QuestionCard = () => {
     setKeyword(getKeywordData);
   };
   return (
-      <form onSubmit={onSubmitHandler}>
-        <div className="input-div">
-          <div className="input-div-divide">
-            <SearchCondition onChangeHandler={changeSearchCondition}/>
-          </div>
-          <div className="input-div-divide">
-            <input
-                className="input-keyword"
-                type={"text"}
-                name={"keyword"}
-                placeholder={"입력"}
-                onChange={onChangeHandler}
-            />
-          </div>
-          <div className="input-div-divide">
-            <input
-                className="input-submit"
-                type={"submit"}
-                name={"검색"}
-            />
-          </div>
+    <form onSubmit={onSubmitHandler}>
+      <div className="input-div">
+        <div className="input-div-divide">
+          <SearchCondition onChangeHandler={changeSearchCondition} />
+        </div>
+        <div className="input-div-divide">
+          <input
+            className="input-keyword"
+            type={"text"}
+            name={"keyword"}
+            placeholder={"입력"}
+            onChange={onChangeHandler}
+          />
+        </div>
+        <div className="input-div-divide">
+          <input className="input-submit" type={"submit"} name={"검색"} />
         </div>
       </div>
       <div className="button-div">
@@ -178,20 +173,23 @@ const QuestionCard = () => {
               </Card>
             </Grid>
           ))}
+        </Grid>
+      </Container>
+      <ShowQuestionsCard data={data} />
 
-        </div>
-        <ShowQuestionsCard data={data} />
-
-        <Box
-            sx={{
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-            }}
-        >
-          <Pagination count={totalPage} onChange={(event, page) => changePage(page)} />
-        </Box>
-      </form>
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        <Pagination
+          count={totalPage}
+          onChange={(event, page) => changePage(page)}
+        />
+      </Box>
+    </form>
   );
 };
 export default QuestionCard;
