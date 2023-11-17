@@ -8,26 +8,84 @@ import {
   Chip,
   Container,
   Grid,
+  IconButton,
   Typography,
 } from "@mui/material";
 import { red } from "@mui/material/colors";
 import { apiNoToken } from "../../network/api";
 import "@toast-ui/editor/dist/toastui-editor-viewer.css";
 import { Link } from "react-router-dom";
+import { categorys } from "../common/Category";
 
 const MainCard = () => {
   const [data, setData] = useState([]);
+
+  const [mainCategory, setMainCategory] = useState(
+    categorys.map((el) => {
+      return { isChecked: false, ...el };
+    })
+  );
+
+  const [test1, setTest1] = useState(0);
+
   const getData = async () => {
-    const { data } = await apiNoToken(`/api/v1/story`, "GET");
+    let link = "";
+
+    for (let i = 0; i < mainCategory.length; i++) {
+      if (mainCategory[i].isChecked) {
+        link += `&category=${mainCategory[i].value}`;
+      }
+    }
+    const { data } = await apiNoToken(`/api/v1/story?` + link, "GET");
     setData(data.content);
-    console.log(data.content);
   };
+
   useEffect(() => {
     getData();
-  }, []);
+  }, [mainCategory]);
+
+  const onSelectHandler = (idx) => {
+    setMainCategory(
+      mainCategory.map((el, index) => {
+        if (index === idx) {
+          return { ...el, isChecked: !el.isChecked };
+        } else {
+          return el;
+        }
+      })
+    );
+  };
   return (
     <Container sx={{ py: 8 }}>
       {/* End hero unit */}
+      <Grid
+        container
+        spacing={2}
+        sx={{ justifyContent: "center", minWidth: 500 }}
+        mb={4}
+      >
+        {mainCategory.map((category, idx) => (
+          <Grid item>
+            <IconButton
+              sx={{ flexDirection: "column" }}
+              onClick={() => onSelectHandler(idx)}
+            >
+              <img src={category.src} width="100" height="auto" />
+              <Typography
+                gutterBottom
+                variant="h5"
+                component="h2"
+                sx={{
+                  color: `${category.isChecked ? "primary.main" : "text.main"}`,
+                  fontWeight: `${category.isChecked ? "bold" : ""}`,
+                }}
+              >
+                #{category.label}
+              </Typography>
+            </IconButton>
+          </Grid>
+        ))}
+      </Grid>
       <Grid container spacing={4}>
         {data &&
           data.map((el, index) => (
