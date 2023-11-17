@@ -1,4 +1,4 @@
-import {Avatar, Card, CardContent, CardHeader, CardMedia, Container, Grid, Typography} from "@mui/material";
+import {Avatar, Card, CardContent, CardHeader, CardMedia, Chip, Container, Grid, Typography} from "@mui/material";
 import {red} from "@mui/material/colors";
 import React from "react";
 import {useNavigate} from "react-router";
@@ -32,9 +32,17 @@ const ShowQuestionsCard =({data}) => {
                                     <Avatar
                                         sx={{ bgcolor: red[500] }}
                                         aria-label="user"
+                                        src={el.member?.profileImageUrl}
                                     ></Avatar>
                                 }
-                                title={el.member.nickname}
+                                title={el.member?.nickname}
+                                action={
+                                    <Chip
+                                        label={el?.category}
+                                        color="primary"
+                                        variant="outlined"
+                                    />
+                                }
                             />
                             <CardMedia
                                 component="img"
