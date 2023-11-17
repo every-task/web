@@ -13,7 +13,6 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import { red } from "@mui/material/colors";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import { api, apiNoToken } from "../../network/api";
@@ -24,57 +23,50 @@ import ShowQuestionsCard from "./ShowQuestionsCard";
 
 const QuestionCard = () => {
   const [data, setData] = useState([]);
-  const [urlq, setUrlq] = useState([]);
+  const [categoryList, setCategoryList] = useState([]);
   const [nowPage, setNowPage] = useState(0);
-  const [size, setSize] = useState(9);
   const [totalPage, setTotalPage] = useState([]);
   const [keyword, setKeyword] = useState([]);
-
   const nav = useNavigate();
-
   const [searchCondition, setSearchCondition] = useState("latest");
 
-  const goToQuestionDetail = (el) => {
-    nav(`/question/${el.id}`);
-  };
-  const goToQuestionPost = () => {
-    nav(`/question/post`);
-  };
-
   const onClickHandler = (category) => {
-    if (!urlq.includes(category)) setUrlq([...urlq, category]);
+    if (!categoryList.includes(category)) setCategoryList([...categoryList, category]);
     else {
-      setUrlq(urlq.filter((u) => u !== category));
+      setCategoryList(categoryList.filter((u) => u !== category));
     }
   };
+  const checkTheCategoryClicked =(category) => {
+    if (!categoryList.includes(category)) {
+      return false;
+    }
+    else {
+      return true;
+    }
+  }
   useEffect(() => {
     getData();
-  }, [urlq]);
-  useEffect(() => {
-    getData();
-  }, [nowPage]);
-  useEffect(() => {
-    getData();
-  }, [searchCondition]);
+  }, [categoryList,nowPage,searchCondition]);
   const getData = async () => {
     let link = "";
-    if (keyword != null)
-      for (let i = 0; i < urlq.length; i++) {
-        link += `&category=${urlq[i]}`;
-      }
+    for (let i = 0; i < categoryList.length; i++) {
+      link += `&category=${categoryList[i]}`;
+    }
+    link += `&orderBy=${searchCondition}`;
+    if (keyword != null) {
+      link += `&keyword=${keyword}`
+    }
     const getData = await apiNoToken(
-      `/api/v1/question/article` +
-        `?page=${nowPage}&size=${size}&orderBy=${searchCondition}` +
+      `/api/v1/question/article?page=${nowPage}` +
         link,
       "GET"
     );
-    console.log(searchCondition);
     setData(getData.data.content);
     setTotalPage(getData.data.totalPages);
   };
   const onSubmitHandler = (e) => {
     e.preventDefault();
-    getDataByQuestion();
+    getData();
   };
   const changePage = (page) => {
     const getPageData = page;
@@ -84,15 +76,7 @@ const QuestionCard = () => {
   const changeSearchCondition = (condition) => {
     setSearchCondition(condition);
   };
-  const getDataByQuestion = async () => {
-    const getData = await apiNoToken(
-      `/api/v1/question/article` +
-        `?page=${nowPage}&size=${size}&keyword=${keyword}`,
-      "GET"
-    );
-    setData(getData.data.content);
-  };
-  const onChangeHandler = (e) => {
+  const onKeywordChangeHandler = (e) => {
     const getKeywordData = e.target.value;
     setKeyword(getKeywordData);
   };
@@ -108,7 +92,7 @@ const QuestionCard = () => {
             type={"text"}
             name={"keyword"}
             placeholder={"입력"}
-            onChange={onChangeHandler}
+            onChange={onKeywordChangeHandler}
           />
         </div>
         <div className="input-div-divide">
@@ -123,8 +107,16 @@ const QuestionCard = () => {
             type="button"
           >
             <img src={category.src} width="100" height="auto" />
-            <Typography gutterBottom variant="h5" component="h2">
-              {category.label}
+            <Typography
+                gutterBottom
+                variant="h5"
+                component="h2"
+                sx={{
+                  color: `${checkTheCategoryClicked(category)===true ? "primary.main" : "text.main"}`,
+                  fontWeight: `${checkTheCategoryClicked(category)===true ? "bold" : ""}`
+                }}
+            >
+              #{category.label}
             </Typography>
           </button>
         ))}

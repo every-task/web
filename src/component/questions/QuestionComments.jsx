@@ -8,7 +8,6 @@ import CloseIcon from "@mui/icons-material/Close";
 
 const QuestionComments =({comments}) =>{
     const memberId = useSelector(state=>state.me.id);
-    console.log(comments);
     return (
         <>
             <Grid item md={12}>

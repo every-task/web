@@ -10,9 +10,6 @@ import {useRef, useState} from "react";
 const QuestionInsertComment =({id}) =>{
     const editorRef = useRef();
     const [insertCommentStatus, setInsertCommentStatus] = useState(false)
-    const [insertComment, setInsertComment] =useState({
-        content:""
-    });
     const insertCommentStatusHandler =() => {
         setInsertCommentStatus(!insertCommentStatus);
     }
@@ -24,7 +21,6 @@ const QuestionInsertComment =({id}) =>{
         const postData = {
             content: content
         };
-        console.log(postData);
         await apiNoToken(`/api/v1/question/comment/${id}`, "POST",postData);
     }
     return (
