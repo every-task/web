@@ -129,52 +129,6 @@ const QuestionCard = () => {
           </button>
         ))}
       </div>
-      <Container sx={{ py: 8 }}>
-        <Grid container spacing={4}>
-          {data.map((el, index) => (
-            <Grid
-              item
-              key={index}
-              onClick={() => {
-                goToQuestionDetail(el);
-              }}
-              md={4}
-            >
-              <Card
-                sx={{
-                  height: "100%",
-                  display: "flex",
-                  flexDirection: "column",
-                }}
-              >
-                <CardHeader
-                  avatar={
-                    <Avatar
-                      sx={{ bgcolor: red[500] }}
-                      aria-label="user"
-                    ></Avatar>
-                  }
-                  title={el.member.nickname}
-                />
-                <CardMedia
-                  component="img"
-                  height="194"
-                  image="https://cdn.pixabay.com/photo/2023/09/21/18/17/automobile-8267369_1280.jpg"
-                  alt="Paella dish"
-                />
-                <CardContent sx={{ flexGrow: 1 }}>
-                  <Typography gutterBottom variant="h5" component="h2">
-                    {el.title}
-                  </Typography>
-                  <Typography overflow="hidden" textOverflow="ellipsis">
-                    {el.content}
-                  </Typography>
-                </CardContent>
-              </Card>
-            </Grid>
-          ))}
-        </Grid>
-      </Container>
       <ShowQuestionsCard data={data} />
 
       <Box
