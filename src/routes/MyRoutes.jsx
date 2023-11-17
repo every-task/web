@@ -10,6 +10,9 @@ import QuestionDetail from "../component/questions/QuestionDetail";
 import MyInfo from "../pages/MyInfo";
 import QuestionPost from "../pages/QuestionPost";
 import QuestionDetails from "../component/questions/QuestionDetails";
+import MentorList from "../pages/MentorList";
+import MenteeList from "../pages/MenteeList";
+
 
 const MyRoutes = () => {
   return (
@@ -25,6 +28,8 @@ const MyRoutes = () => {
           <Route path="/question" element={<Question />}></Route>
           <Route path="/question/:id" element={<QuestionDetails />}></Route>
           <Route path="/question/post" element={<QuestionPost />}></Route>
+          <Route path="/mentoring/mentor" element={<MentorList />}></Route>
+          <Route path="/mentoring/mentee" element={<MenteeList />}></Route>
         </Route>
       </Routes>
     </BrowserRouter>
