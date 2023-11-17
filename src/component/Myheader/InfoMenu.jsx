@@ -25,14 +25,6 @@ const InfoMenu = () => {
     setAnchorEl(null);
     nav("/question");
   };
-  const toMentorHandler = () => {
-    setAnchorEl(null);
-    nav("/mentoring/mentor")
-  }
-  const toMenteeHandler = () => {
-    setAnchorEl(null);
-    nav("/mentoring/mentee")
-  }
 
   const toLogoutHandler = async () => {
     axios.defaults.headers.common["Authorization"] = "";
@@ -63,8 +55,8 @@ const InfoMenu = () => {
         }}
       >
         <MenuItem onClick={toInfoHandler}> 설정 </MenuItem>
-        <MenuItem onClick={toMentorHandler}>내 멘토 </MenuItem>
-        <MenuItem onClick={toMenteeHandler}>내 멘티 </MenuItem>
+        <MenuItem onClick={toQuestionHandler}>내 멘토 </MenuItem>
+        <MenuItem onClick={toQuestionHandler}>내 멘티 </MenuItem>
         <MenuItem onClick={toLogoutHandler}>로그아웃 </MenuItem>
       </Menu>
     </>
