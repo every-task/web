@@ -40,16 +40,16 @@ const categorys = [
     label: "상시",
   },
   {
-    value: "MONTHLY",
-    label: "월간",
+    value: "DAILY",
+    label: "일간",
   },
   {
     value: "WEEKLY",
     label: "주간",
   },
   {
-    value: "DAILY",
-    label: "일간",
+    value: "MONTHLY",
+    label: "월간",
   },
 ];
 
