@@ -37,7 +37,7 @@ const Signup = () => {
         }
 
         try {
-            const { data } = await apiNoToken('api/v1/auth/member/signup', 'POST', member)
+            const { data } = await apiNoToken('http://localhost:8081/api/v1/member/signup', 'POST', member)
             nav('/login')
 
         } catch (err) {
