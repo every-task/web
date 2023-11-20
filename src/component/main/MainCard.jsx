@@ -1,14 +1,23 @@
 import React, { useEffect, useState } from "react";
 import {
   Avatar,
+  Box,
+  Button,
   Card,
   CardContent,
   CardHeader,
   CardMedia,
   Chip,
   Container,
+  FormControl,
   Grid,
   IconButton,
+  InputLabel,
+  MenuItem,
+  OutlinedInput,
+  Pagination,
+  Select,
+  TextField,
   Typography,
 } from "@mui/material";
 import { red } from "@mui/material/colors";
@@ -16,37 +25,57 @@ import { apiNoToken } from "../../network/api";
 import "@toast-ui/editor/dist/toastui-editor-viewer.css";
 import { Link } from "react-router-dom";
 import { categorys } from "../common/Category";
+import SearchIcon from "@mui/icons-material/Search";
+import axios from "axios";
 
 const MainCard = () => {
   const [data, setData] = useState([]);
 
-  const [mainCategory, setMainCategory] = useState(
+  const [mainCategorys, setMainCategorys] = useState(
     categorys.map((el) => {
       return { isChecked: false, ...el };
     })
   );
 
-  const [test1, setTest1] = useState(0);
+  const [createAtAsc, setCreateAtAsc] = useState();
 
-  const getData = async () => {
+  const [detail, setDetail] = useState();
+
+  const [nowPage, setNowPage] = useState(0);
+  const [totalPage, setTotalPage] = useState();
+
+  const getData = async (e) => {
     let link = "";
 
-    for (let i = 0; i < mainCategory.length; i++) {
-      if (mainCategory[i].isChecked) {
-        link += `&category=${mainCategory[i].value}`;
+    for (let category = 0; category < mainCategorys.length; category++) {
+      if (mainCategorys[category].isChecked) {
+        link += `&category=${mainCategorys[category].value}`;
       }
+    }
+
+    if (detail) {
+      link += `&content=${detail}&title=${detail}`;
+    }
+    if (createAtAsc) {
+      link += `&createAtAsc=${createAtAsc}`;
+    }
+
+    if (nowPage) {
+      link += `&page=${nowPage}`;
     }
     const { data } = await apiNoToken(`/api/v1/story?` + link, "GET");
     setData(data.content);
+
+    setTotalPage(data.totalPages);
   };
 
   useEffect(() => {
     getData();
-  }, [mainCategory]);
+  }, [mainCategorys, nowPage]);
 
   const onSelectHandler = (idx) => {
-    setMainCategory(
-      mainCategory.map((el, index) => {
+    setMainCategorys(
+      mainCategorys.map((el, index) => {
         if (index === idx) {
           return { ...el, isChecked: !el.isChecked };
         } else {
@@ -55,22 +84,79 @@ const MainCard = () => {
       })
     );
   };
+
+  const onCreateAtAscHandler = (e) => {
+    setCreateAtAsc(e.target.value);
+  };
+
+  const onDetailHandler = (e) => {
+    setDetail(e.target.value);
+  };
+
+  const onSearchHandler = () => {
+    getData();
+  };
+
+  const changePage = (page) => {
+    const getPageData = page - 1;
+    setNowPage(getPageData);
+  };
   return (
     <Container sx={{ py: 8 }}>
       {/* End hero unit */}
       <Grid
         container
-        spacing={2}
-        sx={{ justifyContent: "center", minWidth: 500 }}
-        mb={4}
+        sx={{ justifyContent: "center", alignItems: "center" }}
+        spacing={1}
       >
-        {mainCategory.map((category, idx) => (
+        <Grid item md={1.5}>
+          <FormControl fullWidth>
+            <InputLabel id="createAtAsc">정렬</InputLabel>
+            <Select
+              labelId="createAtAsc"
+              id="createAtAsc"
+              value={createAtAsc}
+              label="정렬"
+              onChange={onCreateAtAscHandler}
+            >
+              <MenuItem value="true">최신순</MenuItem>
+              <MenuItem value="false">과거순</MenuItem>
+            </Select>
+          </FormControl>
+        </Grid>
+        <Grid item md={9}>
+          <OutlinedInput
+            margin="normal"
+            id="Search"
+            name="Search"
+            fullWidth
+            onBlur={onDetailHandler}
+          />
+        </Grid>
+        <Grid item md={1}>
+          <Button
+            variant="contained"
+            sx={{ height: 55 }}
+            onClick={onSearchHandler}
+            id="search"
+          >
+            <SearchIcon />
+          </Button>
+        </Grid>
+      </Grid>
+      <Grid
+        container
+        spacing={4}
+        sx={{ justifyContent: "center", minWidth: 500 }}
+        mt={3}
+      >
+        {mainCategorys.map((category, idx) => (
           <Grid item>
             <IconButton
               sx={{ flexDirection: "column" }}
               onClick={() => onSelectHandler(idx)}
             >
-              <img src={category.src} width="100" height="auto" />
+              <img src={category.src} width="70" height="auto" />
               <Typography
                 gutterBottom
                 variant="h5"
@@ -86,7 +172,7 @@ const MainCard = () => {
           </Grid>
         ))}
       </Grid>
-      <Grid container spacing={4}>
+      <Grid container spacing={4} mt={4}>
         {data &&
           data.map((el, index) => (
             <Grid item key={index} md={4}>
@@ -131,6 +217,18 @@ const MainCard = () => {
             </Grid>
           ))}
       </Grid>
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        <Pagination
+          count={totalPage}
+          onChange={(event, page) => changePage(page)}
+        />
+      </Box>
     </Container>
   );
 };
