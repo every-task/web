@@ -1,6 +1,7 @@
 import React from "react";
-import { Input } from "@mui/material";
+import { IconButton, Input, InputAdornment } from "@mui/material";
 import { useSelector } from "react-redux";
+import DeleteIcon from "@mui/icons-material/Delete";
 
 const CommentInformation = ({ comment }) => {
   const id = useSelector((state) => state.me.id);
@@ -12,7 +13,15 @@ const CommentInformation = ({ comment }) => {
       margin="normal"
       readOnly
       fullWidth
-      endAdornment={id === comment?.id && "mine"}
+      endAdornment={
+        id === comment?.member.id && (
+          <InputAdornment position="end">
+            <IconButton aria-label="delete">
+              <DeleteIcon />
+            </IconButton>
+          </InputAdornment>
+        )
+      }
     />
   );
 };
