@@ -1,17 +1,30 @@
 import React from "react";
-import { TextField } from "@mui/material";
+import { IconButton, Input, InputAdornment } from "@mui/material";
+import { useSelector } from "react-redux";
+import DeleteIcon from "@mui/icons-material/Delete";
+import { apiNoToken } from "../../network/api";
+import { useParams } from "react-router-dom";
 
-const CommentInformation = ({ comment }) => {
+const CommentInformation = ({ comment, onDeleteHandler }) => {
+  const id = useSelector((state) => state.me.id);
+
   return (
-    <TextField
+    <Input
       id="filled-basic"
       defaultValue={comment.content}
       variant="standard"
       margin="normal"
-      InputProps={{
-        readOnly: true,
-      }}
+      readOnly
       fullWidth
+      endAdornment={
+        id === comment?.member.id && (
+          <InputAdornment position="end">
+            <IconButton aria-label="delete" onClick={() => onDeleteHandler(id)}>
+              <DeleteIcon />
+            </IconButton>
+          </InputAdornment>
+        )
+      }
     />
   );
 };

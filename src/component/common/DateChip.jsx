@@ -11,7 +11,7 @@ const DateChip = ({ date }) => {
     if(date)
     {
       const year =date.substring(0,4);
-      const month =date.substring(5,7)-1;
+      const month =date.substring(5,7) -1;
       const day =date.substring(8,10);
       const hour =date.substring(11,13);
       const minute=date.substring(14,16);
@@ -19,7 +19,8 @@ const DateChip = ({ date }) => {
       const getServerDate = new Date(year,month,day,hour,minute,second);
       const serverTime = getServerDate.getTime();
       const nowDate = new Date();
-      const nowTime = nowDate.getTime();
+      const countryOffset = 1000*60*60*9;
+      const nowTime = nowDate.getTime()-countryOffset;
       const diff = ((nowTime-serverTime)/1000);
       const result = Math.floor((diff/60));
       if(result<1)
@@ -48,7 +49,7 @@ const DateChip = ({ date }) => {
         var returnData ="";
         returnData +=year;
         returnData +=".";
-        returnData +=month;
+        returnData +=(month+1);
         returnData +=".";
         returnData +=day;
         setDataConvert(returnData);

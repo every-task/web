@@ -37,6 +37,8 @@ const MainCard = () => {
 
   const [createAtAsc, setCreateAtAsc] = useState();
 
+  const [coin, setCoin] = useState(true);
+
   const [detail, setDetail] = useState();
 
   const [nowPage, setNowPage] = useState(0);
@@ -69,8 +71,7 @@ const MainCard = () => {
 
   useEffect(() => {
     getData();
-  }, [mainCategorise, nowPage]);
-
+  }, [mainCategorise, nowPage, coin]);
   const onSelectHandler = (idx) => {
     setMainCategorise(
       mainCategorise.map((el, index) => {
@@ -81,6 +82,7 @@ const MainCard = () => {
         }
       })
     );
+    setNowPage(0);
   };
 
   const onCreateAtAscHandler = (e) => {
@@ -92,7 +94,10 @@ const MainCard = () => {
   };
 
   const onSearchHandler = () => {
-    getData();
+    if (detail) {
+      setNowPage(0);
+      setCoin(!coin);
+    }
   };
 
   const changePage = (page) => {
@@ -226,6 +231,7 @@ const MainCard = () => {
         <Pagination
           count={totalPage}
           onChange={(event, page) => changePage(page)}
+          page={nowPage + 1}
         />
       </Box>
     </Container>

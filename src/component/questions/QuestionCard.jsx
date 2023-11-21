@@ -5,11 +5,11 @@ import {
   Card,
   CardContent,
   CardHeader,
-  CardMedia,
-  Container,
+  CardMedia, Chip,
+  Container, FormControl,
   Grid,
-  IconButton,
-  Pagination,
+  IconButton, InputLabel, MenuItem, OutlinedInput,
+  Pagination, Select,
   TextField,
   Typography,
 } from "@mui/material";
@@ -17,10 +17,11 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import { api, apiNoToken } from "../../network/api";
 import SearchCondition from "../common/SearchCondition";
-
-import { categorise } from "../common/Category";
+import { categorys } from "../common/Category";
 import ShowQuestionsCard from "./ShowQuestionsCard";
-
+import SearchIcon from "@mui/icons-material/Search";
+import {Link} from "react-router-dom";
+import {red} from "@mui/material/colors";
 const QuestionCard = () => {
   const [data, setData] = useState([]);
   const [categoryList, setCategoryList] = useState([]);
@@ -28,25 +29,36 @@ const QuestionCard = () => {
   const [totalPage, setTotalPage] = useState([]);
   const [keyword, setKeyword] = useState([]);
   const nav = useNavigate();
+  const [coin, setCoin] = useState(true);
   const [searchCondition, setSearchCondition] = useState("latest");
-
-  const onClickHandler = (category) => {
+  const [mainCategorys, setMainCategorys] = useState(
+      categorys.map((el) => {
+        return { isChecked: false, ...el };
+      })
+  );
+  const onCoinHandler = ()=>{
+    setNowPage(0)
+    setCoin(!coin);
+  }
+  const onClickHandler = (category,idx) => {
     if (!categoryList.includes(category)) setCategoryList([...categoryList, category]);
     else {
       setCategoryList(categoryList.filter((u) => u !== category));
     }
+    setMainCategorys(
+        mainCategorys.map((el, index) => {
+          if (index === idx) {
+            return { ...el, isChecked: !el.isChecked };
+          } else {
+            return el;
+          }
+        })
+    );
+    setNowPage(0)
   };
-  const checkTheCategoryClicked =(category) => {
-    if (!categoryList.includes(category)) {
-      return false;
-    }
-    else {
-      return true;
-    }
-  }
   useEffect(() => {
     getData();
-  }, [categoryList,nowPage,searchCondition]);
+  }, [categoryList,nowPage,coin]);
   const getData = async () => {
     let link = "";
     for (let i = 0; i < categoryList.length; i++) {
@@ -64,15 +76,10 @@ const QuestionCard = () => {
     setData(getData.data.content);
     setTotalPage(getData.data.totalPages);
   };
-  const onSubmitHandler = (e) => {
-    e.preventDefault();
-    getData();
-  };
   const changePage = (page) => {
-    const getPageData = page;
+    const getPageData = page - 1
     setNowPage(getPageData);
   };
-
   const changeSearchCondition = (condition) => {
     setSearchCondition(condition);
   };
@@ -81,61 +88,78 @@ const QuestionCard = () => {
     setKeyword(getKeywordData);
   };
   return (
-    <form onSubmit={onSubmitHandler}>
-      <div className="input-div">
-        <div className="input-div-divide">
-          <SearchCondition onChangeHandler={changeSearchCondition} />
-        </div>
-        <div className="input-div-divide">
-          <input
-            className="input-keyword"
-            type={"text"}
-            name={"keyword"}
-            placeholder={"입력"}
-            onChange={onKeywordChangeHandler}
-          />
-        </div>
-        <div className="input-div-divide">
-          <input className="input-submit" type={"submit"} name={"검색"} />
-        </div>
-      </div>
-      <div className="button-div">
-        {categorise.map((category, idx) => (
-          <button
-            className="button-detail"
-            onClick={() => onClickHandler(category.value)}
-            type="button"
-          >
-            <img src={category.src} width="100" height="auto" />
-            <Typography
-                gutterBottom
-                variant="h5"
-                component="h2"
-                sx={{
-                  color: `${checkTheCategoryClicked(category)===true ? "primary.main" : "text.main"}`,
-                  fontWeight: `${checkTheCategoryClicked(category)===true ? "bold" : ""}`
-                }}
+      <Container sx={{ py: 8 }}>
+        <Grid
+            container
+            sx={{ justifyContent: "center", alignItems: "center" }}
+            spacing={1}
+        >
+          <Grid item md={1.5}>
+            <SearchCondition onChangeHandler={changeSearchCondition} />
+          </Grid>
+          <Grid item md={9}>
+            <OutlinedInput
+                margin="normal"
+                name="keyword"
+                placeholder="입력"
+                fullWidth
+                onBlur={onKeywordChangeHandler}
+            />
+          </Grid>
+          <Grid item md={1}>
+            <Button
+                variant="contained"
+                sx={{ height: 55 }}
+                onClick={onCoinHandler}
+                name='Search'
             >
-              #{category.label}
-            </Typography>
-          </button>
-        ))}
-      </div>
-      <ShowQuestionsCard data={data} />
-
-      <Box
-        sx={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-        }}
-      >
-        <Pagination
-          count={totalPage}
-          onChange={(event, page) => changePage(page)}
-        />
-      </Box>
-    </form>
+              <SearchIcon />
+            </Button>
+          </Grid>
+        </Grid>
+        <Grid
+            container
+            spacing={4}
+            sx={{ justifyContent: "center", minWidth: 500 }}
+            mt={3}
+        >
+          {mainCategorys.map((category, idx) => (
+              <Grid item>
+                <IconButton
+                    sx={{ flexDirection: "column" }}
+                    onClick={() => onClickHandler(category.value,idx)}
+                >
+                  <img src={category.src} width="70" height="auto" />
+                  <Typography
+                      gutterBottom
+                      variant="h5"
+                      component="h2"
+                      sx={{
+                        color: `${category.isChecked ? "primary.main" : "text.main"}`,
+                        fontWeight: `${category.isChecked ? "bold" : ""}`,
+                      }}
+                  >
+                    #{category.label}
+                  </Typography>
+                </IconButton>
+              </Grid>
+          ))}
+        </Grid>
+          <ShowQuestionsCard data={data} />
+        <Box
+            sx={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+        >
+          <Pagination
+              count={totalPage}
+              onChange={(event, page) => changePage(page)}
+              page={nowPage+1}
+          />
+        </Box>
+      </Container>
   );
 };
 export default QuestionCard;

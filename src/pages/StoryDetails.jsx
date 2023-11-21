@@ -5,15 +5,16 @@ import StoryArticle from "../component/story/StoryArticle";
 import StoryTask from "../component/story/StoryTask";
 import StoryComment from "../component/story/StoryComment";
 import { api, apiNoToken } from "../network/api";
+import StoryInsertComment from "../component/story/StoryInsertComment";
 
 const StoryDetails = () => {
   const { id } = useParams();
 
   const [story, setStory] = useState({});
 
-  const getStoryById = async () => {
+  const getStoryById = async (getId) => {
     try {
-      const { data } = await apiNoToken(`/api/v1/story/${id}`, "GET", {});
+      const { data } = await apiNoToken(`/api/v1/story/${getId}`, "GET", {});
       setStory(data);
     } catch (e) {
       console.log(e);
@@ -21,7 +22,7 @@ const StoryDetails = () => {
   };
 
   useEffect(() => {
-    getStoryById();
+    getStoryById(id);
   }, []);
 
   return (
@@ -36,7 +37,8 @@ const StoryDetails = () => {
       <Grid container sx={{ maxWidth: "800px" }} spacing={2}>
         <StoryArticle story={story} />
         <StoryTask id={id} />
-        <StoryComment comments={story?.comments} />
+        <StoryComment comments={story?.comments} id={id} />
+        <StoryInsertComment id={id} getStoryById={getStoryById} />
       </Grid>
     </Box>
   );
