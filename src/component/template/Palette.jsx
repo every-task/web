@@ -1,5 +1,5 @@
-import {alpha, createTheme, getContrastRatio} from '@mui/material/styles';
-import {grey, indigo} from '@mui/material/colors';
+import { alpha, createTheme, getContrastRatio } from '@mui/material/styles';
+import { grey, indigo } from '@mui/material/colors';
 
 
 const blueBase = indigo.A700;
@@ -42,23 +42,28 @@ export const MyCustomTheme = createTheme({
 
     }
   },
-  typography:{
-    poster:{
-      fontFamily:'Nanum Gothic',
+  typography: {
+    poster: {
+      fontFamily: 'Nanum Gothic',
       fontSize: '3rem',
       fontWeight: 700,
-      lineHeight:'5rem'
+      lineHeight: '5rem'
     },
-    content:{
-      fontFamily:'Nanum Gothic',
+    content: {
+      fontFamily: 'Nanum Gothic',
       fontSize: '1.5rem',
-      lineHeight:'2.5rem'
+      lineHeight: '2.5rem'
     },
-    category:{
-      fontFamily:'Nanum Gothic',
+    category: {
+      fontFamily: 'Nanum Gothic',
       fontSize: '1.5rem',
-      lineHeight:'2.5rem',
+      lineHeight: '2.5rem',
       fontWeight: 500
+    }
+  },
+  card: {
+    noOutline: {
+      bold: 'none'
     }
   }
 });

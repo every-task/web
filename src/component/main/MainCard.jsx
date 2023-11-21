@@ -1,9 +1,10 @@
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import {
   Avatar,
   Box,
   Button,
   Card,
+  CardActionArea,
   CardContent,
   CardHeader,
   CardMedia,
@@ -19,18 +20,18 @@ import {
   Select,
   Typography,
 } from "@mui/material";
-import {red} from "@mui/material/colors";
-import {apiNoToken} from "../../network/api";
+import { red } from "@mui/material/colors";
+import { apiNoToken } from "../../network/api";
 import "@toast-ui/editor/dist/toastui-editor-viewer.css";
-import {Link} from "react-router-dom";
-import {categorise} from "../common/Category";
+import { Link, useNavigate } from "react-router-dom";
+import { categorise } from "../common/Category";
 import SearchIcon from "@mui/icons-material/Search";
 
 const MainCard = () => {
   const [data, setData] = useState([]);
 
   const [mainCategorise, setMainCategorise] = useState(
-      categorise.map((el) => {
+    categorise.map((el) => {
       return { isChecked: false, ...el };
     })
   );
@@ -40,6 +41,14 @@ const MainCard = () => {
   const [coin, setCoin] = useState(true);
 
   const [detail, setDetail] = useState();
+
+
+  const [searchCondition, setSearchCondition] = useState({
+    createAtAsc: '',
+    detail: '',
+    coin: '',
+  })
+  // 시간나면 사용할 예정
 
   const [nowPage, setNowPage] = useState(0);
   const [totalPage, setTotalPage] = useState();
@@ -104,6 +113,13 @@ const MainCard = () => {
     const getPageData = page - 1;
     setNowPage(getPageData);
   };
+
+  const nav = useNavigate()
+  const onClickHandler = (id) => {
+    nav(`/story/${id}`)
+
+  }
+
   return (
     <Container sx={{ py: 8 }}>
       {/* End hero unit */}
@@ -179,14 +195,15 @@ const MainCard = () => {
         {data &&
           data.map((el, index) => (
             <Grid item key={index} md={4}>
-              <Link to={`/story/${el.id}`}>
-                <Card
-                  sx={{
-                    height: "100%",
-                    display: "flex",
-                    flexDirection: "column",
-                  }}
-                >
+
+              <Card
+                sx={{
+                  height: "100%",
+                  display: "flex",
+                  flexDirection: "column",
+                }}
+              >
+                <CardActionArea onClick={() => onClickHandler(el.id)}>
                   <CardHeader
                     avatar={
                       <Avatar
@@ -215,8 +232,9 @@ const MainCard = () => {
                       {el.title}
                     </Typography>
                   </CardContent>
-                </Card>
-              </Link>
+                </CardActionArea>
+              </Card>
+
             </Grid>
           ))}
       </Grid>
