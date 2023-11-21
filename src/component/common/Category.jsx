@@ -1,4 +1,4 @@
-export const categorys = [
+export const categorise = [
   {
     value: "HEALTH",
     label: "건강",

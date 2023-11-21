@@ -26,7 +26,7 @@ const PeriodSelect = ({ onChange }) => {
       name="period"
       onChange={(e) => onChange(e)}
     >
-      {categorys.map((option) => (
+      {categorise.map((option) => (
         <MenuItem key={option.value} value={option.value}>
           {option.label}
         </MenuItem>
@@ -34,7 +34,7 @@ const PeriodSelect = ({ onChange }) => {
     </TextField>
   );
 };
-const categorys = [
+const categorise = [
   {
     value: "ALWAYS",
     label: "상시",

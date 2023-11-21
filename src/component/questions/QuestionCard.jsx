@@ -18,7 +18,7 @@ import { useNavigate } from "react-router";
 import { api, apiNoToken } from "../../network/api";
 import SearchCondition from "../common/SearchCondition";
 
-import { categorys } from "../common/Category";
+import { categorise } from "../common/Category";
 import ShowQuestionsCard from "./ShowQuestionsCard";
 
 const QuestionCard = () => {
@@ -100,7 +100,7 @@ const QuestionCard = () => {
         </div>
       </div>
       <div className="button-div">
-        {categorys.map((category, idx) => (
+        {categorise.map((category, idx) => (
           <button
             className="button-detail"
             onClick={() => onClickHandler(category.value)}

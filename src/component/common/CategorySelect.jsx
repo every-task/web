@@ -1,6 +1,6 @@
 import React from "react";
-import { MenuItem, TextField } from "@mui/material";
-import { categorys } from "./Category";
+import {MenuItem, TextField, Typography} from "@mui/material";
+import { categorise } from "./Category";
 
 const CategorySelect = ({ onChangeHandler }) => {
   return (
@@ -13,9 +13,11 @@ const CategorySelect = ({ onChangeHandler }) => {
       required
       onChange={(e) => onChangeHandler(e.target.value)}
     >
-      {categorys.map((option) => (
+      {categorise.map((option) => (
         <MenuItem key={option.value} value={option.value}>
-          {option.label}
+          <Typography variant='category' >
+           {option.label}
+          </Typography>
         </MenuItem>
       ))}
     </TextField>
