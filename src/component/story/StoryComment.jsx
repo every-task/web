@@ -4,8 +4,9 @@ import MemberChip from "../common/MemberChip";
 import DateChip from "../common/DateChip";
 import CommentInformation from "../common/CommentInformation";
 
-const StoryComment = ({ comments }) => {
+const StoryComment = ({ comments, sid }) => {
   const onDeleteHandler = (id) => {
+    console.log(sid);
     console.log(id);
   };
   return (
