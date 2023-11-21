@@ -13,8 +13,8 @@ const QuestionDetails = () => {
   const [comments, setComments] = useState({});
   const [memberData, setMemberData] = useState({});
   const [commentsStatus, setCommentsStatus] = useState(false);
-  const getQuestionDetail = async () => {
-    const getData = await apiNoToken(`/api/v1/question/article/${id}`, "GET");
+  const getQuestionDetail = async (getId) => {
+    const getData = await apiNoToken(`/api/v1/question/article/${getId}`, "GET");
     setArticle(getData.data);
     setMemberData(getData.data.member);
     if (getData.data.comments != null) {
@@ -23,7 +23,7 @@ const QuestionDetails = () => {
     }
   };
   useEffect(() => {
-    getQuestionDetail();
+    getQuestionDetail(id);
   }, []);
   return (
     <Box
@@ -39,7 +39,7 @@ const QuestionDetails = () => {
           <QuestionArticle article={article}/>
           <QuestionTasks id={id} />
           {commentsStatus === true && <QuestionComments comments={comments} />}
-          <QuestionInsertComment id={id} />
+          <QuestionInsertComment id={id} getQuestionDetail={getQuestionDetail} />
         </Grid>
       )}
     </Box>
