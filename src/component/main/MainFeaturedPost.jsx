@@ -50,14 +50,14 @@ const MainFeaturedPost = (props) => {
           >
             <Typography
               component="h1"
-              variant="h3"
+              variant="poster"
               color="inherit"
               gutterBottom
               mt={4}
             >
               {post.title}
             </Typography>
-            <Typography variant="h5" color="inherit" paragraph mt={4}>
+            <Typography variant="content" color="inherit" paragraph mt={4}>
               {post.description}
             </Typography>
           </Box>

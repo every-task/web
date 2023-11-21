@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, {useEffect, useState} from "react";
 import {
   Avatar,
   Box,
@@ -17,22 +17,20 @@ import {
   OutlinedInput,
   Pagination,
   Select,
-  TextField,
   Typography,
 } from "@mui/material";
-import { red } from "@mui/material/colors";
-import { apiNoToken } from "../../network/api";
+import {red} from "@mui/material/colors";
+import {apiNoToken} from "../../network/api";
 import "@toast-ui/editor/dist/toastui-editor-viewer.css";
-import { Link } from "react-router-dom";
-import { categorys } from "../common/Category";
+import {Link} from "react-router-dom";
+import {categorise} from "../common/Category";
 import SearchIcon from "@mui/icons-material/Search";
-import axios from "axios";
 
 const MainCard = () => {
   const [data, setData] = useState([]);
 
-  const [mainCategorys, setMainCategorys] = useState(
-    categorys.map((el) => {
+  const [mainCategorise, setMainCategorise] = useState(
+      categorise.map((el) => {
       return { isChecked: false, ...el };
     })
   );
@@ -49,9 +47,9 @@ const MainCard = () => {
   const getData = async (e) => {
     let link = "";
 
-    for (let category = 0; category < mainCategorys.length; category++) {
-      if (mainCategorys[category].isChecked) {
-        link += `&category=${mainCategorys[category].value}`;
+    for (let category = 0; category < mainCategorise.length; category++) {
+      if (mainCategorise[category].isChecked) {
+        link += `&category=${mainCategorise[category].value}`;
       }
     }
 
@@ -73,11 +71,10 @@ const MainCard = () => {
 
   useEffect(() => {
     getData();
-  }, [mainCategorys, nowPage, coin]);
-
+  }, [mainCategorise, nowPage, coin]);
   const onSelectHandler = (idx) => {
-    setMainCategorys(
-      mainCategorys.map((el, index) => {
+    setMainCategorise(
+      mainCategorise.map((el, index) => {
         if (index === idx) {
           return { ...el, isChecked: !el.isChecked };
         } else {
@@ -156,7 +153,7 @@ const MainCard = () => {
         sx={{ justifyContent: "center", minWidth: 500 }}
         mt={3}
       >
-        {mainCategorys.map((category, idx) => (
+        {mainCategorise.map((category, idx) => (
           <Grid item>
             <IconButton
               sx={{ flexDirection: "column" }}
@@ -165,7 +162,7 @@ const MainCard = () => {
               <img src={category.src} width="70" height="auto" />
               <Typography
                 gutterBottom
-                variant="h5"
+                variant="category"
                 component="h2"
                 sx={{
                   color: `${category.isChecked ? "primary.main" : "text.main"}`,

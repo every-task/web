@@ -17,13 +17,11 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import { api, apiNoToken } from "../../network/api";
 import SearchCondition from "../common/SearchCondition";
-
 import { categorys } from "../common/Category";
 import ShowQuestionsCard from "./ShowQuestionsCard";
 import SearchIcon from "@mui/icons-material/Search";
 import {Link} from "react-router-dom";
 import {red} from "@mui/material/colors";
-
 const QuestionCard = () => {
   const [data, setData] = useState([]);
   const [categoryList, setCategoryList] = useState([]);
@@ -38,7 +36,6 @@ const QuestionCard = () => {
         return { isChecked: false, ...el };
       })
   );
-
   const onCoinHandler = ()=>{
     setNowPage(0)
     setCoin(!coin);
@@ -83,7 +80,6 @@ const QuestionCard = () => {
     const getPageData = page - 1
     setNowPage(getPageData);
   };
-
   const changeSearchCondition = (condition) => {
     setSearchCondition(condition);
   };
@@ -149,7 +145,6 @@ const QuestionCard = () => {
               </Grid>
           ))}
         </Grid>
-
           <ShowQuestionsCard data={data} />
         <Box
             sx={{
@@ -165,7 +160,6 @@ const QuestionCard = () => {
           />
         </Box>
       </Container>
-
   );
 };
 export default QuestionCard;
