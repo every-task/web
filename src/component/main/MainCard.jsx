@@ -223,6 +223,7 @@ const MainCard = () => {
           justifyContent: "center",
           alignItems: "center",
         }}
+        mt={3}
       >
         <Pagination
           count={totalPage}
