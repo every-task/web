@@ -1,4 +1,4 @@
-import {Avatar, Button, Fab, Grid} from "@mui/material";
+import {Avatar, Button, Fab, FormControl, Grid, Input, InputLabel} from "@mui/material";
 import Box from "@mui/material/Box";
 import EditIcon from "@mui/icons-material/Edit";
 import {Editor} from "@toast-ui/react-editor";
@@ -6,87 +6,59 @@ import CloseIcon from "@mui/icons-material/Close";
 import * as React from "react";
 import {apiNoToken} from "../../network/api";
 import {useRef, useState} from "react";
+import {useSelector} from "react-redux";
+import CheckIcon from "@mui/icons-material/Check";
 
-const QuestionInsertComment =({id}) =>{
-    const editorRef = useRef();
-    const [insertCommentStatus, setInsertCommentStatus] = useState(false)
-    const insertCommentStatusHandler =() => {
-        setInsertCommentStatus(!insertCommentStatus);
-    }
-    const onSubmitHandler = async (e)=>{
-        e.preventDefault();
-        const form = new FormData(e.currentTarget);
-        const editorInstance = editorRef.current.getInstance();
-        const content = editorInstance.getMarkdown();
-        const postData = {
-            content: content
-        };
-        await apiNoToken(`/api/v1/question/comment/${id}`, "POST",postData);
-    }
+const QuestionInsertComment =({id,getQuestionDetail}) =>{
+    const { isLogin } = useSelector((state) => state.me);
+
+    const [comment, setComment] = useState();
+
+    const onWriteHandler = async () => {
+        try {
+            const { data } = await apiNoToken(
+                `/api/v1/question/comment/${id}`,
+                "POST",
+                comment
+            ).then(() => [getQuestionDetail(id)]);
+        } catch (err) {
+            alert(err);
+        }
+    };
+
+    const onCommentHandler = (e) => {
+        const { name, value } = e.target;
+
+        setComment({ [name]: value });
+    };
+
     return (
         <>
-            <Grid item md={12}>
-                <Box sx={{ '& > :not(style)': { m: 1 },
-                    display: "flex",
-                    justifyContent: "right",
-                    alignItems: "center"}}>
-                    <Fab variant="outlined" onClick={insertCommentStatusHandler} color="secondary" aria-label="edit">
-                        <EditIcon />
-                    </Fab>
-                </Box>
-            </Grid>
-            {insertCommentStatus === true &&
-                <Grid item md={12} sx={{ maxWidth: "1000px" }} >
-                    <Box sx={{
-                        display: "flex",
-                        justifyContent: "center",
-                        alignItems: "center"}}>
-                        <Editor
-                            previewStyle="vertical"
-                            height="200px"
-                            initialEditType="wysiwyg"
-                            usageStatistics={false}
-                            hideModeSwitch={true}
-                            ref={editorRef}
-                        ></Editor>
-
-                    </Box>
+            {isLogin && (
+                <>
+                    <Grid item md={12}>
+                        <FormControl fullWidth variant="standard">
+                            <InputLabel htmlFor="content">Comment</InputLabel>
+                            <Input id="content" name="content" onBlur={onCommentHandler} />
+                        </FormControl>
+                    </Grid>
                     <Grid
                         item
                         md={12}
-                        sx={{
-                            display: "flex",
-                            justifyContent: "flex-end",
-                        }}
-                        spacing={5}
+                        sx={{ display: "flex", justifyContent: "flex-end" }}
                     >
-                        <Box
-                            sx={{
-                                display: "flex",
-                                justifyContent: "center",
-                                alignItems: "center",
-                            }}
-                            component="form"
-                            onSubmit={onSubmitHandler}
+                        <Button
+                            variant="text"
+                            sx={{ fontWeight: "bold" }}
+                            size="large"
+                            endIcon={<CheckIcon />}
+                            onClick={onWriteHandler}
                         >
-                            <Button
-                                type="submit"
-                                variant="outlined"
-                                size="large"
-                                endIcon={<EditIcon />}
-                            >
-                                작성
-                            </Button>
-                            <Button onClick={insertCommentStatusHandler} variant="outlined" size="large" endIcon={<CloseIcon />}>
-                                취소
-                            </Button>
-                        </Box>
-
+                            작성
+                        </Button>
                     </Grid>
-                </Grid>
-            }
-
-
+                </>
+            )}
         </>
     )
 
