@@ -11,7 +11,7 @@ const StoryComment = ({ comments }) => {
         <Typography variant="h5">Comment</Typography>
       </Grid>
       <Grid item md={12}>
-        <Grid container spacing={1}>
+        <Grid container spacing={2}>
           {comments?.map((comment, index) => (
             <>
               <Grid item md={12}>

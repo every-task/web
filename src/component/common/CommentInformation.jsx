@@ -1,9 +1,9 @@
 import React from "react";
-import { TextField } from "@mui/material";
+import { OutlinedInput, TextField } from "@mui/material";
 
 const CommentInformation = ({ comment }) => {
   return (
-    <TextField
+    <OutlinedInput
       id="filled-basic"
       defaultValue={comment.content}
       variant="standard"
