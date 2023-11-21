@@ -1,4 +1,4 @@
-import {MenuItem, TextField} from "@mui/material";
+import {FormControl, InputLabel, MenuItem, OutlinedInput, Select, TextField} from "@mui/material";
 import React from "react";
 
 const SearchCondition =({ onChangeHandler }) => {
@@ -9,7 +9,7 @@ const SearchCondition =({ onChangeHandler }) => {
         },
         {
             value: "manyComments",
-            label: "답글 많은 순",
+            label: "답글순",
         },
         {
             value: "manyViews",
@@ -17,10 +17,12 @@ const SearchCondition =({ onChangeHandler }) => {
         }
     ];
     return (
-        <TextField
+        <FormControl fullWidth>
+        <InputLabel id="outlined-select-currency">정렬</InputLabel>
+        <Select
             id="outlined-select-currency"
             select
-            label="searchCondition"
+            label="정렬"
             margin="normal"
             fullWidth
             onChange={(e) => onChangeHandler(e.target.value)}
@@ -30,7 +32,8 @@ const SearchCondition =({ onChangeHandler }) => {
                     {condition.label}
                 </MenuItem>
             ))}
-        </TextField>
+        </Select>
+        </FormControl>
     );
 }
 export default SearchCondition;
