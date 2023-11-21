@@ -12,7 +12,7 @@ const StoryInsertComment = ({ id, getStoryById }) => {
   const onWriteHandler = async () => {
     try {
       const { data } = await apiNoToken(
-        `/api/story/articles/${id}/comment`,
+        `/api/v1/story/articles/${id}/comment`,
         "POST",
         comment
       ).then(() => [getStoryById(id)]);
