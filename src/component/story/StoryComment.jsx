@@ -5,6 +5,9 @@ import DateChip from "../common/DateChip";
 import CommentInformation from "../common/CommentInformation";
 
 const StoryComment = ({ comments }) => {
+  const onDeleteHandler = (id) => {
+    console.log(id);
+  };
   return (
     <>
       <Grid item md={12}>
@@ -33,8 +36,11 @@ const StoryComment = ({ comments }) => {
                   <DateChip date={comment.createdAt} />
                 </Box>
               </Grid>
-              <Grid ml={2} md={12}>
-                <CommentInformation comment={comment}></CommentInformation>
+              <Grid ml={2} mt={1} md={12}>
+                <CommentInformation
+                  comment={comment}
+                  onDeleteHandler={onDeleteHandler}
+                ></CommentInformation>
               </Grid>
             </>
           ))}
