@@ -19,7 +19,7 @@ const CommentInformation = ({ comment, onDeleteHandler }) => {
       endAdornment={
         id === comment?.member.id && (
           <InputAdornment position="end">
-            <IconButton aria-label="delete" onClick={onDeleteHandler(id)}>
+            <IconButton aria-label="delete" onClick={() => onDeleteHandler(id)}>
               <DeleteIcon />
             </IconButton>
           </InputAdornment>
