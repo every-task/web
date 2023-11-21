@@ -20,7 +20,7 @@ const DateChip = ({ date }) => {
       const serverTime = getServerDate.getTime();
       const nowDate = new Date();
       const countryOffset = 1000*60*60*9;
-      const nowTime = nowDate.getTime()+countryOffset;
+      const nowTime = nowDate.getTime()-countryOffset;
       const diff = ((nowTime-serverTime)/1000);
       const result = Math.floor((diff/60));
       if(result<1)
