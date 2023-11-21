@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Box, Grid, Typography } from "@mui/material";
+import { Avatar, Box, Grid, Typography } from "@mui/material";
 import MemberChip from "../common/MemberChip";
 import DateChip from "../common/DateChip";
 import CommentInformation from "../common/CommentInformation";
@@ -16,11 +16,24 @@ const StoryComment = ({ comments }) => {
             <>
               <Grid item md={12}>
                 <Box sx={{ display: "flex", justifyContent: "space-between" }}>
-                  <MemberChip member={comment.member} />
+                  <Box
+                    sx={{
+                      display: "flex",
+                      flexDirection: "row",
+                      gap: 1,
+                      alignItems: "center",
+                    }}
+                  >
+                    <Avatar
+                      src={comment?.member?.profileImageUrl}
+                      sx={{ width: 24, height: 24 }}
+                    />
+                    {comment.member.nickname}
+                  </Box>
                   <DateChip date={comment.createdAt} />
                 </Box>
               </Grid>
-              <Grid item md={12}>
+              <Grid ml={2} md={12}>
                 <CommentInformation comment={comment}></CommentInformation>
               </Grid>
             </>
