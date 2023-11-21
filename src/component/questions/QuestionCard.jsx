@@ -31,6 +31,7 @@ const QuestionCard = () => {
   const [totalPage, setTotalPage] = useState([]);
   const [keyword, setKeyword] = useState([]);
   const nav = useNavigate();
+  const [coin, setCoin] = useState(true);
   const [searchCondition, setSearchCondition] = useState("latest");
   const [mainCategorys, setMainCategorys] = useState(
       categorys.map((el) => {
