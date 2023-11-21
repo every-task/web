@@ -2,12 +2,13 @@ import React, {useEffect, useState} from "react";
 import { Chip } from "@mui/material";
 
 const DateChip = ({ date }) => {
+
+  const [dateConvert, setDataConvert] =useState();
   useEffect(() => {
-    changeDateConvert(date);
-  }, []);
-  const [dateConvert, setDataConvert] =useState([]);
+      changeDateConvert(date);
+  }, [date]);
   const changeDateConvert =(date) =>{
-    if(typeof(date)!="undefined")
+    if(date)
     {
       const year =date.substring(0,4);
       const month =date.substring(5,7)-1;
@@ -54,7 +55,7 @@ const DateChip = ({ date }) => {
       }
     }
   }
-  return <Chip label={dateConvert} variant="outlined" />;
+  return <>{dateConvert && <Chip label={dateConvert} variant="outlined" />}</>
 };
 
 export default DateChip;
