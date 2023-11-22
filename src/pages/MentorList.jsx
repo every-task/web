@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Avatar, IconButton, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from "@mui/material";
 import { red } from "@mui/material/colors";
-import DeleteIcon from '@mui/icons-material/Delete';
+import SendIcon from '@mui/icons-material/Send';
 import { apiNoToken } from "../network/api";
 
 const MentorList = ({ onDelete }) => {
@@ -44,7 +44,7 @@ const MentorList = ({ onDelete }) => {
                             <TableCell>프로필 이미지</TableCell>
                             <TableCell>닉네임</TableCell>
                             <TableCell>상태</TableCell>
-                            <TableCell>내역 삭제</TableCell>
+                            <TableCell>쪽지 보내기</TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
@@ -62,9 +62,8 @@ const MentorList = ({ onDelete }) => {
                                     {mentor.status === 'REJECTED' && '거절'}
                                 </TableCell>
                                 <TableCell>
-
-                                    <IconButton onClick={() => onDelete(mentor.id)}>
-                                        <DeleteIcon />
+                                    <IconButton>
+                                        <SendIcon />
                                     </IconButton>
                                 </TableCell>
                             </TableRow>
