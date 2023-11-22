@@ -225,7 +225,7 @@ const StoryCard = () => {
                     alt="Paella dish"
                   />
                   <CardContent sx={{ flexGrow: 1 }}>
-                    <Typography gutterBottom variant="h5" component="h2">
+                    <Typography gutterBottom variant="h5" component="h2" noWrap>
                       {el.title}
                     </Typography>
                   </CardContent>
