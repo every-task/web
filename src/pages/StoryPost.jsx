@@ -15,7 +15,7 @@ import { useSelector } from "react-redux";
 const StoryPost = () => {
   const editorRef = useRef();
 
-  const loginUser = useSelector((state) => state.me.value);
+  const loginUser = useSelector((state) => state.me);
 
   const [tasks, setTasks] = useState([{ period: "", content: "" }]);
   const [category, setCategory] = useState("");
