@@ -7,10 +7,12 @@ import {useSelector} from "react-redux";
 import CloseIcon from "@mui/icons-material/Close";
 import {apiNoToken} from "../../network/api";
 
-const QuestionComments =({comments}) =>{
+const QuestionComments =({comments,questionId,getQuestionDetail}) =>{
     const memberId = useSelector(state=>state.me.id);
-    const onDeleteHandler = (id) => {
-        apiNoToken(`/api/v1/question/comment/${id}`,"DELETE");
+    const onDeleteHandler = (id,qId) => {
+        apiNoToken(`/api/v1/question/comment/${id}`,"DELETE").then(()=>{
+            getQuestionDetail(qId);
+        });
     };
 
     return (
@@ -45,6 +47,7 @@ const QuestionComments =({comments}) =>{
                                 <CommentInformation
                                     comment={comment}
                                     onDeleteHandler={onDeleteHandler}
+                                    id={questionId}
                                 ></CommentInformation>
                             </Grid>
                         </>
