@@ -5,12 +5,13 @@ import DateChip from "../common/DateChip";
 import CommentInformation from "../common/CommentInformation";
 import { apiNoToken } from "../../network/api";
 
-const StoryComment = ({ comments, getStoryById }) => {
-  const onDeleteHandler = async (id, postId) => {
-    console.log(postId);
-    await apiNoToken(`/api/v1/story/comments/${id}`, "DELETE").then(() => {
-      getStoryById(postId);
-    });
+const StoryComment = ({ comments, getStoryById, id }) => {
+  const onDeleteHandler = async (commentId, postId) => {
+    await apiNoToken(`/api/v1/story/comments/${commentId}`, "DELETE").then(
+      () => {
+        getStoryById(postId);
+      }
+    );
   };
   return (
     <>
@@ -44,7 +45,8 @@ const StoryComment = ({ comments, getStoryById }) => {
                 <CommentInformation
                   comment={comment}
                   onDeleteHandler={onDeleteHandler}
-                ></CommentInformation>
+                  id={id}
+                />
               </Grid>
             </>
           ))}
