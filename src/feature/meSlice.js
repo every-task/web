@@ -17,9 +17,9 @@ export const meSlice = createSlice({
       state.nickname = payload.nickname;
       state.email = payload.email;
       state.profileImageUrl = payload.profileImageUrl;
-    },
-    setLogin: (state, { payload }) => {
       state.isLogin = true;
+    },
+    setProfile: (state, { payload }) => {
       state.profileImageUrl = payload.profileImageUrl;
     },
     setLogout: (state) => {
@@ -29,9 +29,13 @@ export const meSlice = createSlice({
       state.profileImageUrl = "";
       state.isLogin = false;
     },
+    setLogin: (state, { payload }) => {
+      state.profileImageUrl = payload.profileImageUrl;
+      state.isLogin = true;
+    },
   },
 });
 
-export const { setMe, setLogin, setLogout } = meSlice.actions;
+export const { setMe, setProfile, setLogout, setLogin } = meSlice.actions;
 
 export default meSlice.reducer;
