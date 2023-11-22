@@ -37,7 +37,11 @@ const StoryDetails = () => {
       <Grid container sx={{ maxWidth: "800px" }} spacing={2}>
         <StoryArticle story={story} />
         <StoryTask id={id} />
-        <StoryComment comments={story?.comments} id={id} />
+        <StoryComment
+          comments={story?.comments}
+          id={id}
+          getStoryById={getStoryById}
+        />
         <StoryInsertComment id={id} getStoryById={getStoryById} />
       </Grid>
     </Box>

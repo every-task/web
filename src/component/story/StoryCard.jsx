@@ -27,7 +27,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { categorise } from "../common/Category";
 import SearchIcon from "@mui/icons-material/Search";
 
-const MainCard = () => {
+const StoryCard = () => {
   const [data, setData] = useState([]);
 
   const [mainCategorise, setMainCategorise] = useState(
@@ -42,12 +42,11 @@ const MainCard = () => {
 
   const [detail, setDetail] = useState();
 
-
   const [searchCondition, setSearchCondition] = useState({
-    createAtAsc: '',
-    detail: '',
-    coin: '',
-  })
+    createAtAsc: "",
+    detail: "",
+    coin: "",
+  });
   // 시간나면 사용할 예정
 
   const [nowPage, setNowPage] = useState(0);
@@ -114,11 +113,10 @@ const MainCard = () => {
     setNowPage(getPageData);
   };
 
-  const nav = useNavigate()
+  const nav = useNavigate();
   const onClickHandler = (id) => {
-    nav(`/story/${id}`)
-
-  }
+    nav(`/story/${id}`);
+  };
 
   return (
     <Container sx={{ py: 8 }}>
@@ -195,7 +193,6 @@ const MainCard = () => {
         {data &&
           data.map((el, index) => (
             <Grid item key={index} md={4}>
-
               <Card
                 sx={{
                   height: "100%",
@@ -234,7 +231,6 @@ const MainCard = () => {
                   </CardContent>
                 </CardActionArea>
               </Card>
-
             </Grid>
           ))}
       </Grid>
@@ -256,4 +252,4 @@ const MainCard = () => {
   );
 };
 
-export default MainCard;
+export default StoryCard;

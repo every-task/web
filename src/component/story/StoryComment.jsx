@@ -3,11 +3,14 @@ import { Avatar, Box, Grid, Typography } from "@mui/material";
 import MemberChip from "../common/MemberChip";
 import DateChip from "../common/DateChip";
 import CommentInformation from "../common/CommentInformation";
+import { apiNoToken } from "../../network/api";
 
-const StoryComment = ({ comments, sid }) => {
-  const onDeleteHandler = (id) => {
-    console.log(sid);
-    console.log(id);
+const StoryComment = ({ comments, getStoryById }) => {
+  const onDeleteHandler = async (id, postId) => {
+    console.log(postId);
+    await apiNoToken(`/api/v1/story/comments/${id}`, "DELETE").then(() => {
+      getStoryById(postId);
+    });
   };
   return (
     <>
