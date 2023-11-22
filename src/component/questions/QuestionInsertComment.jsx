@@ -11,9 +11,7 @@ import CheckIcon from "@mui/icons-material/Check";
 
 const QuestionInsertComment =({id,getQuestionDetail}) =>{
     const { isLogin } = useSelector((state) => state.me);
-
     const [comment, setComment] = useState();
-
     const onWriteHandler = async () => {
         try {
             const { data } = await apiNoToken(
@@ -25,13 +23,10 @@ const QuestionInsertComment =({id,getQuestionDetail}) =>{
             alert(err);
         }
     };
-
     const onCommentHandler = (e) => {
         const { name, value } = e.target;
-
         setComment({ [name]: value });
     };
-
     return (
         <>
             {isLogin && (
