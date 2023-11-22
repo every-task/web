@@ -49,6 +49,7 @@ const CommonSlider = ({ props }) => {
 
   const onNavHandler = (Info) => {
     nav(Info);
+    window.scrollTo(0, 0);
   };
 
   const onDetailHandler = (Info, id) => {
