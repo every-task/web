@@ -10,7 +10,7 @@ const CommentInformation = ({ comment, onDeleteHandler }) => {
 
   const location = useLocation();
   const pathSegments = location.pathname.split("/");
-  const postId = pathSegments[3];
+  const postId = pathSegments[2];
 
   return (
     <Input
