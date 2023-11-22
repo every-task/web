@@ -163,6 +163,7 @@ const StoryPost = () => {
             sx={{
               display: "flex",
               justifyContent: "flex-end",
+              gap: 1,
             }}
           >
             <Button
