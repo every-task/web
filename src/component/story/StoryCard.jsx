@@ -221,7 +221,11 @@ const StoryCard = () => {
                   <CardMedia
                     component="img"
                     height="194"
-                    image="https://cdn.pixabay.com/photo/2023/09/21/18/17/automobile-8267369_1280.jpg"
+                    image={
+                      el?.thumbnailImageUrl === "default"
+                        ? "https://cdn.pixabay.com/photo/2023/09/21/18/17/automobile-8267369_1280.jpg"
+                        : el.thumbnailImageUrl
+                    }
                     alt="Paella dish"
                   />
                   <CardContent sx={{ flexGrow: 1 }}>
