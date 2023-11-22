@@ -1,5 +1,5 @@
 import "@toast-ui/editor/dist/toastui-editor.css";
-import { api, apiNoToken } from "../network/api";
+import { apiNoToken } from "../network/api";
 import { useEffect, useRef, useState } from "react";
 import AddIcon from "@mui/icons-material/Add";
 import { Box, Button, Grid, TextField } from "@mui/material";
@@ -9,15 +9,24 @@ import CloseIcon from "@mui/icons-material/Close";
 import EditIcon from "@mui/icons-material/Edit";
 import CategorySelect from "../component/common/CategorySelect";
 import { useNavigate } from "react-router-dom";
+import { getUploadKey, handleImageUpload } from "../firebase/FileUpload";
+import { useSelector } from "react-redux";
 
 const StoryPost = () => {
   const editorRef = useRef();
+
+  const loginUser = useSelector((state) => state.me.value);
 
   const [tasks, setTasks] = useState([{ period: "", content: "" }]);
   const [category, setCategory] = useState("");
   const categoryChange = (category) => {
     setCategory(category);
   };
+
+  const [thumbnail, setThumbnail] = useState({
+    isFirst: true,
+    thumbnailImageUrl: "default",
+  });
 
   const addTask = () => {
     setTasks((prev) => [...prev, {}]);
@@ -44,7 +53,10 @@ const StoryPost = () => {
       content: content,
       category: category,
       tasks: tasks,
+      thumbnailImageUrl: thumbnail.thumbnailImageUrl,
     };
+
+    console.log(formData);
 
     try {
       const { data } = await apiNoToken("/api/v1/story", "post", formData);
@@ -52,6 +64,19 @@ const StoryPost = () => {
     } catch (err) {
       console.log(err);
     }
+  };
+
+  useEffect(() => {
+    getUploadKey();
+  }, []);
+
+  const onUploadImage = async (blob, callback) => {
+    const imageUrl = await handleImageUpload(loginUser, blob);
+
+    if (thumbnail.isFirst) {
+      setThumbnail({ isFirst: false, thumbnailImageUrl: imageUrl });
+    }
+    callback(imageUrl, "image");
   };
 
   return (
@@ -94,6 +119,9 @@ const StoryPost = () => {
                 ["image"],
               ]}
               ref={editorRef}
+              hooks={{
+                addImageBlobHook: onUploadImage,
+              }}
             ></Editor>
           </Grid>
           <Grid item md={12}>

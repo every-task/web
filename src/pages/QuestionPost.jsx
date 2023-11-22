@@ -27,81 +27,80 @@ const QuestionPost = () => {
 
     try {
       const { data } = await apiNoToken(
-          `/api/v1/question/article`,
-          "POST",
-          postData
+        `/api/v1/question/article`,
+        "POST",
+        postData,
       );
     } catch (err) {
       console.log(err);
     }
   };
-  const categoryChange=(category)=>{
-      setCategory(category);
-  }
+  const categoryChange = (category) => {
+    setCategory(category);
+  };
   return (
-      <>
-        <Box
+    <>
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+        component="form"
+        onSubmit={onSubmitHandler}
+      >
+        <Grid container sx={{ maxWidth: "800px" }} spacing={2}>
+          <Grid item md={3}>
+            <CategorySelect onChangeHandler={categoryChange} />
+          </Grid>
+          <Grid item md={9}>
+            <TextField
+              margin="normal"
+              id="title"
+              label="title"
+              name="title"
+              autoFocus
+              fullWidth
+            />
+          </Grid>
+          <Grid item md={12}>
+            <Editor
+              previewStyle="vertical"
+              height="600px"
+              initialEditType="wysiwyg"
+              usageStatistics={false}
+              hideModeSwitch={true}
+              toolbarItems={[
+                ["heading", "bold", "italic", "strike"],
+                ["hr", "quote"],
+                ["ul", "ol", "task"],
+              ]}
+              ref={editorRef}
+            ></Editor>
+          </Grid>
+          <Grid
+            item
+            md={12}
             sx={{
               display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
+              justifyContent: "flex-end",
             }}
-            component="form"
-            onSubmit={onSubmitHandler}
-        >
-          <Grid container sx={{ maxWidth: "800px" }} spacing={2}>
-            <Grid item md={3}>
-              <CategorySelect onChangeHandler={categoryChange}/>
-            </Grid>
-            <Grid item md={9}>
-              <TextField
-                  margin="normal"
-                  id="title"
-                  label="title"
-                  name="title"
-                  autoFocus
-                  fullWidth
-              />
-            </Grid>
-            <Grid item md={12}>
-              <Editor
-                  previewStyle="vertical"
-                  height="600px"
-                  initialEditType="wysiwyg"
-                  usageStatistics={false}
-                  hideModeSwitch={true}
-                  toolbarItems={[
-                    ["heading", "bold", "italic", "strike"],
-                    ["hr", "quote"],
-                    ["ul", "ol", "task"],
-                    ["image"],
-                  ]}
-                  ref={editorRef}
-              ></Editor>
-            </Grid>
-            <Grid
-                item
-                md={12}
-                sx={{
-                  display: "flex",
-                  justifyContent: "flex-end",
-                }}
+          >
+            <Button
+              type="submit"
+              variant="outlined"
+              size="large"
+              endIcon={<EditIcon />}
             >
-              <Button
-                  type="submit"
-                  variant="outlined"
-                  size="large"
-                  endIcon={<EditIcon />}
-              >
-                작성
-              </Button>
-              <Button variant="outlined" size="large" endIcon={<CloseIcon />}>
-                취소
-              </Button>
-            </Grid>
+              작성
+            </Button>
+            <Button variant="outlined" size="large" endIcon={<CloseIcon />}>
+              취소
+            </Button>
           </Grid>
-        </Box>
-      </>
+        </Grid>
+      </Box>
+    </>
   );
 };
 export default QuestionPost;
