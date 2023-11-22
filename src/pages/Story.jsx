@@ -1,3 +1,4 @@
+import MainFeaturedPost from "../component/main/MainFeaturedPost";
 import StoryCard from "../component/story/StoryCard";
 
 const Story = () => {
