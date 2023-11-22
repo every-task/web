@@ -9,7 +9,7 @@ import CloseIcon from "@mui/icons-material/Close";
 import EditIcon from "@mui/icons-material/Edit";
 import CategorySelect from "../component/common/CategorySelect";
 import { useNavigate } from "react-router-dom";
-import { getUploadKey, handleImageUpload } from "../firebase/FileUpload";
+import { getUploadKey, handlePostImageUpload } from "../firebase/FileUpload";
 import { useSelector } from "react-redux";
 
 const StoryPost = () => {
@@ -71,7 +71,7 @@ const StoryPost = () => {
   }, []);
 
   const onUploadImage = async (blob, callback) => {
-    const imageUrl = await handleImageUpload(loginUser, blob);
+    const imageUrl = await handlePostImageUpload(loginUser, blob);
 
     if (thumbnail.isFirst) {
       setThumbnail({ isFirst: false, thumbnailImageUrl: imageUrl });
