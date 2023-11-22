@@ -1,13 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { Avatar, IconButton, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from "@mui/material";
 import { red } from "@mui/material/colors";
-import DeleteIcon from '@mui/icons-material/Delete';
 
-import EmailIcon from '@mui/icons-material/Email';
+import SendIcon from '@mui/icons-material/Send';
 import { apiNoToken } from "../network/api";
 import MentoringStatus from '../component/mentoring/MentoringStatus';
 
-const MenteeList = ({ onDelete }) => {
+const MenteeList = ({ }) => {
     const [mentees, setMentees] = useState([]);
     useEffect(() => {
         const fetchMentees = async () => {
@@ -40,6 +39,9 @@ const MenteeList = ({ onDelete }) => {
     const handleReject = async (menteeId) => {
 
     };
+    const handleBlock = async (menteeId) => {
+
+    };
 
     return (
         <div>
@@ -54,8 +56,8 @@ const MenteeList = ({ onDelete }) => {
                             <TableCell>닉네임</TableCell>
                             <TableCell>상태</TableCell>
                             <TableCell>수락/거절</TableCell>
-                            <TableCell>내역 삭제</TableCell>
                             <TableCell>쪽지 보내기</TableCell>
+                            <TableCell>차단</TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
@@ -71,23 +73,29 @@ const MenteeList = ({ onDelete }) => {
                                     {mentee.status === 'PENDING' && '요청중'}
                                     {mentee.status === 'ACCEPTED' && '수락'}
                                     {mentee.status === 'REJECTED' && '거절'}
+
                                 </TableCell>
                                 <TableCell>
                                     {mentee.status === 'PENDING' && (
-                                        <MentoringStatus menteeId={mentee.id} onAccept={handleAccept} onReject={handleReject} />
+                                        <MentoringStatus status={mentee.status} menteeId={mentee.id} onAccept={handleAccept} onReject={handleReject} />
+                                    )}
+                                    {mentee.status === 'REJECTED' && (
+                                        <MentoringStatus status={mentee.status} menteeId={mentee.id} onAccept={handleAccept} />
                                     )}
                                 </TableCell>
+
                                 <TableCell>
-                                    <IconButton onClick={() => onDelete(mentee.id)}>
-                                        <DeleteIcon />
+                                    <IconButton>
+                                        <SendIcon />
                                     </IconButton>
 
                                 </TableCell>
-                                <TableCell>
-                                    <IconButton onClick={() => onDelete(mentee.id)}>
-                                        <EmailIcon />
-                                    </IconButton>
 
+                                <TableCell>
+                                    {mentee.status === 'ACCEPTED' && (
+                                        <MentoringStatus status={mentee.status} menteeId={mentee.id} onBlock={handleBlock} />
+                                    )}
+                                    {mentee.status === 'BLOCKED' && '차단'}
                                 </TableCell>
                             </TableRow>
                         ))}
