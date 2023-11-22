@@ -56,7 +56,7 @@ const CommonSlider = ({ props }) => {
   };
 
   return (
-    <Container sx={{ py: 8 }}>
+    <Container>
       <Card variant="noOutline">
         <CardHeader
           title={props.title}
