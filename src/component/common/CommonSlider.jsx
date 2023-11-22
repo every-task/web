@@ -47,12 +47,12 @@ const CommonSlider = ({ props }) => {
     getData(props.getData);
   }, []);
 
-  const onNavHandler = (moreInfo) => {
-    nav(moreInfo);
+  const onNavHandler = (Info) => {
+    nav(Info);
   };
 
-  const onDetailHandler = (id) => {
-    nav(`story${id}`);
+  const onDetailHandler = (Info, id) => {
+    nav(`${Info}/${id}`);
   };
 
   return (
@@ -66,7 +66,7 @@ const CommonSlider = ({ props }) => {
               sx={{ fontWeight: "bold" }}
               size="large"
               endIcon={<ArrowOutwardIcon />}
-              onClick={() => onNavHandler(props.moreInfo)}
+              onClick={() => onNavHandler(props.info)}
             >
               더보기
             </Button>
@@ -85,7 +85,9 @@ const CommonSlider = ({ props }) => {
                       flexDirection: "column",
                     }}
                   >
-                    <CardActionArea onClick={() => onDetailHandler(el.id)}>
+                    <CardActionArea
+                      onClick={() => onDetailHandler(props.info, el.id)}
+                    >
                       <CardHeader
                         avatar={
                           <Avatar
@@ -103,7 +105,7 @@ const CommonSlider = ({ props }) => {
                           />
                         }
                       />
-                      <CardContent sx={{ flexGrow: 1 }}>
+                      <CardContent sx={{ flexGrow: 1, minHeight: 80 }}>
                         <Typography gutterBottom variant="h5" component="h2">
                           {el.title}
                         </Typography>
@@ -123,6 +125,6 @@ export default CommonSlider;
 
 const sampleData = {
   title: "타이틀",
-  moreInfo: "/story", // 더보기로 가고싶은 장소
+  Info: "/story", // 더보기로 가고싶은 장소
   getData: "/api/v1/story", // 카드 데이터를 만들기 위해 데이터를 받아올 곳
 };
