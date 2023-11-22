@@ -13,7 +13,7 @@ import { apiNoToken } from "../../network/api";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
-import { setLogin, setMe } from "../../feature/meSlice";
+import { setMe, setProfile } from "../../feature/meSlice";
 import InfoMenu from "../Myheader/InfoMenu";
 import PostMenu from "../Myheader/PostMenu";
 
@@ -26,7 +26,7 @@ export const Myheader = () => {
     const { data } = await apiNoToken("/api/v1/auth/token/welcome", "POST");
 
     if (data.token) {
-      dispatch(setLogin(data));
+      dispatch(setProfile(data));
       onLoginSuccess(data);
       getData();
     }

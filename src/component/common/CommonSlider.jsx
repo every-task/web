@@ -106,7 +106,13 @@ const CommonSlider = ({ props }) => {
                         }
                       />
                       <CardContent sx={{ flexGrow: 1, minHeight: 80 }}>
-                        <Typography gutterBottom variant="h5" component="h2">
+                        <Typography
+                          gutterBottom
+                          variant="h5"
+                          component="h2"
+                          textOverflow="ellipsis"
+                          overflow="hidden"
+                        >
                           {el.title}
                         </Typography>
                       </CardContent>
