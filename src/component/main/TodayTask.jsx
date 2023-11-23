@@ -14,7 +14,6 @@ const TodayTask = () => {
     autoplay: true,
     autoplaySpeed: 8000,
     pauseOnHover: true,
-    centerMode: true,
   };
 
   const [data, setData] = useState([]);
@@ -28,18 +27,19 @@ const TodayTask = () => {
 
   return (
     <>
-      {data &&
-        data.map((el, index) => (
-          <Container key={index}>
-            <Slider {...settings}>
+      <Container>
+        <Slider {...settings}>
+          {data &&
+            data.map((el, index) => (
               <Chip
                 icon={<PeriodChip period={el.period} />}
                 label={el.content}
                 size="medium"
+                key={index}
               ></Chip>
-            </Slider>
-          </Container>
-        ))}
+            ))}
+        </Slider>
+      </Container>
     </>
   );
 };
