@@ -7,20 +7,23 @@ import PeriodSelect from "../component/post/PeriodSelect";
 import EditIcon from "@mui/icons-material/Edit";
 import CloseIcon from "@mui/icons-material/Close";
 import CategorySelect from "../component/common/CategorySelect";
+import {useNavigate} from "react-router-dom";
 
 const QuestionPost = () => {
+  const nav = useNavigate();
   const editorRef = useRef();
   const [category, setCategory] = useState("STRESS");
 
   const onSubmitHandler = async (e) => {
     e.preventDefault();
     const form = new FormData(e.currentTarget);
-    const editorInstance = editorRef.current.getInstance();
-    const content = editorInstance.getMarkdown();
+    const goToQuestionPage =() => {
+      nav(`/question`);
+    }
 
     const postData = {
       title: form.get("title"),
-      content: content,
+      content: form.get("category"),
       category: category,
     };
     console.log(postData);
@@ -30,7 +33,7 @@ const QuestionPost = () => {
         `/api/v1/question/article`,
         "POST",
         postData,
-      );
+      ).then(goToQuestionPage);
     } catch (err) {
       console.log(err);
     }
@@ -61,22 +64,22 @@ const QuestionPost = () => {
               name="title"
               autoFocus
               fullWidth
+              required
             />
           </Grid>
           <Grid item md={12}>
-            <Editor
-              previewStyle="vertical"
-              height="600px"
-              initialEditType="wysiwyg"
-              usageStatistics={false}
-              hideModeSwitch={true}
-              toolbarItems={[
-                ["heading", "bold", "italic", "strike"],
-                ["hr", "quote"],
-                ["ul", "ol", "task"],
-              ]}
-              ref={editorRef}
-            ></Editor>
+            <TextField
+                margin="normal"
+                id="content"
+                name="content"
+                label="content"
+                multiline
+                rows={8}
+                variant="filled"
+                autoFocus
+                fullWidth
+                required
+            />
           </Grid>
           <Grid
             item
