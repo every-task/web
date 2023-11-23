@@ -3,6 +3,7 @@ import {api} from "../../network/api";
 import {Box, Chip, Grid, Typography} from "@mui/material";
 import MemberChip from "../common/MemberChip";
 import DateChip from "../common/DateChip";
+import ViewChip from "../common/ViewChip";
 
 
 const QuestionArticle =({article}) => {
@@ -12,9 +13,12 @@ const QuestionArticle =({article}) => {
                 <Chip label={article.category} color="primary" variant="outlined" />
             </Grid>
             <Grid item md={12}>
-                <Typography variant="h5" sx={{ flexGrow: 1, fontWeight: "bold" }}>
-                    {article.title}
-                </Typography>
+                <Box sx={{ display: "flex", justifyContent: "space-between" }}>
+                    <Typography variant="h5" sx={{ flexGrow: 1, fontWeight: "bold" }}>
+                        {article.title}
+                    </Typography>
+                    <ViewChip view={article.view}/>
+                </Box>
             </Grid>
             <Grid item md={12}>
                 <Box sx={{ display: "flex", justifyContent: "space-between" }}>
