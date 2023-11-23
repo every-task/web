@@ -19,7 +19,7 @@ import {
   Typography,
 } from "@mui/material";
 import { Link, useNavigate } from "react-router-dom";
-import { red } from "@mui/material/colors";
+import { red, cyan } from "@mui/material/colors";
 import { Container } from "@mui/system";
 import ArrowOutwardIcon from "@mui/icons-material/ArrowOutward";
 
@@ -41,7 +41,7 @@ const CommonSlider = ({ props }) => {
 
   const getData = async (getData) => {
     const { data } = await apiNoToken(getData, "get");
-    setPost(data.content);
+    setPost(data);
   };
   useEffect(() => {
     getData(props.getData);
@@ -92,7 +92,7 @@ const CommonSlider = ({ props }) => {
                       <CardHeader
                         avatar={
                           <Avatar
-                            sx={{ bgcolor: red[500] }}
+                            sx={{ bgcolor: cyan[400] }}
                             aria-label="user"
                             src={el.member?.profileImageUrl}
                           ></Avatar>
