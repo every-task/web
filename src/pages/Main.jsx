@@ -1,10 +1,12 @@
 import CommonSlider from "../component/common/CommonSlider";
 import MainSlider from "../component/main/MainSlider";
+import TodayTask from "../component/main/TodayTask";
 
 const Main = () => {
   return (
     <div>
-      <MainSlider></MainSlider>
+      <MainSlider />
+      <TodayTask />
       <CommonSlider props={story} />
       <CommonSlider props={question} />
     </div>
