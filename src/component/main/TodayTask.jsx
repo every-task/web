@@ -27,7 +27,7 @@ const TodayTask = () => {
 
   return (
     <>
-      <Container>
+      <Container sx={{ pb: 2 }}>
         <Slider {...settings}>
           {data &&
             data.map((el, index) => (
