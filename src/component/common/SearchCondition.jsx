@@ -8,6 +8,14 @@ const SearchCondition =({ onChangeHandler }) => {
             label: "최신순",
         },
         {
+            value: "oldest",
+            label: "과거순",
+        },
+        {
+            value: "mostPopular",
+            label: "인기순",
+        },
+        {
             value: "manyComments",
             label: "답글순",
         },
