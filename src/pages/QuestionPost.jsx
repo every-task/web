@@ -23,10 +23,9 @@ const QuestionPost = () => {
 
     const postData = {
       title: form.get("title"),
-      content: form.get("category"),
+      content: form.get("content"),
       category: category,
     };
-    console.log(postData);
 
     try {
       const { data } = await apiNoToken(
