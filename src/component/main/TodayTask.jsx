@@ -23,7 +23,7 @@ const TodayTask = () => {
   };
   useEffect(() => {
     getData();
-  });
+  }, []);
 
   return (
     <>
