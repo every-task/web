@@ -15,10 +15,15 @@ const StoryInsertComment = ({ id, getStoryById }) => {
         `/api/v1/story/articles/${id}/comment`,
         "POST",
         comment
-      ).then(() => [getStoryById(id)]);
+      ).then(() => [setting()]);
     } catch (err) {
       alert(err);
     }
+  };
+
+  const setting = () => {
+    getStoryById(id);
+    setComment("");
   };
 
   const onCommentHandler = (e) => {
