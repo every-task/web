@@ -20,7 +20,7 @@ import {
   Select,
   Typography,
 } from "@mui/material";
-import { red } from "@mui/material/colors";
+import { red, cyan } from "@mui/material/colors";
 import { apiNoToken } from "../../network/api";
 import "@toast-ui/editor/dist/toastui-editor-viewer.css";
 import { Link, useNavigate } from "react-router-dom";
@@ -204,7 +204,7 @@ const StoryCard = () => {
                   <CardHeader
                     avatar={
                       <Avatar
-                        sx={{ bgcolor: red[500] }}
+                        sx={{ bgcolor: cyan[400] }}
                         aria-label="user"
                         src={el.member?.profileImageUrl}
                       ></Avatar>
@@ -223,7 +223,7 @@ const StoryCard = () => {
                     height="194"
                     image={
                       el?.thumbnailImageUrl === "default"
-                        ? "https://cdn.pixabay.com/photo/2023/09/21/18/17/automobile-8267369_1280.jpg"
+                        ? "https://cdn.pixabay.com/photo/2015/02/01/21/16/chalkboard-620316_1280.jpg"
                         : el.thumbnailImageUrl
                     }
                     alt="Paella dish"
