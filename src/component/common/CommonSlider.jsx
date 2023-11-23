@@ -60,7 +60,7 @@ const CommonSlider = ({ props }) => {
     <Container>
       <Card variant="noOutline">
         <CardHeader
-          title={props.title}
+          title={<Typography variant="h4">{props.title}</Typography>}
           action={
             <Button
               variant="text"
