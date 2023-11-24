@@ -27,7 +27,7 @@ const QuestionArticle =({article}) => {
                 </Box>
             </Grid>
             <Grid item md={12}>
-                <Typography variant="h5" sx={{ flexGrow: 1, fontWeight: "bold" }}>
+                <Typography variant="h5" sx={{ flexGrow: 1}}>
                     {article.content}
                 </Typography>
             </Grid>
