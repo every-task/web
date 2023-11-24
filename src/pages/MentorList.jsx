@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { Avatar, IconButton, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from "@mui/material";
 import { red } from "@mui/material/colors";
-import SendIcon from '@mui/icons-material/Send';
 import { apiNoToken } from "../network/api";
+import MessageReceiver from '../component/mentoring/MessageReceiver';
 
-const MentorList = ({ onDelete }) => {
+const MentorList = () => {
     const [mentors, setMentors] = useState([]);
 
     useEffect(() => {
@@ -31,6 +31,9 @@ const MentorList = ({ onDelete }) => {
             </Typography>
         );
     }
+    const handleSend = async (menteeId) => {
+
+    };
 
     return (
         <div>
@@ -62,9 +65,10 @@ const MentorList = ({ onDelete }) => {
                                     {mentor.status === 'REJECTED' && '거절'}
                                 </TableCell>
                                 <TableCell>
-                                    <IconButton>
-                                        <SendIcon />
-                                    </IconButton>
+                                    {mentor.status === 'ACCEPTED' && (
+                                        <MessageReceiver status={mentor.status} mentorId={mentor.id} onSend={handleSend} />
+                                    )}
+
                                 </TableCell>
                             </TableRow>
                         ))}

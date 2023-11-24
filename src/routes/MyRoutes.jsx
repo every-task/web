@@ -12,6 +12,8 @@ import QuestionPost from "../pages/QuestionPost";
 import QuestionDetails from "../component/questions/QuestionDetails";
 import MentorList from "../pages/MentorList";
 import MenteeList from "../pages/MenteeList";
+import MessageInbox from "../pages/MessageInbox";
+import MessageSentbox from "../pages/MessageSentbox";
 
 
 const MyRoutes = () => {
@@ -30,6 +32,8 @@ const MyRoutes = () => {
           <Route path="/question/post" element={<QuestionPost />}></Route>
           <Route path="/mentoring/mentor" element={<MentorList />}></Route>
           <Route path="/mentoring/mentee" element={<MenteeList />}></Route>
+          <Route path="/mentoring/messageinbox" element={<MessageInbox />}></Route>
+          <Route path="/mentoring/messagesentbox" element={<MessageSentbox />}></Route>
         </Route>
       </Routes>
     </BrowserRouter>

@@ -33,6 +33,16 @@ const InfoMenu = () => {
     setAnchorEl(null);
     nav("/mentoring/mentee")
   }
+  const toMessageHandler = () => {
+    setAnchorEl(null);
+    nav("/mentoring/messagesentbox")
+  }
+
+  const fromMessageHandler = () => {
+    setAnchorEl(null);
+    nav("/mentoring/messageinbox")
+  }
+
 
   const toLogoutHandler = async () => {
     axios.defaults.headers.common["Authorization"] = "";
@@ -65,6 +75,8 @@ const InfoMenu = () => {
         <MenuItem onClick={toInfoHandler}> 설정 </MenuItem>
         <MenuItem onClick={toMentorHandler}>내 멘토 </MenuItem>
         <MenuItem onClick={toMenteeHandler}>내 멘티 </MenuItem>
+        <MenuItem onClick={fromMessageHandler}>받은 쪽지함 </MenuItem>
+        <MenuItem onClick={toMessageHandler}>보낸 쪽지함 </MenuItem>
         <MenuItem onClick={toLogoutHandler}>로그아웃 </MenuItem>
       </Menu>
     </>

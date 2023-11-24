@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { Avatar, IconButton, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from "@mui/material";
 import { red } from "@mui/material/colors";
-
-import SendIcon from '@mui/icons-material/Send';
 import { apiNoToken } from "../network/api";
 import MentoringStatus from '../component/mentoring/MentoringStatus';
+import MessageReceiver from '../component/mentoring/MessageReceiver';
 
 const MenteeList = ({ }) => {
     const [mentees, setMentees] = useState([]);
@@ -40,6 +39,9 @@ const MenteeList = ({ }) => {
 
     };
     const handleBlock = async (menteeId) => {
+
+    };
+    const handleSend = async (menteeId) => {
 
     };
 
@@ -85,9 +87,14 @@ const MenteeList = ({ }) => {
                                 </TableCell>
 
                                 <TableCell>
-                                    <IconButton>
-                                        <SendIcon />
-                                    </IconButton>
+                                    <>{console.log('Mentee:', mentee)}
+                                        {mentee.status === 'ACCEPTED' && (
+                                            <MessageReceiver receiverNickname={mentee.nickname} menteeId={mentee.id} onSend={handleSend} />
+
+                                        )}
+                                    </>
+
+
 
                                 </TableCell>
 
