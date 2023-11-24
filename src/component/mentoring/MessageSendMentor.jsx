@@ -3,7 +3,7 @@ import { TextField, Button, Dialog, DialogActions, DialogContent, DialogTitle } 
 import { apiNoToken } from '../../network/api'
 import SendIcon from '@mui/icons-material/Send';
 
-const MessageReceiver = ({ receiverNickname, onSend }) => {
+const MessageSendMentor = ({ receiverNickname, onSend }) => {
     const [open, setOpen] = useState(false);
     const [message, setMessage] = useState('');
 
@@ -18,7 +18,7 @@ const MessageReceiver = ({ receiverNickname, onSend }) => {
 
     const handleSend = async () => {
         try {
-            await apiNoToken('http://localhost:8080/api/v1/mentoring/message/send', 'POST', {
+            await apiNoToken('http://localhost:8080/api/v1/mentoring/message/sendmentor', 'POST', {
                 message: message,
                 receiverNickname: receiverNickname
             });
@@ -63,4 +63,4 @@ const MessageReceiver = ({ receiverNickname, onSend }) => {
     );
 };
 
-export default MessageReceiver;
+export default MessageSendMentor;

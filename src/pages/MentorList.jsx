@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Avatar, IconButton, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from "@mui/material";
 import { red } from "@mui/material/colors";
 import { apiNoToken } from "../network/api";
-import MessageReceiver from '../component/mentoring/MessageReceiver';
+import MessageSendMentor from '../component/mentoring/MessageSendMentor';
 
 const MentorList = () => {
     const [mentors, setMentors] = useState([]);
@@ -31,7 +31,7 @@ const MentorList = () => {
             </Typography>
         );
     }
-    const handleSend = async (menteeId) => {
+    const handleSend = async (mentorId) => {
 
     };
 
@@ -66,7 +66,7 @@ const MentorList = () => {
                                 </TableCell>
                                 <TableCell>
                                     {mentor.status === 'ACCEPTED' && (
-                                        <MessageReceiver status={mentor.status} mentorId={mentor.id} onSend={handleSend} />
+                                        <MessageSendMentor receiverNickname={mentor.nickname} mentorId={mentor.id} onSend={handleSend} />
                                     )}
 
                                 </TableCell>
@@ -75,7 +75,7 @@ const MentorList = () => {
                     </TableBody>
                 </Table>
             </TableContainer>
-        </div>
+        </div >
     );
 };
 
