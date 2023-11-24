@@ -1,44 +1,24 @@
-import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
-import { Box, Grid } from "@mui/material";
-import StoryArticle from "../component/story/StoryArticle";
-import StoryTask from "../component/story/StoryTask";
-import StoryComment from "../component/story/StoryComment";
-import { api, apiNoToken } from "../network/api";
+import MainFeaturedPost from "../component/main/MainFeaturedPost";
+import StoryCard from "../component/story/StoryCard";
 
 const Story = () => {
-  const { id } = useParams();
-
-  const [story, setStory] = useState({});
-
-  const getStoryById = async () => {
-    try {
-      const { data } = await apiNoToken(`/api/v1/story/${id}`, "GET", {});
-      setStory(data);
-    } catch (e) {
-      console.log(e);
-    }
+  const mainFeaturedPost_1 = {
+    title: "당신의 성공담을 공유해주세요",
+    description:
+      "불가능한 꿈을 끝내 이룬 이야기. " +
+      "끊임없는 노력과 열정으로 어려움을 극복하며 성공에 도달한 용기와 인내는 감동적입니다. " +
+      "당신의 성공담을 공유해서" +
+      "다른 사람의 인생을 확장해 주세요.",
+    image:
+      "https://cdn.pixabay.com/photo/2023/02/07/18/56/rocket-7774875_1280.png",
+    imageText: "image",
+    // linkText: 'Continue reading…',
   };
-
-  useEffect(() => {
-    getStoryById();
-  }, []);
-
   return (
-    <Box
-      sx={{
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-      }}
-      mt={8}
-    >
-      <Grid container sx={{ maxWidth: "800px" }} spacing={2}>
-        <StoryArticle story={story} />
-        <StoryTask id={id} />
-        <StoryComment comments={story?.comments} />
-      </Grid>
-    </Box>
+    <div>
+      <MainFeaturedPost post={mainFeaturedPost_1} />
+      <StoryCard />
+    </div>
   );
 };
 

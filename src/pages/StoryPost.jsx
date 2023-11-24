@@ -1,5 +1,5 @@
 import "@toast-ui/editor/dist/toastui-editor.css";
-import { api, apiNoToken } from "../network/api";
+import { apiNoToken } from "../network/api";
 import { useEffect, useRef, useState } from "react";
 import AddIcon from "@mui/icons-material/Add";
 import { Box, Button, Grid, TextField } from "@mui/material";
@@ -8,40 +8,25 @@ import PeriodSelect from "../component/post/PeriodSelect";
 import CloseIcon from "@mui/icons-material/Close";
 import EditIcon from "@mui/icons-material/Edit";
 import CategorySelect from "../component/common/CategorySelect";
+import { useNavigate } from "react-router-dom";
+import { getUploadKey, handlePostImageUpload } from "../firebase/FileUpload";
+import { useSelector } from "react-redux";
 
 const StoryPost = () => {
   const editorRef = useRef();
 
-  const [key, setKey] = useState("");
+  const loginUser = useSelector((state) => state.me);
+
   const [tasks, setTasks] = useState([{ period: "", content: "" }]);
   const [category, setCategory] = useState("");
   const categoryChange = (category) => {
     setCategory(category);
   };
-  const getUploadKey = async () => {
-    const keys = await api("/api/v1/auth/firebase", "GET");
-    setKey(keys);
 
-    // 이 밑은 파일 버튼을 눌렀을때 하면 됨.
-    // const auth = getAuth();
-
-    // signInWithCustomToken(auth, keys)
-    //     .then((userCredential) => {
-    //         // Signed in
-    //         const user = userCredential.user;
-    //         // 추가적으로 할게 없음. 어짜피 기존에 로그인 되어있던 유저의 uuid를 활용하여 키를 발급받아온 것임.
-
-    //     })
-    //     .catch((error) => {
-    //         const errorCode = error.code;
-    //         const errorMessage = error.message;
-    //         // ...
-    //     });
-  };
-
-  useEffect(() => {
-    // getUploadKey();
-  }, []);
+  const [thumbnail, setThumbnail] = useState({
+    isFirst: true,
+    thumbnailImageUrl: "default",
+  });
 
   const addTask = () => {
     setTasks((prev) => [...prev, {}]);
@@ -54,6 +39,7 @@ const StoryPost = () => {
       return updatedTasks;
     });
   };
+  const nav = useNavigate();
 
   const onSubmitHandler = async (e) => {
     e.preventDefault();
@@ -67,13 +53,30 @@ const StoryPost = () => {
       content: content,
       category: category,
       tasks: tasks,
+      thumbnailImageUrl: thumbnail.thumbnailImageUrl,
     };
+
+    console.log(formData);
 
     try {
       const { data } = await apiNoToken("/api/v1/story", "post", formData);
+      nav("/");
     } catch (err) {
       console.log(err);
     }
+  };
+
+  useEffect(() => {
+    getUploadKey();
+  }, []);
+
+  const onUploadImage = async (blob, callback) => {
+    const imageUrl = await handlePostImageUpload(loginUser, blob);
+
+    if (thumbnail.isFirst) {
+      setThumbnail({ isFirst: false, thumbnailImageUrl: imageUrl });
+    }
+    callback(imageUrl, "image");
   };
 
   return (
@@ -98,6 +101,7 @@ const StoryPost = () => {
               label="title"
               name="title"
               autoFocus
+              required
               fullWidth
             />
           </Grid>
@@ -115,6 +119,9 @@ const StoryPost = () => {
                 ["image"],
               ]}
               ref={editorRef}
+              hooks={{
+                addImageBlobHook: onUploadImage,
+              }}
             ></Editor>
           </Grid>
           <Grid item md={12}>
@@ -129,7 +136,7 @@ const StoryPost = () => {
             </Button>
           </Grid>
           <Grid item md={12}>
-            <Grid container spacing={1}>
+            <Grid container spacing={2}>
               {tasks.map((task, index) => (
                 <>
                   <Grid item md={2}>
@@ -138,6 +145,7 @@ const StoryPost = () => {
                   <Grid item md={10}>
                     <TextField
                       id="content"
+                      required
                       name="content"
                       label="태스크"
                       variant="outlined"
@@ -155,6 +163,7 @@ const StoryPost = () => {
             sx={{
               display: "flex",
               justifyContent: "flex-end",
+              gap: 1,
             }}
           >
             <Button

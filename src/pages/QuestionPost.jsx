@@ -6,38 +6,39 @@ import AddIcon from "@mui/icons-material/Add";
 import PeriodSelect from "../component/post/PeriodSelect";
 import EditIcon from "@mui/icons-material/Edit";
 import CloseIcon from "@mui/icons-material/Close";
-import CategorySelect from "../component/questions/CategorySelect";
+import CategorySelect from "../component/common/CategorySelect";
+import {useNavigate} from "react-router-dom";
 
 const QuestionPost = () => {
+  const nav = useNavigate();
   const editorRef = useRef();
   const [category, setCategory] = useState("STRESS");
 
   const onSubmitHandler = async (e) => {
     e.preventDefault();
     const form = new FormData(e.currentTarget);
-    const editorInstance = editorRef.current.getInstance();
-    const content = editorInstance.getMarkdown();
+    const goToQuestionPage =() => {
+      nav(`/question`);
+    }
 
     const postData = {
       title: form.get("title"),
-      content: content,
+      content: form.get("content"),
       category: category,
     };
-    console.log(postData);
 
     try {
       const { data } = await apiNoToken(
         `/api/v1/question/article`,
         "POST",
-        postData
-      );
+        postData,
+      ).then(goToQuestionPage);
     } catch (err) {
       console.log(err);
     }
   };
-  const categorySelect = (e) => {
-    const getCategory = e.target.value;
-    setCategory(getCategory);
+  const categoryChange = (category) => {
+    setCategory(category);
   };
   return (
     <>
@@ -51,7 +52,10 @@ const QuestionPost = () => {
         onSubmit={onSubmitHandler}
       >
         <Grid container sx={{ maxWidth: "800px" }} spacing={2}>
-          <Grid item md={12}>
+          <Grid item md={3}>
+            <CategorySelect onChangeHandler={categoryChange} />
+          </Grid>
+          <Grid item md={9}>
             <TextField
               margin="normal"
               id="title"
@@ -59,26 +63,22 @@ const QuestionPost = () => {
               name="title"
               autoFocus
               fullWidth
+              required
             />
           </Grid>
-          <Grid item md={2}>
-            <CategorySelect onChange={(e) => categorySelect(e)} />
-          </Grid>
           <Grid item md={12}>
-            <Editor
-              previewStyle="vertical"
-              height="600px"
-              initialEditType="wysiwyg"
-              usageStatistics={false}
-              hideModeSwitch={true}
-              toolbarItems={[
-                ["heading", "bold", "italic", "strike"],
-                ["hr", "quote"],
-                ["ul", "ol", "task"],
-                ["image"],
-              ]}
-              ref={editorRef}
-            ></Editor>
+            <TextField
+                margin="normal"
+                id="content"
+                name="content"
+                label="content"
+                multiline
+                rows={8}
+                variant="filled"
+                autoFocus
+                fullWidth
+                required
+            />
           </Grid>
           <Grid
             item
@@ -86,6 +86,7 @@ const QuestionPost = () => {
             sx={{
               display: "flex",
               justifyContent: "flex-end",
+              gap: 1,
             }}
           >
             <Button

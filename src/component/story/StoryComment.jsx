@@ -1,27 +1,52 @@
 import React, { useState } from "react";
-import { Box, Grid, Typography } from "@mui/material";
+import { Avatar, Box, Grid, Typography } from "@mui/material";
 import MemberChip from "../common/MemberChip";
 import DateChip from "../common/DateChip";
 import CommentInformation from "../common/CommentInformation";
+import { apiNoToken } from "../../network/api";
 
-const StoryComment = ({ comments }) => {
+const StoryComment = ({ comments, getStoryById, id }) => {
+  const onDeleteHandler = async (commentId, postId) => {
+    await apiNoToken(`/api/v1/story/comments/${commentId}`, "DELETE").then(
+      () => {
+        getStoryById(postId);
+      }
+    );
+  };
   return (
     <>
       <Grid item md={12}>
         <Typography variant="h5">Comment</Typography>
       </Grid>
       <Grid item md={12}>
-        <Grid container spacing={1}>
+        <Grid container spacing={2}>
           {comments?.map((comment, index) => (
             <>
               <Grid item md={12}>
                 <Box sx={{ display: "flex", justifyContent: "space-between" }}>
-                  <MemberChip member={comment.member} />
+                  <Box
+                    sx={{
+                      display: "flex",
+                      flexDirection: "row",
+                      gap: 1,
+                      alignItems: "center",
+                    }}
+                  >
+                    <Avatar
+                      src={comment?.member?.profileImageUrl}
+                      sx={{ width: 24, height: 24 }}
+                    />
+                    {comment.member.nickname}
+                  </Box>
                   <DateChip date={comment.createdAt} />
                 </Box>
               </Grid>
-              <Grid item md={12}>
-                <CommentInformation comment={comment}></CommentInformation>
+              <Grid ml={2} mt={1} md={12}>
+                <CommentInformation
+                  comment={comment}
+                  onDeleteHandler={onDeleteHandler}
+                  id={id}
+                />
               </Grid>
             </>
           ))}
