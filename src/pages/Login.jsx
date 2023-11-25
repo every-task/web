@@ -26,12 +26,6 @@ const Login = () => {
 
   const isLogin = useSelector((state) => state.me.isLogin);
 
-  const getData = async () => {
-    const { data } = await apiNoToken("/api/v1/auth/member/me/info", "GET");
-
-    dispatch(setMe(data));
-  };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     const result = new FormData(e.currentTarget);
@@ -48,7 +42,7 @@ const Login = () => {
       );
 
       if (!isLogin) {
-        dispatch(setLogin(true));
+        dispatch(setLogin(data));
 
         onLoginSuccess(data);
       } else {
@@ -59,7 +53,7 @@ const Login = () => {
       }
       nav("/");
     } catch (err) {
-      console.log(err);
+      alert(err);
     }
   };
 
@@ -94,7 +88,6 @@ const Login = () => {
             <Box
               component="form"
               onSubmit={(e) => handleSubmit(e, nav)}
-              noValidate
               sx={{ mt: 1, alignItems: "center" }}
             >
               <TextField

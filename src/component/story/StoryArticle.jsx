@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Chip, Grid, Typography } from "@mui/material";
+import { Box, Chip, Grid, Typography } from "@mui/material";
 import { Viewer } from "@toast-ui/react-editor";
 import DateChip from "../common/DateChip";
 import MemberChip from "../common/MemberChip";
@@ -18,8 +18,10 @@ const StoryArticle = ({ story }) => {
         </Typography>
       </Grid>
       <Grid item md={12}>
-        <MemberChip member={story?.member} />
-        <DateChip date={story?.createdAt} />
+        <Box sx={{ display: "flex", justifyContent: "space-between" }}>
+          <MemberChip member={story?.member} />
+          <DateChip date={story?.createdAt} />
+        </Box>
       </Grid>
       <Grid item md={12}>
         {story?.content && <Viewer initialValue={story?.content} />}

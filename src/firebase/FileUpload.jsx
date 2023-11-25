@@ -2,6 +2,7 @@ import axios from "axios";
 import { getAuth, signInWithCustomToken } from "firebase/auth";
 import { uploadBytes, getDownloadURL, ref, getStorage } from "firebase/storage";
 import Resizer from "react-image-file-resizer";
+import { v4 as uuidv4 } from "uuid";
 
 export const handleImageUpload = async (user, image) => {
   if (image) {
@@ -13,6 +14,26 @@ export const handleImageUpload = async (user, image) => {
     );
 
     return profileImageUrl;
+  }
+};
+
+export const handlePostImageUpload = async (user, image) => {
+  if (image) {
+    const today = new Date();
+
+    const storage = getStorage();
+    const imagesRef = ref(
+      storage,
+      `post/${today.getFullYear()}-${
+        today.getMonth() + 1
+      }-${today.getDate()}/${uuidv4()}`
+    );
+
+    const PostImage = await uploadBytes(imagesRef, image).then(
+      async () => await getDownloadURL(imagesRef)
+    );
+
+    return PostImage;
   }
 };
 

@@ -12,8 +12,8 @@ import { Link } from "react-router-dom";
 import { apiNoToken } from "../../network/api";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
-import { useState } from "react";
-import { setLogin, setMe } from "../../feature/meSlice";
+import { useEffect, useState } from "react";
+import { setMe, setProfile } from "../../feature/meSlice";
 import InfoMenu from "../Myheader/InfoMenu";
 import PostMenu from "../Myheader/PostMenu";
 
@@ -26,7 +26,7 @@ export const Myheader = () => {
     const { data } = await apiNoToken("/api/v1/auth/token/welcome", "POST");
 
     if (data.token) {
-      dispatch(setLogin(true));
+      dispatch(setProfile(data));
       onLoginSuccess(data);
       getData();
     }
@@ -38,12 +38,8 @@ export const Myheader = () => {
     dispatch(setMe(data));
   };
 
-  useState(() => {
-    if (!isLogin) {
-      welcome();
-    } else {
-      getData();
-    }
+  useEffect(() => {
+    welcome();
   }, []);
 
   return (
@@ -51,14 +47,21 @@ export const Myheader = () => {
       <Toolbar>
         <Typography
           variant="h5"
-          sx={{ flexGrow: 1, fontWeight: "bold" }}
+          sx={{ flexGrow: 1, fontWeight: "bold", minWidth: 500 }}
           color="primary"
         >
           <Link to="/" color="primary">
             {" "}
             .Task
           </Link>
+          <Button color="text" size="medium" sx={{ ml: 10 }}>
+            <Link to="/story">STORY</Link>
+          </Button>
+          <Button color="text" size="medium" sx={{ ml: 2 }}>
+            <Link to="/question">QUESTION</Link>
+          </Button>
         </Typography>
+
         {isLogin ? (
           <>
             <PostMenu />
@@ -66,16 +69,13 @@ export const Myheader = () => {
           </>
         ) : (
           <>
-            <Link to="/login">
-              <Button color="text" size="large">
-                Login
-              </Button>
-            </Link>
-            <Link to="/signup">
-              <Button color="primary" size="large">
-                signup
-              </Button>
-            </Link>
+            <Button color="text" size="large">
+              <Link to="/login">Login</Link>
+            </Button>
+
+            <Button color="primary" size="large">
+              <Link to="/signup">signup</Link>
+            </Button>
           </>
         )}
       </Toolbar>
