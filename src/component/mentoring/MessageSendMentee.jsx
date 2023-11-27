@@ -18,7 +18,7 @@ const MessageSendMentee = ({ receiverNickname, onSend }) => {
 
     const handleSend = async () => {
         try {
-            await apiNoToken('http://localhost:8080/api/v1/mentoring/message/sendmentee', 'POST', {
+            await apiNoToken('/api/v1/mentoring/message/sendmentee', 'POST', {
                 message: message,
                 receiverNickname: receiverNickname
             });

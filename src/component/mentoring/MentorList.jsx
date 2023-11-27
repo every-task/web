@@ -15,7 +15,7 @@ const MentorList = () => {
     useEffect(() => {
         const fetchMentors = async () => {
             try {
-                const response = await apiNoToken("http://localhost:8080/api/v1/mentoring/mentors", "GET")
+                const response = await apiNoToken("/api/v1/mentoring/mentors", "GET")
                 console.log('response:', response.status);
 
                 const data = response.data

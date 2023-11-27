@@ -18,7 +18,7 @@ const MessageSendMentor = ({ receiverNickname, onSend }) => {
 
     const handleSend = async () => {
         try {
-            await apiNoToken('http://localhost:8080/api/v1/mentoring/message/sendmentor', 'POST', {
+            await apiNoToken('/api/v1/mentoring/message/sendmentor', 'POST', {
                 message: message,
                 receiverNickname: receiverNickname
             });

@@ -11,7 +11,7 @@ const MentoringChip = ({ memberId, mentors, member, status, onRequest }) => {
 
     const handleRequest = async () => {
         try {
-            const response = await apiNoToken('http://localhost:8080/api/v1/mentoring/request', 'POST', {
+            const response = await apiNoToken('/api/v1/mentoring/request', 'POST', {
                 mentorId: memberId,
             });
             if (response.data === "PENDING") {

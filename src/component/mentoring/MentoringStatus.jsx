@@ -16,7 +16,7 @@ const MentoringStatus = ({ menteeId, onReject, onAccept, onBlock, status }) => {
         e.preventDefault();
         if (window.confirm("멘토링 요청을 수락하시겠습니까?")) {
             try {
-                const response = await apiNoToken("http://localhost:8080/api/v1/mentoring/accept", "POST", { menteeId });
+                const response = await apiNoToken("/api/v1/mentoring/accept", "POST", { menteeId });
                 console.log(`Mentoring acceptance: ${menteeId}`);
                 setIsAccepted(true);
                 onAccept(menteeId);
@@ -30,7 +30,7 @@ const MentoringStatus = ({ menteeId, onReject, onAccept, onBlock, status }) => {
         e.preventDefault();
         if (window.confirm("멘토링 요청을 거절하시겠습니까?")) {
             try {
-                const response = await apiNoToken("http://localhost:8080/api/v1/mentoring/reject", "POST", { menteeId });
+                const response = await apiNoToken("/api/v1/mentoring/reject", "POST", { menteeId });
                 console.log(`Mentoring rejection: ${menteeId}`);
                 setIsAccepted(false);
                 onReject(menteeId);
@@ -44,7 +44,7 @@ const MentoringStatus = ({ menteeId, onReject, onAccept, onBlock, status }) => {
         e.preventDefault();
         if (window.confirm("멘토링 차단하시겠습니까?")) {
             try {
-                const response = await apiNoToken("http://localhost:8080/api/v1/mentoring/block", "POST", { menteeId });
+                const response = await apiNoToken("/api/v1/mentoring/block", "POST", { menteeId });
                 console.log(`Mentee blocked: ${menteeId}`);
                 setIsAccepted(true);
                 onBlock(menteeId);

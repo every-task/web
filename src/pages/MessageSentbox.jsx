@@ -15,7 +15,7 @@ const MessageSentbox = () => {
     useEffect(() => {
         const fetchSentMessages = async () => {
             try {
-                const response = await apiNoToken('http://localhost:8080/api/v1/mentoring/message/list-sent', 'GET');
+                const response = await apiNoToken('/api/v1/mentoring/message/list-sent', 'GET');
                 console.log('Sent messages response:', response.status);
 
                 const data = response.data;
@@ -31,7 +31,7 @@ const MessageSentbox = () => {
 
     const handleDelete = async (id) => {
         try {
-            await apiNoToken(`http://localhost:8080/api/v1/mentoring/message/sent/${id}`, 'DELETE');
+            await apiNoToken(`/api/v1/mentoring/message/sent/${id}`, 'DELETE');
             setSentMessages((prevMessages) => prevMessages.filter((message) => message.id !== id));
         } catch (error) {
             console.error('Error occurred while deleting the sent message:', error);

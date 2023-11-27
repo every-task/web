@@ -15,7 +15,7 @@ const MessageInbox = () => {
     useEffect(() => {
         const fetchReceivedMessages = async () => {
             try {
-                const response = await apiNoToken('http://localhost:8080/api/v1/mentoring/message/list-received', 'GET');
+                const response = await apiNoToken('/api/v1/mentoring/message/list-received', 'GET');
                 console.log('Received messages response:', response.status);
 
                 const data = response.data;
@@ -31,7 +31,7 @@ const MessageInbox = () => {
 
     const handleDelete = async (id) => {
         try {
-            await apiNoToken(`http://localhost:8080/api/v1/mentoring/message/received/${id}`, 'DELETE');
+            await apiNoToken(`/api/v1/mentoring/message/received/${id}`, 'DELETE');
             setReceivedMessages((prevMessages) => prevMessages.filter((message) => message.id !== id));
         } catch (error) {
             console.error('Error occurred while deleting received message:', error);
