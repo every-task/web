@@ -80,6 +80,7 @@ const StoryCard = () => {
   useEffect(() => {
     getData();
   }, [mainCategorise, nowPage, coin]);
+
   const onSelectHandler = (idx) => {
     setMainCategorise(
       mainCategorise.map((el, index) => {
@@ -116,6 +117,7 @@ const StoryCard = () => {
   const nav = useNavigate();
   const onClickHandler = (id) => {
     nav(`/story/${id}`);
+    window.scrollTo(0, 0);
   };
 
   return (
