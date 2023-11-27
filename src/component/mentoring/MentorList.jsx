@@ -40,7 +40,7 @@ const MentorList = () => {
                         <TableHead style={{ backgroundColor: grey[200] }}>
                             <TableRow>
                                 <TableCell style={{ fontWeight: 'bold', fontSize: '16px' }}>Profile</TableCell>
-                                <TableCell style={{ fontWeight: 'bold', fontSize: '16px' }}>NicmName</TableCell>
+                                <TableCell style={{ fontWeight: 'bold', fontSize: '16px' }}>NickName</TableCell>
                                 <TableCell style={{ fontWeight: 'bold', fontSize: '16px' }}>Status</TableCell>
                                 <TableCell style={{ fontWeight: 'bold', fontSize: '16px' }}>message</TableCell>
                             </TableRow>
@@ -86,7 +86,7 @@ const MentorList = () => {
                     <TableHead style={{ backgroundColor: grey[200] }}>
                         <TableRow>
                             <TableCell style={{ fontWeight: 'bold' }}>Profile</TableCell>
-                            <TableCell style={{ fontWeight: 'bold' }}>NicmName</TableCell>
+                            <TableCell style={{ fontWeight: 'bold' }}>NickName</TableCell>
                             <TableCell style={{ fontWeight: 'bold' }}>Status</TableCell>
                             <TableCell style={{ fontWeight: 'bold' }}>message</TableCell>
                         </TableRow>
@@ -104,6 +104,7 @@ const MentorList = () => {
                                     {mentor.status === 'PENDING' && '요청중'}
                                     {mentor.status === 'ACCEPTED' && '수락'}
                                     {mentor.status === 'REJECTED' && '거절'}
+                                    {mentor.status === 'BLOCKED' && '차단'}
                                 </TableCell>
                                 <TableCell>
                                     {mentor.status === 'ACCEPTED' && (

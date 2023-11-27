@@ -40,9 +40,9 @@ const MessageSentbox = () => {
 
     if (!sentMessages || sentMessages.length === 0) {
         return (
-            <Typography variant="h6" gutterBottom>
+            <Paper elevation={3} style={{ padding: '16px' }}>
                 보낸 쪽지가 없습니다
-            </Typography>
+            </Paper>
         );
     }
 

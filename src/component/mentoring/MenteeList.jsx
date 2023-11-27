@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Avatar, Stack, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography, Button, Chip } from "@mui/material";
 import { red, grey } from "@mui/material/colors";
 import MentoringStatus from './MentoringStatus';
@@ -8,6 +9,7 @@ import { apiNoToken } from '../../network/api'
 
 const MenteeList = () => {
     const [mentees, setMentees] = useState([]);
+    const nav = useNavigate();
     const [currentPage, setCurrentPage] = useState(1);
     const itemsPerPage = 5;
 
@@ -39,7 +41,7 @@ const MenteeList = () => {
                         <TableHead style={{ backgroundColor: grey[200] }}>
                             <TableRow>
                                 <TableCell style={{ fontWeight: 'bold', fontSize: '16px' }}>Profile</TableCell>
-                                <TableCell style={{ fontWeight: 'bold', fontSize: '16px' }}>NicmName</TableCell>
+                                <TableCell style={{ fontWeight: 'bold', fontSize: '16px' }}>NickName</TableCell>
                                 <TableCell style={{ fontWeight: 'bold', fontSize: '16px' }}>Status</TableCell>
                                 <TableCell style={{ fontWeight: 'bold', fontSize: '16px' }}>message</TableCell>
                             </TableRow>
@@ -58,14 +60,29 @@ const MenteeList = () => {
         );
     }
     const handleAccept = async (menteeId) => {
+        setMentees((prevMentees) =>
+            prevMentees.map((mentee) =>
+                mentee.id === menteeId ? { ...mentee, status: 'ACCEPTED' } : mentee
+            ));
+        nav('/mentoring')
 
     };
 
     const handleReject = async (menteeId) => {
+        setMentees((prevMentees) =>
+            prevMentees.map((mentee) =>
+                mentee.id === menteeId ? { ...mentee, status: 'REJECTED' } : mentee
+            ));
+        nav('/mentoring')
 
     };
 
     const handleBlock = async (menteeId) => {
+        setMentees((prevMentees) =>
+            prevMentees.map((mentee) =>
+                mentee.id === menteeId ? { ...mentee, status: 'BLOCKED' } : mentee
+            ));
+        nav('/mentoring')
 
     };
 
@@ -100,7 +117,7 @@ const MenteeList = () => {
                     <TableHead style={{ backgroundColor: grey[200] }}>
                         <TableRow>
                             <TableCell style={{ fontWeight: 'bold', fontSize: '16px' }}>Profile</TableCell>
-                            <TableCell style={{ fontWeight: 'bold', fontSize: '16px' }}>NicmName</TableCell>
+                            <TableCell style={{ fontWeight: 'bold', fontSize: '16px' }}>NickName</TableCell>
                             <TableCell style={{ fontWeight: 'bold', fontSize: '16px' }}>Status</TableCell>
                             <TableCell style={{ fontWeight: 'bold', fontSize: '16px' }}>accpet / reject</TableCell>
                             <TableCell style={{ fontWeight: 'bold', fontSize: '16px' }}>message</TableCell>
