@@ -39,7 +39,12 @@ const StoryInsertComment = ({ id, getStoryById }) => {
           <Grid item md={12}>
             <FormControl fullWidth variant="standard">
               <InputLabel htmlFor="content">Comment</InputLabel>
-              <Input id="content" name="content" onBlur={onCommentHandler} />
+              <Input
+                id="content"
+                name="content"
+                value={comment?.content}
+                onChange={onCommentHandler}
+              />
             </FormControl>
           </Grid>
           <Grid
