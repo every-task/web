@@ -6,10 +6,21 @@ import MemberChip from "../common/MemberChip";
 import "@toast-ui/editor/dist/toastui-editor-viewer.css";
 import { api } from "../../network/api";
 import MentoringChip from "../common/MentoringChip";
+import { indigo } from "@mui/material/colors";
+
 
 const StoryArticle = ({ story }) => {
   return (
     <>
+      <Grid item md={12}>
+        <Typography
+          variant="h2"
+          color={indigo[400]}
+          sx={{ flexGrow: 1, fontWeight: "bold" }}
+        >
+          STORY
+        </Typography>
+      </Grid>
       <Grid item md={12}>
         <Chip label={story?.category} color="primary" variant="outlined" />
       </Grid>
