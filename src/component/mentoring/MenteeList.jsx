@@ -128,7 +128,7 @@ const MenteeList = () => {
                         {currentItems.map((mentee) => (
                             <TableRow style={{ borderBottom: `1px solid ${grey[300]}` }} key={mentee.id}>
                                 <TableCell>
-                                    <Avatar sx={{ bgcolor: red[500] }} aria-label="user">
+                                    <Avatar>
                                         <img src={mentee.profileImageUrl} alt="프로필" style={{ width: '100%', height: 'auto' }} />
                                     </Avatar>
                                 </TableCell>

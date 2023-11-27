@@ -95,7 +95,7 @@ const MentorList = () => {
                         {mentors.map((mentor) => (
                             <TableRow key={mentor.id}>
                                 <TableCell>
-                                    <Avatar sx={{ bgcolor: red[500] }} aria-label="user">
+                                    <Avatar>
                                         <img src={mentor.profileImageUrl} alt="프로필" style={{ width: '100%', height: 'auto' }} />
                                     </Avatar>
                                 </TableCell>
