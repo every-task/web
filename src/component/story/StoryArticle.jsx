@@ -8,7 +8,6 @@ import { api } from "../../network/api";
 import MentoringChip from "../common/MentoringChip";
 import { indigo } from "@mui/material/colors";
 
-
 const StoryArticle = ({ story }) => {
   return (
     <>
@@ -29,15 +28,19 @@ const StoryArticle = ({ story }) => {
           {story?.title}
         </Typography>
       </Grid>
-      <Grid item md={2}>
+      <Grid item md={12}>
         <Box sx={{ display: "flex", justifyContent: "space-between" }}>
-          <MemberChip member={story?.member} />
-          <MentoringChip memberId={story?.member?.id} member={story?.member} />
+          <Box sx={{ display: "flex" }}>
+            <MemberChip member={story?.member} />
+            <MentoringChip
+              memberId={story?.member?.id}
+              member={story?.member}
+            />
+          </Box>
+          <DateChip date={story?.createdAt} />
         </Box>
       </Grid>
-      <Grid item md={12}>
-        <DateChip date={story?.createdAt} />
-      </Grid>
+
       <Grid item md={12}>
         {story?.content && <Viewer initialValue={story?.content} />}
       </Grid>
