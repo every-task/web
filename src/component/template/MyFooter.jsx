@@ -12,7 +12,7 @@ function Copyright() {
 }
 const MyFooter = () => {
   return (
-    <Box component="footer" position="static" color="common">
+    <Box component="footer" position="relative" color="common">
       <Toolbar>
         <Typography
           variant="h5"

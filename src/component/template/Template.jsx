@@ -1,16 +1,16 @@
-import { Outlet } from "react-router"
-import { Myheader } from "./Myheader"
+import { Outlet } from "react-router";
+import { Myheader } from "./Myheader";
 import MyFooter from "./MyFooter";
 
-
 const Template = () => {
-
-
-
-    return <>
+  return (
+    <>
+      <div style={{ minHeight: "100vh" }}>
         <Myheader />
         <Outlet />
-        <MyFooter />
+      </div>
+      <MyFooter />
     </>
-}
-export default Template
+  );
+};
+export default Template;
