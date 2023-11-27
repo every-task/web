@@ -25,14 +25,11 @@ const InfoMenu = () => {
     setAnchorEl(null);
     nav("/question");
   };
-  const toMentorHandler = () => {
+  const toMentoringHandler = () => {
     setAnchorEl(null);
-    nav("/mentoring/mentor")
+    nav("/mentoring")
   }
-  const toMenteeHandler = () => {
-    setAnchorEl(null);
-    nav("/mentoring/mentee")
-  }
+
   const toMessageHandler = () => {
     setAnchorEl(null);
     nav("/mentoring/messagesentbox")
@@ -73,8 +70,8 @@ const InfoMenu = () => {
         }}
       >
         <MenuItem onClick={toInfoHandler}> 설정 </MenuItem>
-        <MenuItem onClick={toMentorHandler}>내 멘토 </MenuItem>
-        <MenuItem onClick={toMenteeHandler}>내 멘티 </MenuItem>
+        <MenuItem onClick={toMentoringHandler}>멘토링 </MenuItem>
+
         <MenuItem onClick={fromMessageHandler}>받은 쪽지함 </MenuItem>
         <MenuItem onClick={toMessageHandler}>보낸 쪽지함 </MenuItem>
         <MenuItem onClick={toLogoutHandler}>로그아웃 </MenuItem>
