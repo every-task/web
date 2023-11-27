@@ -96,7 +96,7 @@ const MentorList = () => {
                             <TableRow key={mentor.id}>
                                 <TableCell>
                                     <Avatar>
-                                        <img src={mentor.profileImageUrl} alt="프로필" style={{ width: '100%', height: 'auto' }} />
+                                        <img src={mentor.profileImageUrl} style={{ width: '100%', height: 'auto' }} />
                                     </Avatar>
                                 </TableCell>
                                 <TableCell>{mentor.nickname}</TableCell>

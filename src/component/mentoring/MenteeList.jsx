@@ -129,7 +129,7 @@ const MenteeList = () => {
                             <TableRow style={{ borderBottom: `1px solid ${grey[300]}` }} key={mentee.id}>
                                 <TableCell>
                                     <Avatar>
-                                        <img src={mentee.profileImageUrl} alt="프로필" style={{ width: '100%', height: 'auto' }} />
+                                        <img src={mentee.profileImageUrl} style={{ width: '100%', height: 'auto' }} />
                                     </Avatar>
                                 </TableCell>
 
