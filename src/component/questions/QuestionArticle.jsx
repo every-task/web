@@ -42,4 +42,5 @@ const QuestionArticle = ({ article }) => {
     </>
   );
 };
+
 export default QuestionArticle;
