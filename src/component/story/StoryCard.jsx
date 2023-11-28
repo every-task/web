@@ -138,8 +138,8 @@ const StoryCard = () => {
               label="정렬"
               onChange={onCreateAtAscHandler}
             >
-              <MenuItem value="true">최신순</MenuItem>
-              <MenuItem value="false">과거순</MenuItem>
+              <MenuItem value="false">최신순</MenuItem>
+              <MenuItem value="true">과거순</MenuItem>
             </Select>
           </FormControl>
         </Grid>
