@@ -119,6 +119,7 @@ const Signup = () => {
                   label="Email Address"
                   name="email"
                   autoComplete="email"
+                  autoFocus
                 />
               </Grid>
               <Grid item xs={12}>
@@ -129,7 +130,6 @@ const Signup = () => {
                   fullWidth
                   id="name"
                   label="name"
-                  autoFocus
                 />
               </Grid>
               <Grid item xs={12}>
