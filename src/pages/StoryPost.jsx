@@ -60,7 +60,7 @@ const StoryPost = () => {
 
     try {
       const { data } = await apiNoToken("/api/v1/story", "post", formData);
-      nav("/");
+      nav("/story");
     } catch (err) {
       console.log(err);
     }
